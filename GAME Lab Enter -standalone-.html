@@ -467,14 +467,20 @@
     }
 
     (function(){
-      var b = board, NW = 340, NH = 360;
+      var stg = document.querySelector('.stage');
       function fit(){
-        b.style.transform = ''; b.style.marginBottom = '';
-        var top = b.getBoundingClientRect().top;
-        var s = Math.min(1, (window.innerWidth - 48) / NW, (window.innerHeight - top - 50) / NH);
-        b.style.transform = 'scale('+s+')';
-        b.style.transformOrigin = 'top center';
-        b.style.marginBottom = ((s-1)*NH)+'px';
+        stg.style.transform = '';
+        stg.style.marginTop = ''; stg.style.marginBottom = '';
+        document.body.style.alignItems = '';
+        var sh = stg.scrollHeight, sw = stg.scrollWidth;
+        var s = Math.min(1, window.innerWidth / sw, window.innerHeight / sh);
+        if (s < 1) {
+          stg.style.transform = 'scale(' + s + ')';
+          stg.style.transformOrigin = 'top center';
+          document.body.style.alignItems = 'flex-start';
+          stg.style.marginTop = Math.max(0, (window.innerHeight - sh * s) / 2) + 'px';
+          stg.style.marginBottom = ((s - 1) * sh) + 'px';
+        }
       }
       fit(); window.addEventListener('resize', fit);
     })();
@@ -816,17 +822,24 @@
         d.el = el;
       });
     });
-    function fitBoard() {
-      board.style.transform = ''; board.style.marginBottom = '';
-      var top = board.getBoundingClientRect().top;
-      var s = Math.min(1, (window.innerWidth - 48) / 340, (window.innerHeight - top - 50) / 360);
-      board.style.transform = 'scale(' + s + ')';
-      board.style.transformOrigin = 'top center';
-      board.style.marginBottom = ((s - 1) * 360) + 'px';
+    function fitStage() {
+      var stg = document.querySelector('.stage');
+      stg.style.transform = '';
+      stg.style.marginTop = ''; stg.style.marginBottom = '';
+      document.body.style.alignItems = '';
+      var sh = stg.scrollHeight, sw = stg.scrollWidth;
+      var s = Math.min(1, window.innerWidth / sw, window.innerHeight / sh);
+      if (s < 1) {
+        stg.style.transform = 'scale(' + s + ')';
+        stg.style.transformOrigin = 'top center';
+        document.body.style.alignItems = 'flex-start';
+        stg.style.marginTop = Math.max(0, (window.innerHeight - sh * s) / 2) + 'px';
+        stg.style.marginBottom = ((s - 1) * sh) + 'px';
+      }
     }
-    fitBoard();
+    fitStage();
     window.addEventListener('resize', () => {
-      fitBoard();
+      fitStage();
       measure();
       pops.forEach(p => {
         if (p.state === 'home') { const h = homes[p.color]; p.tx = h.x; p.ty = h.y; }
@@ -1372,14 +1385,20 @@
     }
 
     (function(){
-      var b = board, NW = 360, NH = 360;
+      var stg = document.querySelector('.stage');
       function fit(){
-        b.style.transform = ''; b.style.marginBottom = '';
-        var top = b.getBoundingClientRect().top;
-        var s = Math.min(1.2, (window.innerWidth - 48) / NW, (window.innerHeight - top - 50) / NH);
-        b.style.transform = 'scale('+s+')';
-        b.style.transformOrigin = 'top center';
-        b.style.marginBottom = ((s-1)*NH)+'px';
+        stg.style.transform = '';
+        stg.style.marginTop = ''; stg.style.marginBottom = '';
+        document.body.style.alignItems = '';
+        var sh = stg.scrollHeight, sw = stg.scrollWidth;
+        var s = Math.min(1, window.innerWidth / sw, window.innerHeight / sh);
+        if (s < 1) {
+          stg.style.transform = 'scale(' + s + ')';
+          stg.style.transformOrigin = 'top center';
+          document.body.style.alignItems = 'flex-start';
+          stg.style.marginTop = Math.max(0, (window.innerHeight - sh * s) / 2) + 'px';
+          stg.style.marginBottom = ((s - 1) * sh) + 'px';
+        }
       }
       fit(); window.addEventListener('resize', fit);
     })();
@@ -1774,14 +1793,20 @@
     }
 
     (function(){
-      var b = board, NW = 360, NH = 360;
+      var stg = document.querySelector('.stage');
       function fit(){
-        b.style.transform = ''; b.style.marginBottom = '';
-        var top = b.getBoundingClientRect().top;
-        var s = Math.min(1.2, (window.innerWidth - 48) / NW, (window.innerHeight - top - 50) / NH);
-        b.style.transform = 'scale('+s+')';
-        b.style.transformOrigin = 'top center';
-        b.style.marginBottom = ((s-1)*NH)+'px';
+        stg.style.transform = '';
+        stg.style.marginTop = ''; stg.style.marginBottom = '';
+        document.body.style.alignItems = '';
+        var sh = stg.scrollHeight, sw = stg.scrollWidth;
+        var s = Math.min(1, window.innerWidth / sw, window.innerHeight / sh);
+        if (s < 1) {
+          stg.style.transform = 'scale(' + s + ')';
+          stg.style.transformOrigin = 'top center';
+          document.body.style.alignItems = 'flex-start';
+          stg.style.marginTop = Math.max(0, (window.innerHeight - sh * s) / 2) + 'px';
+          stg.style.marginBottom = ((s - 1) * sh) + 'px';
+        }
       }
       fit(); window.addEventListener('resize', fit);
     })();
@@ -2068,14 +2093,20 @@
     }
 
     (function(){
-      var b = board, NW = 360, NH = 360;
+      var stg = document.querySelector('.stage');
       function fit(){
-        b.style.transform = ''; b.style.marginBottom = '';
-        var top = b.getBoundingClientRect().top;
-        var s = Math.min(1, (window.innerWidth - 48) / NW, (window.innerHeight - top - 50) / NH);
-        b.style.transform = 'scale('+s+')';
-        b.style.transformOrigin = 'top center';
-        b.style.marginBottom = ((s-1)*NH)+'px';
+        stg.style.transform = '';
+        stg.style.marginTop = ''; stg.style.marginBottom = '';
+        document.body.style.alignItems = '';
+        var sh = stg.scrollHeight, sw = stg.scrollWidth;
+        var s = Math.min(1, window.innerWidth / sw, window.innerHeight / sh);
+        if (s < 1) {
+          stg.style.transform = 'scale(' + s + ')';
+          stg.style.transformOrigin = 'top center';
+          document.body.style.alignItems = 'flex-start';
+          stg.style.marginTop = Math.max(0, (window.innerHeight - sh * s) / 2) + 'px';
+          stg.style.marginBottom = ((s - 1) * sh) + 'px';
+        }
       }
       fit(); window.addEventListener('resize', fit);
     })();
