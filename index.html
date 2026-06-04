@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- v5 -->
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -51,13 +52,15 @@
   body {
     display: flex; align-items: center; justify-content: center;
     min-height: 100vh;
+    height: -webkit-fill-available;
+    height: 100svh;
     -webkit-user-select: none; user-select: none;
     touch-action: none;
   }
 
   .stage {
     width: 100%; max-width: 760px;
-    padding: 32px 24px 40px;
+    padding: clamp(6px, 2vw, 32px) clamp(10px, 3vw, 24px) clamp(8px, 2vw, 40px);
     display: flex; flex-direction: column; align-items: center;
   }
 
@@ -65,10 +68,10 @@
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 14px;
+    color: var(--muted); margin-bottom: clamp(4px, 2vh, 14px);
   }
   .title {
-    font-weight: 700; font-size: 44px; letter-spacing: -1.5px;
+    font-weight: 700; font-size: clamp(16px, 4.5vw, 44px); letter-spacing: -1.5px;
     margin: 0 0 8px; text-align: center;
   }
   .title .me { letter-spacing: -3px; }
@@ -76,7 +79,7 @@
     font-family: 'IBM Plex Mono', monospace;
     font-size: 12.5px; letter-spacing: 1px; color: var(--muted);
     text-align: center; max-width: 38ch; line-height: 1.6;
-    margin: 0 0 22px; min-height: 40px;
+    margin: 0 0 clamp(4px, 2vw, 22px); min-height: 0;
     transition: color .3s;
   }
   .instruction strong { color: var(--ink); font-weight: 600; }
@@ -131,9 +134,9 @@
 
   /* Tray + tokens */
   .tray {
-    display: flex; gap: 22px; align-items: center; justify-content: center;
+    display: flex; gap: clamp(8px, 4vw, 22px); align-items: center; justify-content: center;
     height: 76px;
-    padding: 0 18px 22px;
+    padding: 0 clamp(8px, 3vw, 18px) 22px;
     margin-bottom: 6px;
     border-bottom: 1px solid rgba(26,26,31,0.1);
   }
@@ -393,26 +396,54 @@
         if (!dragging) return;
         dragging = false;
         document.querySelectorAll('.well').forEach(x => x.classList.remove('hover', 'wrong'));
+        if (!ghost) { token.classList.remove('slot-empty'); return; }
+        // Re-project from final pointer position (fast swipes on mobile skip pointermove events)
+        {
+          const r2 = board.getBoundingClientRect();
+          const bx2 = (e.clientX - r2.left) * (340 / r2.width);
+          const by2 = (e.clientY - r2.top)  * (360 / r2.height);
+          let best2 = null, bestColor2 = null;
+          for (const rc of routes) {
+            const p = projectToPath(paths[rc], bx2, by2);
+            if (!best2 || p.d < best2.d) { best2 = p; bestColor2 = rc; }
+          }
+          if (best2.prog > progress) { progress = best2.prog; nearWell = bestColor2; }
+        }
         // which well did the cell actually reach?
-        const reached = (progress > 0.8) ? nearWell : null;
+        let reached = (progress > 0.8) ? nearWell : null;
+        // Proximity fallback: pointer within correct well's visual radius counts regardless of path progress
+        if (!reached && !well(color).classList.contains('filled')) {
+          const wr = well(color).getBoundingClientRect();
+          const wcx = wr.left + wr.width / 2, wcy = wr.top + wr.height / 2;
+          if (Math.hypot(e.clientX - wcx, e.clientY - wcy) < wr.width) reached = color;
+        }
 
-        if (reached && reached === color && !well(color).classList.contains('filled')) {
+        if (reached === color && !well(color).classList.contains('filled')) {
           // correct well — seat it
           ghost.remove(); ghost = null;
           token.classList.remove('slot-empty');
           token.classList.add('placed');
           fillWell(well(color));
         } else {
-          // wrong well (or didn't reach a tip) — warn + slide back to trunk top
+          // wrong well (or didn't reach) — warn + fade ghost out in place
           if (reached && reached !== color) nudgeWrong();
-          const start = boardToClient(paths[color][0][0], paths[color][0][1]);
           const g = ghost; ghost = null;
-          g.style.transition = 'left .3s ease, top .3s ease';
-          g.style.left = (start.x - 23) + 'px';
-          g.style.top  = (start.y - 23) + 'px';
-          setTimeout(() => { g.remove(); token.classList.remove('slot-empty'); }, 320);
+          g.style.transition = 'opacity .25s, transform .25s';
+          g.style.opacity = '0';
+          g.style.transform = 'scale(0.7)';
+          setTimeout(() => { g.remove(); token.classList.remove('slot-empty'); }, 280);
         }
       });
+
+      function cancelDrag() {
+        if (!dragging) return;
+        dragging = false;
+        document.querySelectorAll('.well').forEach(x => x.classList.remove('hover', 'wrong'));
+        if (ghost) { ghost.remove(); ghost = null; }
+        token.classList.remove('slot-empty');
+      }
+      token.addEventListener('pointercancel', cancelDrag);
+      token.addEventListener('lostpointercapture', cancelDrag);
     });
 
     function well(color) {
@@ -438,6 +469,28 @@
         if (placedCount < 3) instruction.innerHTML = 'Guide each <strong>cell</strong> down the branch to the well of the same color.';
       }, 1800);
     }
+
+    (function(){
+      var stg = document.querySelector('.stage');
+      function fit(){
+        stg.style.transform = '';
+        stg.style.marginTop = ''; stg.style.marginBottom = '';
+        document.body.style.alignItems = '';
+        var vp = window.visualViewport;
+        var vw = vp ? vp.width  : window.innerWidth;
+        var vh = vp ? vp.height : window.innerHeight;
+        var sh = stg.scrollHeight, sw = stg.scrollWidth;
+        var s = Math.min(1, vw / sw, vh / sh);
+        if (s < 1) stg.style.transform = 'scale(' + s + ')';
+        stg.style.transformOrigin = 'top center';
+        document.body.style.alignItems = 'flex-start';
+        var offsetTop = vp ? vp.offsetTop : 0;
+        stg.style.marginTop = (offsetTop + Math.max(0, (vh - sh * s) / 2)) + 'px';
+        stg.style.marginBottom = ((s - 1) * sh) + 'px';
+      }
+      fit();
+      (window.visualViewport || window).addEventListener('resize', fit);
+    })();
 
     function win() {
       instruction.innerHTML = '<strong>Cells are sorted.</strong> Welcome to the lab.';
@@ -503,30 +556,32 @@
   body {
     display: flex; align-items: center; justify-content: center;
     min-height: 100vh;
+    height: -webkit-fill-available;
+    height: 100svh;
     -webkit-user-select: none; user-select: none;
     touch-action: none;
   }
 
   .stage {
     width: 100%; max-width: 760px;
-    padding: 32px 24px 40px;
+    padding: clamp(6px, 2vw, 32px) clamp(10px, 3vw, 24px) clamp(8px, 2vw, 40px);
     display: flex; flex-direction: column; align-items: center;
   }
 
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 14px;
+    color: var(--muted); margin-bottom: clamp(4px, 2vh, 14px);
   }
   .title {
-    font-weight: 700; font-size: 44px; letter-spacing: -1.5px;
+    font-weight: 700; font-size: clamp(16px, 4.5vw, 44px); letter-spacing: -1.5px;
     margin: 0 0 8px; text-align: center;
   }
   .instruction {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 12.5px; letter-spacing: 1px; color: var(--muted);
     text-align: center; max-width: 40ch; line-height: 1.6;
-    margin: 0 0 22px; min-height: 40px;
+    margin: 0 0 clamp(4px, 2vw, 22px); min-height: 0;
     transition: color .3s;
   }
   .instruction strong { color: var(--ink); font-weight: 600; }
@@ -773,7 +828,26 @@
         d.el = el;
       });
     });
-    window.addEventListener('resize', () => {
+    function fitStage() {
+      var stg = document.querySelector('.stage');
+      stg.style.transform = '';
+      stg.style.marginTop = ''; stg.style.marginBottom = '';
+      document.body.style.alignItems = '';
+      var vp = window.visualViewport;
+      var vw = vp ? vp.width  : window.innerWidth;
+      var vh = vp ? vp.height : window.innerHeight;
+      var sh = stg.scrollHeight, sw = stg.scrollWidth;
+      var s = Math.min(1, vw / sw, vh / sh);
+      if (s < 1) stg.style.transform = 'scale(' + s + ')';
+      stg.style.transformOrigin = 'top center';
+      document.body.style.alignItems = 'flex-start';
+      var offsetTop = vp ? vp.offsetTop : 0;
+      stg.style.marginTop = (offsetTop + Math.max(0, (vh - sh * s) / 2)) + 'px';
+      stg.style.marginBottom = ((s - 1) * sh) + 'px';
+    }
+    fitStage();
+    (window.visualViewport || window).addEventListener('resize', () => {
+      fitStage();
       measure();
       pops.forEach(p => {
         if (p.state === 'home') { const h = homes[p.color]; p.tx = h.x; p.ty = h.y; }
@@ -992,37 +1066,39 @@
   body {
     display: flex; align-items: center; justify-content: center;
     min-height: 100vh;
+    height: -webkit-fill-available;
+    height: 100svh;
     -webkit-user-select: none; user-select: none;
     touch-action: none;
   }
 
   .stage {
     width: 100%; max-width: 760px;
-    padding: 32px 24px 40px;
+    padding: clamp(6px, 2vw, 32px) clamp(10px, 3vw, 24px) clamp(8px, 2vw, 40px);
     display: flex; flex-direction: column; align-items: center;
   }
 
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 14px;
+    color: var(--muted); margin-bottom: clamp(4px, 2vh, 14px);
   }
   .title {
-    font-weight: 700; font-size: 44px; letter-spacing: -1.5px;
+    font-weight: 700; font-size: clamp(16px, 4.5vw, 44px); letter-spacing: -1.5px;
     margin: 0 0 8px; text-align: center;
   }
   .instruction {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 12.5px; letter-spacing: 1px; color: var(--muted);
     text-align: center; max-width: 42ch; line-height: 1.6;
-    margin: 0 0 22px; min-height: 40px;
+    margin: 0 0 clamp(4px, 2vw, 22px); min-height: 0;
     transition: color .3s;
   }
   .instruction strong { color: var(--ink); font-weight: 600; }
 
   /* Tray + fragment chips (top) */
   .tray {
-    display: flex; gap: 26px; align-items: center; justify-content: center;
+    display: flex; gap: clamp(8px, 4vw, 26px); align-items: center; justify-content: center;
     height: 70px;
     padding: 0 18px 20px;
     margin-bottom: 8px;
@@ -1059,9 +1135,7 @@
   .board-wrap {
     position: relative;
     width: 360px; height: 360px;
-    transform: scale(1.2);
-    transform-origin: center;
-    margin: 44px 0;
+    transform-origin: top center;
   }
   .board-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
   .seg { transition: opacity .45s; }
@@ -1317,6 +1391,28 @@
       }, 1800);
     }
 
+    (function(){
+      var stg = document.querySelector('.stage');
+      function fit(){
+        stg.style.transform = '';
+        stg.style.marginTop = ''; stg.style.marginBottom = '';
+        document.body.style.alignItems = '';
+        var vp = window.visualViewport;
+        var vw = vp ? vp.width  : window.innerWidth;
+        var vh = vp ? vp.height : window.innerHeight;
+        var sh = stg.scrollHeight, sw = stg.scrollWidth;
+        var s = Math.min(1, vw / sw, vh / sh);
+        if (s < 1) stg.style.transform = 'scale(' + s + ')';
+        stg.style.transformOrigin = 'top center';
+        document.body.style.alignItems = 'flex-start';
+        var offsetTop = vp ? vp.offsetTop : 0;
+        stg.style.marginTop = (offsetTop + Math.max(0, (vh - sh * s) / 2)) + 'px';
+        stg.style.marginBottom = ((s - 1) * sh) + 'px';
+      }
+      fit();
+      (window.visualViewport || window).addEventListener('resize', fit);
+    })();
+
     function win() {
       instruction.innerHTML = '<strong>Plasmid assembled.</strong> Welcome to the lab.';
       document.getElementById('enter').classList.add('show');
@@ -1378,39 +1474,41 @@
   body {
     display: flex; align-items: center; justify-content: center;
     min-height: 100vh;
+    height: -webkit-fill-available;
+    height: 100svh;
     -webkit-user-select: none; user-select: none;
     touch-action: none;
   }
 
   .stage {
     width: 100%; max-width: 760px;
-    padding: 32px 24px 40px;
+    padding: clamp(6px, 2vw, 32px) clamp(10px, 3vw, 24px) clamp(8px, 2vw, 40px);
     display: flex; flex-direction: column; align-items: center;
   }
 
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 14px;
+    color: var(--muted); margin-bottom: clamp(4px, 2vh, 14px);
   }
   .title {
-    font-weight: 700; font-size: 44px; letter-spacing: -1.5px;
+    font-weight: 700; font-size: clamp(16px, 4.5vw, 44px); letter-spacing: -1.5px;
     margin: 0 0 8px; text-align: center;
   }
   .instruction {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 12.5px; letter-spacing: 1px; color: var(--muted);
     text-align: center; max-width: 42ch; line-height: 1.6;
-    margin: 0 0 22px; min-height: 40px;
+    margin: 0 0 clamp(4px, 2vw, 22px); min-height: 0;
     transition: color .3s;
   }
   .instruction strong { color: var(--ink); font-weight: 600; }
 
   /* Tray + read-stack chips (top) */
   .tray {
-    display: flex; gap: 26px; align-items: center; justify-content: center;
+    display: flex; gap: clamp(8px, 4vw, 26px); align-items: center; justify-content: center;
     height: 76px;
-    padding: 0 18px 20px;
+    padding: 0 clamp(8px, 3vw, 18px) 20px;
     margin-bottom: 8px;
     border-bottom: 1px solid rgba(26,26,31,0.1);
   }
@@ -1444,9 +1542,7 @@
   .board-wrap {
     position: relative;
     width: 360px; height: 360px;
-    transform: scale(1.2);
-    transform-origin: center;
-    margin: 44px 0;
+    transform-origin: top center;
   }
   .board-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
   .rdbar { transition: opacity .5s; }
@@ -1705,6 +1801,28 @@
       }, 1800);
     }
 
+    (function(){
+      var stg = document.querySelector('.stage');
+      function fit(){
+        stg.style.transform = '';
+        stg.style.marginTop = ''; stg.style.marginBottom = '';
+        document.body.style.alignItems = '';
+        var vp = window.visualViewport;
+        var vw = vp ? vp.width  : window.innerWidth;
+        var vh = vp ? vp.height : window.innerHeight;
+        var sh = stg.scrollHeight, sw = stg.scrollWidth;
+        var s = Math.min(1, vw / sw, vh / sh);
+        if (s < 1) stg.style.transform = 'scale(' + s + ')';
+        stg.style.transformOrigin = 'top center';
+        document.body.style.alignItems = 'flex-start';
+        var offsetTop = vp ? vp.offsetTop : 0;
+        stg.style.marginTop = (offsetTop + Math.max(0, (vh - sh * s) / 2)) + 'px';
+        stg.style.marginBottom = ((s - 1) * sh) + 'px';
+      }
+      fit();
+      (window.visualViewport || window).addEventListener('resize', fit);
+    })();
+
     function win() {
       instruction.innerHTML = '<strong>Reads aligned.</strong> Welcome to the lab.';
       document.getElementById('enter').classList.add('show');
@@ -1766,30 +1884,32 @@
   body {
     display: flex; align-items: center; justify-content: center;
     min-height: 100vh;
+    height: -webkit-fill-available;
+    height: 100svh;
     -webkit-user-select: none; user-select: none;
     touch-action: none;
   }
 
   .stage {
     width: 100%; max-width: 760px;
-    padding: 32px 24px 40px;
+    padding: clamp(6px, 2vw, 32px) clamp(10px, 3vw, 24px) clamp(8px, 2vw, 40px);
     display: flex; flex-direction: column; align-items: center;
   }
 
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 14px;
+    color: var(--muted); margin-bottom: clamp(4px, 2vh, 14px);
   }
   .title {
-    font-weight: 700; font-size: 44px; letter-spacing: -1.5px;
+    font-weight: 700; font-size: clamp(16px, 4.5vw, 44px); letter-spacing: -1.5px;
     margin: 0 0 8px; text-align: center;
   }
   .instruction {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 12.5px; letter-spacing: 1px; color: var(--muted);
     text-align: center; max-width: 42ch; line-height: 1.6;
-    margin: 0 0 22px; min-height: 40px;
+    margin: 0 0 clamp(4px, 2vw, 22px); min-height: 0;
     transition: color .3s;
   }
   .instruction strong { color: var(--ink); font-weight: 600; }
@@ -1983,6 +2103,28 @@
       }
     }
 
+    (function(){
+      var stg = document.querySelector('.stage');
+      function fit(){
+        stg.style.transform = '';
+        stg.style.marginTop = ''; stg.style.marginBottom = '';
+        document.body.style.alignItems = '';
+        var vp = window.visualViewport;
+        var vw = vp ? vp.width  : window.innerWidth;
+        var vh = vp ? vp.height : window.innerHeight;
+        var sh = stg.scrollHeight, sw = stg.scrollWidth;
+        var s = Math.min(1, vw / sw, vh / sh);
+        if (s < 1) stg.style.transform = 'scale(' + s + ')';
+        stg.style.transformOrigin = 'top center';
+        document.body.style.alignItems = 'flex-start';
+        var offsetTop = vp ? vp.offsetTop : 0;
+        stg.style.marginTop = (offsetTop + Math.max(0, (vh - sh * s) / 2)) + 'px';
+        stg.style.marginBottom = ((s - 1) * sh) + 'px';
+      }
+      fit();
+      (window.visualViewport || window).addEventListener('resize', fit);
+    })();
+
     function win() {
       instruction.innerHTML = '<strong>Course complete.</strong> Welcome to the lab.';
       document.getElementById('enter').classList.add('show');
@@ -2017,7 +2159,7 @@
 
   <script>
   (function () {
-    var ENTER_URL = './about.html';  /* <-- set to your real site URL */
+    var ENTER_URL = '#';  /* <-- set to your real site URL */
     var games = [].slice.call(document.querySelectorAll('script.game'));
     var html = games[Math.floor(Math.random() * games.length)].textContent;
     html = html.split('[[SCRIPTEND]]').join('<' + '/script>').split('##DEST##').join(ENTER_URL);
