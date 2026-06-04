@@ -477,17 +477,21 @@
         stg.style.transform = '';
         stg.style.marginTop = ''; stg.style.marginBottom = '';
         document.body.style.alignItems = '';
+        var vp = window.visualViewport;
+        var vw = vp ? vp.width  : window.innerWidth;
+        var vh = vp ? vp.height : window.innerHeight;
         var sh = stg.scrollHeight, sw = stg.scrollWidth;
-        var s = Math.min(1, window.innerWidth / sw, window.innerHeight / sh);
+        var s = Math.min(1, vw / sw, vh / sh);
         if (s < 1) {
           stg.style.transform = 'scale(' + s + ')';
           stg.style.transformOrigin = 'top center';
           document.body.style.alignItems = 'flex-start';
-          stg.style.marginTop = Math.max(0, (window.innerHeight - sh * s) / 2) + 'px';
+          stg.style.marginTop = Math.max(0, (vh - sh * s) / 2) + 'px';
           stg.style.marginBottom = ((s - 1) * sh) + 'px';
         }
       }
-      fit(); window.addEventListener('resize', fit);
+      fit();
+      (window.visualViewport || window).addEventListener('resize', fit);
     })();
 
     function win() {
@@ -832,18 +836,21 @@
       stg.style.transform = '';
       stg.style.marginTop = ''; stg.style.marginBottom = '';
       document.body.style.alignItems = '';
+      var vp = window.visualViewport;
+      var vw = vp ? vp.width  : window.innerWidth;
+      var vh = vp ? vp.height : window.innerHeight;
       var sh = stg.scrollHeight, sw = stg.scrollWidth;
-      var s = Math.min(1, window.innerWidth / sw, window.innerHeight / sh);
+      var s = Math.min(1, vw / sw, vh / sh);
       if (s < 1) {
         stg.style.transform = 'scale(' + s + ')';
         stg.style.transformOrigin = 'top center';
         document.body.style.alignItems = 'flex-start';
-        stg.style.marginTop = Math.max(0, (window.innerHeight - sh * s) / 2) + 'px';
+        stg.style.marginTop = Math.max(0, (vh - sh * s) / 2) + 'px';
         stg.style.marginBottom = ((s - 1) * sh) + 'px';
       }
     }
     fitStage();
-    window.addEventListener('resize', () => {
+    (window.visualViewport || window).addEventListener('resize', () => {
       fitStage();
       measure();
       pops.forEach(p => {
@@ -1395,17 +1402,21 @@
         stg.style.transform = '';
         stg.style.marginTop = ''; stg.style.marginBottom = '';
         document.body.style.alignItems = '';
+        var vp = window.visualViewport;
+        var vw = vp ? vp.width  : window.innerWidth;
+        var vh = vp ? vp.height : window.innerHeight;
         var sh = stg.scrollHeight, sw = stg.scrollWidth;
-        var s = Math.min(1, window.innerWidth / sw, window.innerHeight / sh);
+        var s = Math.min(1, vw / sw, vh / sh);
         if (s < 1) {
           stg.style.transform = 'scale(' + s + ')';
           stg.style.transformOrigin = 'top center';
           document.body.style.alignItems = 'flex-start';
-          stg.style.marginTop = Math.max(0, (window.innerHeight - sh * s) / 2) + 'px';
+          stg.style.marginTop = Math.max(0, (vh - sh * s) / 2) + 'px';
           stg.style.marginBottom = ((s - 1) * sh) + 'px';
         }
       }
-      fit(); window.addEventListener('resize', fit);
+      fit();
+      (window.visualViewport || window).addEventListener('resize', fit);
     })();
 
     function win() {
@@ -1803,17 +1814,21 @@
         stg.style.transform = '';
         stg.style.marginTop = ''; stg.style.marginBottom = '';
         document.body.style.alignItems = '';
+        var vp = window.visualViewport;
+        var vw = vp ? vp.width  : window.innerWidth;
+        var vh = vp ? vp.height : window.innerHeight;
         var sh = stg.scrollHeight, sw = stg.scrollWidth;
-        var s = Math.min(1, window.innerWidth / sw, window.innerHeight / sh);
+        var s = Math.min(1, vw / sw, vh / sh);
         if (s < 1) {
           stg.style.transform = 'scale(' + s + ')';
           stg.style.transformOrigin = 'top center';
           document.body.style.alignItems = 'flex-start';
-          stg.style.marginTop = Math.max(0, (window.innerHeight - sh * s) / 2) + 'px';
+          stg.style.marginTop = Math.max(0, (vh - sh * s) / 2) + 'px';
           stg.style.marginBottom = ((s - 1) * sh) + 'px';
         }
       }
-      fit(); window.addEventListener('resize', fit);
+      fit();
+      (window.visualViewport || window).addEventListener('resize', fit);
     })();
 
     function win() {
@@ -2103,17 +2118,21 @@
         stg.style.transform = '';
         stg.style.marginTop = ''; stg.style.marginBottom = '';
         document.body.style.alignItems = '';
+        var vp = window.visualViewport;
+        var vw = vp ? vp.width  : window.innerWidth;
+        var vh = vp ? vp.height : window.innerHeight;
         var sh = stg.scrollHeight, sw = stg.scrollWidth;
-        var s = Math.min(1, window.innerWidth / sw, window.innerHeight / sh);
+        var s = Math.min(1, vw / sw, vh / sh);
         if (s < 1) {
           stg.style.transform = 'scale(' + s + ')';
           stg.style.transformOrigin = 'top center';
           document.body.style.alignItems = 'flex-start';
-          stg.style.marginTop = Math.max(0, (window.innerHeight - sh * s) / 2) + 'px';
+          stg.style.marginTop = Math.max(0, (vh - sh * s) / 2) + 'px';
           stg.style.marginBottom = ((s - 1) * sh) + 'px';
         }
       }
-      fit(); window.addEventListener('resize', fit);
+      fit();
+      (window.visualViewport || window).addEventListener('resize', fit);
     })();
 
     function win() {
