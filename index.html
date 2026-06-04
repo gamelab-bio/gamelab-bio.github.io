@@ -67,7 +67,7 @@
   /* Header */
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
     color: var(--muted); margin-bottom: clamp(4px, 2vh, 14px);
   }
   .title {
@@ -172,7 +172,7 @@
 
   /* Enter gate */
   .enter {
-    margin-top: 26px;
+    margin-top: 14px;
     opacity: 0; transform: translateY(10px);
     pointer-events: none;
     transition: opacity .5s, transform .5s;
@@ -472,23 +472,28 @@
 
     (function(){
       var stg = document.querySelector('.stage');
+      var b = document.getElementById('board');
+      var NW = 340, NH = 360, MAX = 1;
       function fit(){
-        stg.style.transform = '';
-        stg.style.marginTop = ''; stg.style.marginBottom = '';
-        document.body.style.alignItems = '';
+        // Scale only the board; the header (eyebrow + title) stays natural so
+        // the title looks identical across every puzzle.
+        stg.style.marginTop = '0';
+        document.body.style.alignItems = 'flex-start';
+        b.style.transform = ''; b.style.marginBottom = '';
         var vp = window.visualViewport;
         var vw = vp ? vp.width  : window.innerWidth;
         var vh = vp ? vp.height : window.innerHeight;
-        var sh = stg.scrollHeight, sw = stg.scrollWidth;
-        var s = Math.min(1, vw / sw, vh / sh);
-        if (s < 1) stg.style.transform = 'scale(' + s + ')';
-        stg.style.transformOrigin = 'top center';
-        document.body.style.alignItems = 'flex-start';
-        var offsetTop = vp ? vp.offsetTop : 0;
-        stg.style.marginTop = (offsetTop + Math.max(0, (vh - sh * s) / 2)) + 'px';
-        stg.style.marginBottom = ((s - 1) * sh) + 'px';
+        var offT = vp ? vp.offsetTop : 0;
+        var top = b.getBoundingClientRect().top - offT;
+        var s = Math.min(MAX, (vw - 24) / NW, (vh - top - 92) / NH);
+        if (s < 0.2) s = 0.2;
+        b.style.transformOrigin = 'top center';
+        b.style.transform = 'scale(' + s + ')';
+        b.style.marginBottom = ((s - 1) * NH) + 'px';
+        stg.style.marginTop = (offT + Math.max(0, (vh - stg.scrollHeight) / 2)) + 'px';
       }
       fit();
+      requestAnimationFrame(fit);
       (window.visualViewport || window).addEventListener('resize', fit);
     })();
 
@@ -570,7 +575,7 @@
 
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
     color: var(--muted); margin-bottom: clamp(4px, 2vh, 14px);
   }
   .title {
@@ -651,7 +656,7 @@
 
   /* Enter gate */
   .enter {
-    margin-top: 26px;
+    margin-top: 14px;
     opacity: 0; transform: translateY(10px);
     pointer-events: none;
     transition: opacity .5s, transform .5s;
@@ -829,31 +834,35 @@
       });
     });
     function fitStage() {
+      // Scale only the board; the header (eyebrow + title) stays natural so
+      // the title looks identical across every puzzle.
       var stg = document.querySelector('.stage');
-      stg.style.transform = '';
-      stg.style.marginTop = ''; stg.style.marginBottom = '';
-      document.body.style.alignItems = '';
+      var b = document.getElementById('board');
+      var NW = 340, NH = 360, MAX = 1;
+      stg.style.marginTop = '0';
+      document.body.style.alignItems = 'flex-start';
+      b.style.transform = ''; b.style.marginBottom = '';
       var vp = window.visualViewport;
       var vw = vp ? vp.width  : window.innerWidth;
       var vh = vp ? vp.height : window.innerHeight;
-      var sh = stg.scrollHeight, sw = stg.scrollWidth;
-      var s = Math.min(1, vw / sw, vh / sh);
-      if (s < 1) stg.style.transform = 'scale(' + s + ')';
-      stg.style.transformOrigin = 'top center';
-      document.body.style.alignItems = 'flex-start';
-      var offsetTop = vp ? vp.offsetTop : 0;
-      stg.style.marginTop = (offsetTop + Math.max(0, (vh - sh * s) / 2)) + 'px';
-      stg.style.marginBottom = ((s - 1) * sh) + 'px';
-    }
-    fitStage();
-    (window.visualViewport || window).addEventListener('resize', () => {
-      fitStage();
+      var offT = vp ? vp.offsetTop : 0;
+      var top = b.getBoundingClientRect().top - offT;
+      var s = Math.min(MAX, (vw - 24) / NW, (vh - top - 92) / NH);
+      if (s < 0.2) s = 0.2;
+      b.style.transformOrigin = 'top center';
+      b.style.transform = 'scale(' + s + ')';
+      b.style.marginBottom = ((s - 1) * NH) + 'px';
+      stg.style.marginTop = (offT + Math.max(0, (vh - stg.scrollHeight) / 2)) + 'px';
+      // wells moved with the scaled board — recompute flock targets
       measure();
       pops.forEach(p => {
         if (p.state === 'home') { const h = homes[p.color]; p.tx = h.x; p.ty = h.y; }
         else if (p.state === 'seated') { const w = wellCenters[p.color]; p.tx = w.x; p.ty = w.y; }
       });
-    });
+    }
+    fitStage();
+    requestAnimationFrame(fitStage);
+    (window.visualViewport || window).addEventListener('resize', fitStage);
 
     // ---- animation loop ----
     let t = 0;
@@ -1080,7 +1089,7 @@
 
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
     color: var(--muted); margin-bottom: clamp(4px, 2vh, 14px);
   }
   .title {
@@ -1158,7 +1167,7 @@
   .well.filled { opacity: 0; pointer-events: none; }
 
   .enter {
-    margin-top: 24px;
+    margin-top: 14px;
     opacity: 0; transform: translateY(10px);
     pointer-events: none;
     transition: opacity .5s, transform .5s;
@@ -1393,23 +1402,28 @@
 
     (function(){
       var stg = document.querySelector('.stage');
+      var b = document.getElementById('board');
+      var NW = 360, NH = 360, MAX = 1;
       function fit(){
-        stg.style.transform = '';
-        stg.style.marginTop = ''; stg.style.marginBottom = '';
-        document.body.style.alignItems = '';
+        // Scale only the board; the header (eyebrow + title) stays natural so
+        // the title looks identical across every puzzle.
+        stg.style.marginTop = '0';
+        document.body.style.alignItems = 'flex-start';
+        b.style.transform = ''; b.style.marginBottom = '';
         var vp = window.visualViewport;
         var vw = vp ? vp.width  : window.innerWidth;
         var vh = vp ? vp.height : window.innerHeight;
-        var sh = stg.scrollHeight, sw = stg.scrollWidth;
-        var s = Math.min(1, vw / sw, vh / sh);
-        if (s < 1) stg.style.transform = 'scale(' + s + ')';
-        stg.style.transformOrigin = 'top center';
-        document.body.style.alignItems = 'flex-start';
-        var offsetTop = vp ? vp.offsetTop : 0;
-        stg.style.marginTop = (offsetTop + Math.max(0, (vh - sh * s) / 2)) + 'px';
-        stg.style.marginBottom = ((s - 1) * sh) + 'px';
+        var offT = vp ? vp.offsetTop : 0;
+        var top = b.getBoundingClientRect().top - offT;
+        var s = Math.min(MAX, (vw - 24) / NW, (vh - top - 92) / NH);
+        if (s < 0.2) s = 0.2;
+        b.style.transformOrigin = 'top center';
+        b.style.transform = 'scale(' + s + ')';
+        b.style.marginBottom = ((s - 1) * NH) + 'px';
+        stg.style.marginTop = (offT + Math.max(0, (vh - stg.scrollHeight) / 2)) + 'px';
       }
       fit();
+      requestAnimationFrame(fit);
       (window.visualViewport || window).addEventListener('resize', fit);
     })();
 
@@ -1488,7 +1502,7 @@
 
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
     color: var(--muted); margin-bottom: clamp(4px, 2vh, 14px);
   }
   .title {
@@ -1568,7 +1582,7 @@
   .well.filled { opacity: 0; pointer-events: none; }
 
   .enter {
-    margin-top: 24px;
+    margin-top: 14px;
     opacity: 0; transform: translateY(10px);
     pointer-events: none;
     transition: opacity .5s, transform .5s;
@@ -1803,23 +1817,28 @@
 
     (function(){
       var stg = document.querySelector('.stage');
+      var b = document.getElementById('board');
+      var NW = 360, NH = 360, MAX = 1;
       function fit(){
-        stg.style.transform = '';
-        stg.style.marginTop = ''; stg.style.marginBottom = '';
-        document.body.style.alignItems = '';
+        // Scale only the board; the header (eyebrow + title) stays natural so
+        // the title looks identical across every puzzle.
+        stg.style.marginTop = '0';
+        document.body.style.alignItems = 'flex-start';
+        b.style.transform = ''; b.style.marginBottom = '';
         var vp = window.visualViewport;
         var vw = vp ? vp.width  : window.innerWidth;
         var vh = vp ? vp.height : window.innerHeight;
-        var sh = stg.scrollHeight, sw = stg.scrollWidth;
-        var s = Math.min(1, vw / sw, vh / sh);
-        if (s < 1) stg.style.transform = 'scale(' + s + ')';
-        stg.style.transformOrigin = 'top center';
-        document.body.style.alignItems = 'flex-start';
-        var offsetTop = vp ? vp.offsetTop : 0;
-        stg.style.marginTop = (offsetTop + Math.max(0, (vh - sh * s) / 2)) + 'px';
-        stg.style.marginBottom = ((s - 1) * sh) + 'px';
+        var offT = vp ? vp.offsetTop : 0;
+        var top = b.getBoundingClientRect().top - offT;
+        var s = Math.min(MAX, (vw - 24) / NW, (vh - top - 92) / NH);
+        if (s < 0.2) s = 0.2;
+        b.style.transformOrigin = 'top center';
+        b.style.transform = 'scale(' + s + ')';
+        b.style.marginBottom = ((s - 1) * NH) + 'px';
+        stg.style.marginTop = (offT + Math.max(0, (vh - stg.scrollHeight) / 2)) + 'px';
       }
       fit();
+      requestAnimationFrame(fit);
       (window.visualViewport || window).addEventListener('resize', fit);
     })();
 
@@ -1898,7 +1917,7 @@
 
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
     color: var(--muted); margin-bottom: clamp(4px, 2vh, 14px);
   }
   .title {
@@ -1922,8 +1941,6 @@
   .board-wrap {
     position: relative;
     width: 360px; height: 360px;
-    transform: scale(0.8);          /* match the visual footprint of the other puzzles */
-    transform-origin: center;
   }
   .mtile {
     position: absolute;
@@ -1969,7 +1986,7 @@
   }
 
   .enter {
-    margin-top: 24px;
+    margin-top: 14px;
     opacity: 0; transform: translateY(10px);
     pointer-events: none;
     transition: opacity .5s, transform .5s;
@@ -2107,23 +2124,28 @@
 
     (function(){
       var stg = document.querySelector('.stage');
+      var b = document.getElementById('board');
+      var NW = 360, NH = 360, MAX = 0.8;
       function fit(){
-        stg.style.transform = '';
-        stg.style.marginTop = ''; stg.style.marginBottom = '';
-        document.body.style.alignItems = '';
+        // Scale only the board; the header (eyebrow + title) stays natural so
+        // the title looks identical across every puzzle.
+        stg.style.marginTop = '0';
+        document.body.style.alignItems = 'flex-start';
+        b.style.transform = ''; b.style.marginBottom = '';
         var vp = window.visualViewport;
         var vw = vp ? vp.width  : window.innerWidth;
         var vh = vp ? vp.height : window.innerHeight;
-        var sh = stg.scrollHeight, sw = stg.scrollWidth;
-        var s = Math.min(1, vw / sw, vh / sh);
-        if (s < 1) stg.style.transform = 'scale(' + s + ')';
-        stg.style.transformOrigin = 'top center';
-        document.body.style.alignItems = 'flex-start';
-        var offsetTop = vp ? vp.offsetTop : 0;
-        stg.style.marginTop = (offsetTop + Math.max(0, (vh - sh * s) / 2)) + 'px';
-        stg.style.marginBottom = ((s - 1) * sh) + 'px';
+        var offT = vp ? vp.offsetTop : 0;
+        var top = b.getBoundingClientRect().top - offT;
+        var s = Math.min(MAX, (vw - 24) / NW, (vh - top - 92) / NH);
+        if (s < 0.2) s = 0.2;
+        b.style.transformOrigin = 'top center';
+        b.style.transform = 'scale(' + s + ')';
+        b.style.marginBottom = ((s - 1) * NH) + 'px';
+        stg.style.marginTop = (offT + Math.max(0, (vh - stg.scrollHeight) / 2)) + 'px';
       }
       fit();
+      requestAnimationFrame(fit);
       (window.visualViewport || window).addEventListener('resize', fit);
     })();
 
