@@ -71,7 +71,7 @@
     color: var(--muted); margin-bottom: clamp(4px, 2vh, 14px);
   }
   .title {
-    font-weight: 700; font-size: clamp(16px, 4.5vw, 44px); letter-spacing: -1.5px;
+    font-weight: 700; font-size: clamp(24px, 7vw, 44px); letter-spacing: -1.5px;
     margin: 0 0 8px; text-align: center;
   }
   .title .me { letter-spacing: -3px; }
@@ -574,7 +574,7 @@
     color: var(--muted); margin-bottom: clamp(4px, 2vh, 14px);
   }
   .title {
-    font-weight: 700; font-size: clamp(16px, 4.5vw, 44px); letter-spacing: -1.5px;
+    font-weight: 700; font-size: clamp(24px, 7vw, 44px); letter-spacing: -1.5px;
     margin: 0 0 8px; text-align: center;
   }
   .instruction {
@@ -1084,7 +1084,7 @@
     color: var(--muted); margin-bottom: clamp(4px, 2vh, 14px);
   }
   .title {
-    font-weight: 700; font-size: clamp(16px, 4.5vw, 44px); letter-spacing: -1.5px;
+    font-weight: 700; font-size: clamp(24px, 7vw, 44px); letter-spacing: -1.5px;
     margin: 0 0 8px; text-align: center;
   }
   .instruction {
@@ -1492,7 +1492,7 @@
     color: var(--muted); margin-bottom: clamp(4px, 2vh, 14px);
   }
   .title {
-    font-weight: 700; font-size: clamp(16px, 4.5vw, 44px); letter-spacing: -1.5px;
+    font-weight: 700; font-size: clamp(24px, 7vw, 44px); letter-spacing: -1.5px;
     margin: 0 0 8px; text-align: center;
   }
   .instruction {
@@ -1902,7 +1902,7 @@
     color: var(--muted); margin-bottom: clamp(4px, 2vh, 14px);
   }
   .title {
-    font-weight: 700; font-size: clamp(16px, 4.5vw, 44px); letter-spacing: -1.5px;
+    font-weight: 700; font-size: clamp(24px, 7vw, 44px); letter-spacing: -1.5px;
     margin: 0 0 8px; text-align: center;
   }
   .instruction {
@@ -2159,12 +2159,32 @@
 
   <script>
   (function () {
-    var ENTER_URL = '#';  /* <-- set to your real site URL */
+    var ENTER_URL = 'https://gamelab-bio.github.io/about';
     var games = [].slice.call(document.querySelectorAll('script.game'));
     var html = games[Math.floor(Math.random() * games.length)].textContent;
     html = html.split('[[SCRIPTEND]]').join('<' + '/script>').split('##DEST##').join(ENTER_URL);
     var f = document.getElementById('frame');
-    f.addEventListener('load', function () { var s = document.getElementById('splash'); if (s) { s.style.opacity = '0'; setTimeout(function(){ s.remove(); }, 400); } });
+
+    // Re-show the dots loader, then enter the site (cool transition on click).
+    function enterSite() {
+      var sp = document.createElement('div');
+      sp.className = 'splash';
+      sp.style.opacity = '0';
+      sp.innerHTML = '<div class="dots"><i></i><i></i><i></i></div>';
+      document.body.appendChild(sp);
+      requestAnimationFrame(function () { sp.style.opacity = '1'; });
+      setTimeout(function () { window.location.href = ENTER_URL; }, 1000);
+    }
+
+    f.addEventListener('load', function () {
+      var s = document.getElementById('splash');
+      if (s) { s.style.opacity = '0'; setTimeout(function(){ s.remove(); }, 400); }
+      // Intercept the puzzle's Enter button (srcdoc is same-origin) to play the loader.
+      try {
+        var link = f.contentDocument && f.contentDocument.querySelector('.enter a');
+        if (link) link.addEventListener('click', function (ev) { ev.preventDefault(); enterSite(); });
+      } catch (err) {}
+    });
     f.srcdoc = html;
   })();
 </script>
