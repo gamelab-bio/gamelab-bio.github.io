@@ -19,7 +19,6 @@ exclude:
   - Gemfile.lock
   - README.md
   - vendor
-  - "GAME Lab Enter -standalone-.html"
 
 markdown: kramdown
 kramdown:
