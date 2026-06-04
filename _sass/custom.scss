@@ -1,0 +1,224 @@
+// GAME Lab — custom overrides on top of minima
+
+// Palette (matches the puzzle page)
+:root {
+  --paper:  #FBF7EC;
+  --cream:  #F6F1E4;
+  --ink:    #1A1A1F;
+  --coral:  #E8593C;
+  --amber:  #E8B23A;
+  --teal:   #2C8B8E;
+  --muted:  #8A8270;
+}
+
+// ── Global ───────────────────────────────────────────────────────────────────
+
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: var(--teal);
+  &:visited { color: var(--teal); }
+  &:hover   { color: var(--coral); text-decoration: underline; }
+}
+
+// ── Header ───────────────────────────────────────────────────────────────────
+
+.site-header {
+  background-color: var(--paper);
+  border-bottom: 1px solid rgba(26, 26, 31, 0.12);
+  min-height: 56px;
+}
+
+.site-title,
+.site-title:visited {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.lab-hero {
+  margin: 2rem -2rem 2rem;
+}
+
+.hero-logo {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+// Colour the "G" in GAME Lab — we inject a span in the title if needed,
+// but as a CSS-only fallback we accent the nav dot separator instead.
+.site-nav .page-link {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink);
+
+  &:hover { color: var(--coral); text-decoration: none; }
+}
+
+.site-nav {
+  background-color: var(--paper);
+  border-color: rgba(26, 26, 31, 0.12);
+}
+
+// ── Footer ───────────────────────────────────────────────────────────────────
+
+.site-footer {
+  background-color: var(--cream);
+  border-top: 1px solid rgba(26, 26, 31, 0.12);
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.footer-lab {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--muted);
+  margin: 0;
+}
+
+.footer-icons {
+  a {
+    color: var(--muted);
+    margin-left: 14px;
+    font-size: 16px;
+    &:hover { color: var(--coral); }
+    &:first-child { margin-left: 0; }
+  }
+}
+
+.footer-copyright {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--muted);
+  margin: 0;
+}
+
+// ── Typography ───────────────────────────────────────────────────────────────
+
+h1, h2, h3 {
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--ink);
+}
+
+h1 { letter-spacing: -0.5px; }
+h2 {
+  font-size: 1.1rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid rgba(26,26,31,0.1);
+  padding-bottom: 6px;
+  margin-top: 2rem;
+}
+
+// ── Page / post content ───────────────────────────────────────────────────────
+
+.post-content,
+.page-content {
+  h1, h2, h3, h4, h5, h6 { color: var(--ink); }
+}
+
+// ── Publication cards ─────────────────────────────────────────────────────────
+
+.publication {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border-left: 3px solid rgba(26,26,31,0.1);
+  background-color: var(--paper);
+
+  &.publication-highlight {
+    border-left-color: var(--coral);
+    background-color: var(--cream);
+  }
+}
+
+.pub-title  { font-weight: 600; font-size: 1.0rem; margin-bottom: 0.2rem; }
+.pub-authors { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.2rem; }
+.pub-venue   { font-size: 0.85rem; font-style: italic; color: var(--muted); margin-bottom: 0.4rem; }
+.pub-links   {
+  font-size: 0.82rem;
+  .pub-link {
+    margin-right: 0.75rem;
+    color: var(--teal);
+    text-decoration: none;
+    &:hover { text-decoration: underline; color: var(--coral); }
+  }
+}
+
+// ── People cards ──────────────────────────────────────────────────────────────
+
+.people-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.person-card {
+  text-align: center;
+
+  img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2.5px solid rgba(26,26,31,0.1);
+    margin-bottom: 0.5rem;
+  }
+
+  .person-name  { font-weight: 600; font-size: 0.95rem; margin: 0; }
+  .person-role  { font-size: 0.82rem; color: var(--muted); margin: 2px 0 0; }
+}
+
+// ── Puzzle link ───────────────────────────────────────────────────────────────
+
+.puzzle-link {
+  margin-top: 2rem;
+  a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    &:hover { color: var(--coral); }
+  }
+}
+
+// ── Accent utilities ──────────────────────────────────────────────────────────
+
+.accent-coral  { color: var(--coral); }
+.accent-amber  { color: var(--amber); }
+.accent-teal   { color: var(--teal); }
+
+// ── Code ──────────────────────────────────────────────────────────────────────
+
+pre, code {
+  background-color: var(--cream);
+  border-color: rgba(26,26,31,0.1);
+}
+
+// ── Responsive ───────────────────────────────────────────────────────────────
+
+@media screen and (max-width: 600px) {
+  .people-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-content { flex-direction: column; }
+}

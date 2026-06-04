@@ -1,0 +1,27 @@
+title: "GAME Lab"
+description: "Genomics & Adaptive Mechanisms in Evolution"
+baseurl: ""
+url: "https://gamelab-bio.github.io"
+
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+header_pages:
+  - about.md
+  - research.md
+  - people.md
+  - publications.md
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor
+  - "GAME Lab Enter -standalone-.html"
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
