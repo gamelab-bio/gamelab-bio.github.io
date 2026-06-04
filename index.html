@@ -67,7 +67,7 @@
   /* Header */
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
+    font-size: 15px; letter-spacing: 4px; text-transform: uppercase;
     color: var(--muted); margin-bottom: clamp(4px, 2vh, 14px);
   }
   .title {
@@ -172,7 +172,7 @@
 
   /* Enter gate */
   .enter {
-    margin-top: 14px;
+    margin-top: 8px;
     opacity: 0; transform: translateY(10px);
     pointer-events: none;
     transition: opacity .5s, transform .5s;
@@ -490,7 +490,7 @@
         b.style.transformOrigin = 'top center';
         b.style.transform = 'scale(' + s + ')';
         b.style.marginBottom = ((s - 1) * NH) + 'px';
-        stg.style.marginTop = (offT + Math.max(0, (vh - stg.scrollHeight) / 2)) + 'px';
+        stg.style.marginTop = (offT + Math.max(0, Math.min((vh - 760) / 2, vh - stg.scrollHeight))) + 'px';
       }
       fit();
       requestAnimationFrame(fit);
@@ -575,7 +575,7 @@
 
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
+    font-size: 15px; letter-spacing: 4px; text-transform: uppercase;
     color: var(--muted); margin-bottom: clamp(4px, 2vh, 14px);
   }
   .title {
@@ -656,7 +656,7 @@
 
   /* Enter gate */
   .enter {
-    margin-top: 14px;
+    margin-top: 8px;
     opacity: 0; transform: translateY(10px);
     pointer-events: none;
     transition: opacity .5s, transform .5s;
@@ -852,7 +852,7 @@
       b.style.transformOrigin = 'top center';
       b.style.transform = 'scale(' + s + ')';
       b.style.marginBottom = ((s - 1) * NH) + 'px';
-      stg.style.marginTop = (offT + Math.max(0, (vh - stg.scrollHeight) / 2)) + 'px';
+      stg.style.marginTop = (offT + Math.max(0, Math.min((vh - 760) / 2, vh - stg.scrollHeight))) + 'px';
       // wells moved with the scaled board — recompute flock targets
       measure();
       pops.forEach(p => {
@@ -1089,7 +1089,7 @@
 
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
+    font-size: 15px; letter-spacing: 4px; text-transform: uppercase;
     color: var(--muted); margin-bottom: clamp(4px, 2vh, 14px);
   }
   .title {
@@ -1167,7 +1167,7 @@
   .well.filled { opacity: 0; pointer-events: none; }
 
   .enter {
-    margin-top: 14px;
+    margin-top: 8px;
     opacity: 0; transform: translateY(10px);
     pointer-events: none;
     transition: opacity .5s, transform .5s;
@@ -1420,7 +1420,7 @@
         b.style.transformOrigin = 'top center';
         b.style.transform = 'scale(' + s + ')';
         b.style.marginBottom = ((s - 1) * NH) + 'px';
-        stg.style.marginTop = (offT + Math.max(0, (vh - stg.scrollHeight) / 2)) + 'px';
+        stg.style.marginTop = (offT + Math.max(0, Math.min((vh - 760) / 2, vh - stg.scrollHeight))) + 'px';
       }
       fit();
       requestAnimationFrame(fit);
@@ -1502,7 +1502,7 @@
 
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
+    font-size: 15px; letter-spacing: 4px; text-transform: uppercase;
     color: var(--muted); margin-bottom: clamp(4px, 2vh, 14px);
   }
   .title {
@@ -1582,7 +1582,7 @@
   .well.filled { opacity: 0; pointer-events: none; }
 
   .enter {
-    margin-top: 14px;
+    margin-top: 8px;
     opacity: 0; transform: translateY(10px);
     pointer-events: none;
     transition: opacity .5s, transform .5s;
@@ -1835,7 +1835,7 @@
         b.style.transformOrigin = 'top center';
         b.style.transform = 'scale(' + s + ')';
         b.style.marginBottom = ((s - 1) * NH) + 'px';
-        stg.style.marginTop = (offT + Math.max(0, (vh - stg.scrollHeight) / 2)) + 'px';
+        stg.style.marginTop = (offT + Math.max(0, Math.min((vh - 760) / 2, vh - stg.scrollHeight))) + 'px';
       }
       fit();
       requestAnimationFrame(fit);
@@ -1917,7 +1917,7 @@
 
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
+    font-size: 15px; letter-spacing: 4px; text-transform: uppercase;
     color: var(--muted); margin-bottom: clamp(4px, 2vh, 14px);
   }
   .title {
@@ -1986,7 +1986,7 @@
   }
 
   .enter {
-    margin-top: 14px;
+    margin-top: 8px;
     opacity: 0; transform: translateY(10px);
     pointer-events: none;
     transition: opacity .5s, transform .5s;
@@ -2142,7 +2142,7 @@
         b.style.transformOrigin = 'top center';
         b.style.transform = 'scale(' + s + ')';
         b.style.marginBottom = ((s - 1) * NH) + 'px';
-        stg.style.marginTop = (offT + Math.max(0, (vh - stg.scrollHeight) / 2)) + 'px';
+        stg.style.marginTop = (offT + Math.max(0, Math.min((vh - 760) / 2, vh - stg.scrollHeight))) + 'px';
       }
       fit();
       requestAnimationFrame(fit);
