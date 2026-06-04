@@ -60,7 +60,7 @@
 
   .stage {
     width: 100%; max-width: 760px;
-    padding: clamp(14px, 3vw, 32px) clamp(10px, 3vw, 24px) clamp(18px, 3vw, 40px);
+    padding: clamp(6px, 2vw, 32px) clamp(10px, 3vw, 24px) clamp(8px, 2vw, 40px);
     display: flex; flex-direction: column; align-items: center;
   }
 
@@ -68,7 +68,7 @@
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 14px;
+    color: var(--muted); margin-bottom: clamp(4px, 2vh, 14px);
   }
   .title {
     font-weight: 700; font-size: clamp(22px, 7vw, 44px); letter-spacing: -1.5px;
@@ -79,7 +79,7 @@
     font-family: 'IBM Plex Mono', monospace;
     font-size: 12.5px; letter-spacing: 1px; color: var(--muted);
     text-align: center; max-width: 38ch; line-height: 1.6;
-    margin: 0 0 22px; min-height: 40px;
+    margin: 0 0 clamp(4px, 2vw, 22px); min-height: 0;
     transition: color .3s;
   }
   .instruction strong { color: var(--ink); font-weight: 600; }
@@ -457,7 +457,9 @@
     (function(){
       var b = board, NW = 340, NH = 360;
       function fit(){
-        var s = Math.min(1, (window.innerWidth - 48) / NW, (window.innerHeight - 270) / NH);
+        b.style.transform = ''; b.style.marginBottom = '';
+        var top = b.getBoundingClientRect().top;
+        var s = Math.min(1, (window.innerWidth - 48) / NW, (window.innerHeight - top - 50) / NH);
         b.style.transform = 'scale('+s+')';
         b.style.transformOrigin = 'top center';
         b.style.marginBottom = ((s-1)*NH)+'px';
@@ -537,14 +539,14 @@
 
   .stage {
     width: 100%; max-width: 760px;
-    padding: clamp(14px, 3vw, 32px) clamp(10px, 3vw, 24px) clamp(18px, 3vw, 40px);
+    padding: clamp(6px, 2vw, 32px) clamp(10px, 3vw, 24px) clamp(8px, 2vw, 40px);
     display: flex; flex-direction: column; align-items: center;
   }
 
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 14px;
+    color: var(--muted); margin-bottom: clamp(4px, 2vh, 14px);
   }
   .title {
     font-weight: 700; font-size: clamp(22px, 7vw, 44px); letter-spacing: -1.5px;
@@ -554,7 +556,7 @@
     font-family: 'IBM Plex Mono', monospace;
     font-size: 12.5px; letter-spacing: 1px; color: var(--muted);
     text-align: center; max-width: 40ch; line-height: 1.6;
-    margin: 0 0 22px; min-height: 40px;
+    margin: 0 0 clamp(4px, 2vw, 22px); min-height: 0;
     transition: color .3s;
   }
   .instruction strong { color: var(--ink); font-weight: 600; }
@@ -803,7 +805,9 @@
       });
     });
     function fitBoard() {
-      var s = Math.min(1, (window.innerWidth - 48) / 340, (window.innerHeight - 280) / 360);
+      board.style.transform = ''; board.style.marginBottom = '';
+      var top = board.getBoundingClientRect().top;
+      var s = Math.min(1, (window.innerWidth - 48) / 340, (window.innerHeight - top - 50) / 360);
       board.style.transform = 'scale(' + s + ')';
       board.style.transformOrigin = 'top center';
       board.style.marginBottom = ((s - 1) * 360) + 'px';
@@ -1037,14 +1041,14 @@
 
   .stage {
     width: 100%; max-width: 760px;
-    padding: clamp(14px, 3vw, 32px) clamp(10px, 3vw, 24px) clamp(18px, 3vw, 40px);
+    padding: clamp(6px, 2vw, 32px) clamp(10px, 3vw, 24px) clamp(8px, 2vw, 40px);
     display: flex; flex-direction: column; align-items: center;
   }
 
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 14px;
+    color: var(--muted); margin-bottom: clamp(4px, 2vh, 14px);
   }
   .title {
     font-weight: 700; font-size: clamp(22px, 7vw, 44px); letter-spacing: -1.5px;
@@ -1054,7 +1058,7 @@
     font-family: 'IBM Plex Mono', monospace;
     font-size: 12.5px; letter-spacing: 1px; color: var(--muted);
     text-align: center; max-width: 42ch; line-height: 1.6;
-    margin: 0 0 22px; min-height: 40px;
+    margin: 0 0 clamp(4px, 2vw, 22px); min-height: 0;
     transition: color .3s;
   }
   .instruction strong { color: var(--ink); font-weight: 600; }
@@ -1358,7 +1362,9 @@
     (function(){
       var b = board, NW = 360, NH = 360;
       function fit(){
-        var s = Math.min(1.2, (window.innerWidth - 48) / NW, (window.innerHeight - 265) / NH);
+        b.style.transform = ''; b.style.marginBottom = '';
+        var top = b.getBoundingClientRect().top;
+        var s = Math.min(1.2, (window.innerWidth - 48) / NW, (window.innerHeight - top - 50) / NH);
         b.style.transform = 'scale('+s+')';
         b.style.transformOrigin = 'top center';
         b.style.marginBottom = ((s-1)*NH)+'px';
@@ -1435,14 +1441,14 @@
 
   .stage {
     width: 100%; max-width: 760px;
-    padding: clamp(14px, 3vw, 32px) clamp(10px, 3vw, 24px) clamp(18px, 3vw, 40px);
+    padding: clamp(6px, 2vw, 32px) clamp(10px, 3vw, 24px) clamp(8px, 2vw, 40px);
     display: flex; flex-direction: column; align-items: center;
   }
 
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 14px;
+    color: var(--muted); margin-bottom: clamp(4px, 2vh, 14px);
   }
   .title {
     font-weight: 700; font-size: clamp(22px, 7vw, 44px); letter-spacing: -1.5px;
@@ -1452,7 +1458,7 @@
     font-family: 'IBM Plex Mono', monospace;
     font-size: 12.5px; letter-spacing: 1px; color: var(--muted);
     text-align: center; max-width: 42ch; line-height: 1.6;
-    margin: 0 0 22px; min-height: 40px;
+    margin: 0 0 clamp(4px, 2vw, 22px); min-height: 0;
     transition: color .3s;
   }
   .instruction strong { color: var(--ink); font-weight: 600; }
@@ -1758,7 +1764,9 @@
     (function(){
       var b = board, NW = 360, NH = 360;
       function fit(){
-        var s = Math.min(1.2, (window.innerWidth - 48) / NW, (window.innerHeight - 265) / NH);
+        b.style.transform = ''; b.style.marginBottom = '';
+        var top = b.getBoundingClientRect().top;
+        var s = Math.min(1.2, (window.innerWidth - 48) / NW, (window.innerHeight - top - 50) / NH);
         b.style.transform = 'scale('+s+')';
         b.style.transformOrigin = 'top center';
         b.style.marginBottom = ((s-1)*NH)+'px';
@@ -1835,14 +1843,14 @@
 
   .stage {
     width: 100%; max-width: 760px;
-    padding: clamp(14px, 3vw, 32px) clamp(10px, 3vw, 24px) clamp(18px, 3vw, 40px);
+    padding: clamp(6px, 2vw, 32px) clamp(10px, 3vw, 24px) clamp(8px, 2vw, 40px);
     display: flex; flex-direction: column; align-items: center;
   }
 
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 14px;
+    color: var(--muted); margin-bottom: clamp(4px, 2vh, 14px);
   }
   .title {
     font-weight: 700; font-size: clamp(22px, 7vw, 44px); letter-spacing: -1.5px;
@@ -1852,7 +1860,7 @@
     font-family: 'IBM Plex Mono', monospace;
     font-size: 12.5px; letter-spacing: 1px; color: var(--muted);
     text-align: center; max-width: 42ch; line-height: 1.6;
-    margin: 0 0 22px; min-height: 40px;
+    margin: 0 0 clamp(4px, 2vw, 22px); min-height: 0;
     transition: color .3s;
   }
   .instruction strong { color: var(--ink); font-weight: 600; }
@@ -2050,7 +2058,9 @@
     (function(){
       var b = board, NW = 360, NH = 360;
       function fit(){
-        var s = Math.min(1, (window.innerWidth - 48) / NW, (window.innerHeight - 200) / NH);
+        b.style.transform = ''; b.style.marginBottom = '';
+        var top = b.getBoundingClientRect().top;
+        var s = Math.min(1, (window.innerWidth - 48) / NW, (window.innerHeight - top - 50) / NH);
         b.style.transform = 'scale('+s+')';
         b.style.transformOrigin = 'top center';
         b.style.marginBottom = ((s-1)*NH)+'px';
