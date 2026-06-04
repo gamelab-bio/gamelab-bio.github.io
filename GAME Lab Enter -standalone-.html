@@ -398,6 +398,18 @@
         dragging = false;
         document.querySelectorAll('.well').forEach(x => x.classList.remove('hover', 'wrong'));
         if (!ghost) { token.classList.remove('slot-empty'); return; }
+        // Re-project from final pointer position (fast swipes on mobile skip pointermove events)
+        {
+          const r2 = board.getBoundingClientRect();
+          const bx2 = (e.clientX - r2.left) * (340 / r2.width);
+          const by2 = (e.clientY - r2.top)  * (360 / r2.height);
+          let best2 = null, bestColor2 = null;
+          for (const rc of routes) {
+            const p = projectToPath(paths[rc], bx2, by2);
+            if (!best2 || p.d < best2.d) { best2 = p; bestColor2 = rc; }
+          }
+          if (best2.prog > progress) { progress = best2.prog; nearWell = bestColor2; }
+        }
         // which well did the cell actually reach?
         const reached = (progress > 0.8) ? nearWell : null;
 
