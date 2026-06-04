@@ -411,23 +411,28 @@
           if (best2.prog > progress) { progress = best2.prog; nearWell = bestColor2; }
         }
         // which well did the cell actually reach?
-        const reached = (progress > 0.8) ? nearWell : null;
+        let reached = (progress > 0.8) ? nearWell : null;
+        // Proximity fallback: pointer within correct well's visual radius counts regardless of path progress
+        if (!reached && !well(color).classList.contains('filled')) {
+          const wr = well(color).getBoundingClientRect();
+          const wcx = wr.left + wr.width / 2, wcy = wr.top + wr.height / 2;
+          if (Math.hypot(e.clientX - wcx, e.clientY - wcy) < wr.width) reached = color;
+        }
 
-        if (reached && reached === color && !well(color).classList.contains('filled')) {
+        if (reached === color && !well(color).classList.contains('filled')) {
           // correct well — seat it
           ghost.remove(); ghost = null;
           token.classList.remove('slot-empty');
           token.classList.add('placed');
           fillWell(well(color));
         } else {
-          // wrong well (or didn't reach a tip) — warn + slide back to trunk top
+          // wrong well (or didn't reach) — warn + fade ghost out in place
           if (reached && reached !== color) nudgeWrong();
-          const start = boardToClient(paths[color][0][0], paths[color][0][1]);
           const g = ghost; ghost = null;
-          g.style.transition = 'left .3s ease, top .3s ease';
-          g.style.left = (start.x - 23) + 'px';
-          g.style.top  = (start.y - 23) + 'px';
-          setTimeout(() => { g.remove(); token.classList.remove('slot-empty'); }, 320);
+          g.style.transition = 'opacity .25s, transform .25s';
+          g.style.opacity = '0';
+          g.style.transform = 'scale(0.7)';
+          setTimeout(() => { g.remove(); token.classList.remove('slot-empty'); }, 280);
         }
       });
 
