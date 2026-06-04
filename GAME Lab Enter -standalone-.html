@@ -1,0 +1,2041 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GAME Lab · Enter</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #FBF7EC; }
+  #frame { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; }
+  .splash { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: #FBF7EC; z-index: 2; transition: opacity .4s; }
+  .dots { display: flex; gap: 8px; }
+  .dots i { width: 10px; height: 10px; border-radius: 50%; animation: b 1s ease-in-out infinite; }
+  .dots i:nth-child(1) { background: #E8593C; animation-delay: 0s; }
+  .dots i:nth-child(2) { background: #E8B23A; animation-delay: .15s; }
+  .dots i:nth-child(3) { background: #2C8B8E; animation-delay: .3s; }
+  @keyframes b { 0%,100% { transform: translateY(0); opacity: .5; } 50% { transform: translateY(-7px); opacity: 1; } }
+</style>
+</head>
+<body>
+  <div class="splash" id="splash"><div class="dots"><i></i><i></i><i></i></div></div>
+  <iframe id="frame" title="GAME Lab"></iframe>
+
+  <!-- the five entry puzzles, embedded inert -->
+<script type="text/plain" class="game"><!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GAME Lab · Enter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #1A1A1F;
+    --paper: #FBF7EC;
+    --cream: #F6F1E4;
+    --coral: #E8593C;
+    --amber: #E8B23A;
+    --teal: #2C8B8E;
+    --muted: #8A8270;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    background: var(--paper);
+    font-family: Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    overflow: hidden;
+  }
+  body {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh;
+    -webkit-user-select: none; user-select: none;
+    touch-action: none;
+  }
+
+  .stage {
+    width: 100%; max-width: 760px;
+    padding: 32px 24px 40px;
+    display: flex; flex-direction: column; align-items: center;
+  }
+
+  /* Header */
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 14px;
+  }
+  .title {
+    font-weight: 700; font-size: 44px; letter-spacing: -1.5px;
+    margin: 0 0 8px; text-align: center;
+  }
+  .title .me { letter-spacing: -3px; }
+  .instruction {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px; letter-spacing: 1px; color: var(--muted);
+    text-align: center; max-width: 38ch; line-height: 1.6;
+    margin: 0 0 22px; min-height: 40px;
+    transition: color .3s;
+  }
+  .instruction strong { color: var(--ink); font-weight: 600; }
+
+  /* Board */
+  .board-wrap {
+    position: relative;
+    width: 340px; height: 360px;
+    margin-bottom: 8px;
+  }
+  .board-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+  .well {
+    position: absolute;
+    width: 56px; height: 56px;
+    margin: -28px 0 0 -28px;
+    border-radius: 50%;
+    border: 2.5px dashed var(--c);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .25s cubic-bezier(.34,1.56,.64,1), background .25s, border-color .25s, box-shadow .25s;
+  }
+  .well::after {
+    content: "";
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--c); opacity: .5;
+    transition: opacity .2s;
+  }
+  .well.hover {
+    transform: scale(1.12);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--c) 18%, transparent);
+  }
+  .well.wrong {
+    transform: scale(1.06);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--ink) 10%, transparent);
+  }
+  .well.filled {
+    border-style: solid;
+    background: var(--c);
+  }
+  .well.filled::after { opacity: 0; }
+  .well .seated {
+    position: absolute; width: 44px; height: 44px; border-radius: 50%;
+    background: var(--c); border: 2.5px solid var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    animation: pop .35s cubic-bezier(.34,1.56,.64,1);
+  }
+  .well .seated::before {
+    content: ""; width: 9px; height: 9px; border-radius: 50%;
+    background: var(--cream); margin: -10px 0 0 -10px;
+  }
+  @keyframes pop { 0% { transform: scale(.4); } 70% { transform: scale(1.15); } 100% { transform: scale(1); } }
+
+  /* Tray + tokens */
+  .tray {
+    display: flex; gap: 22px; align-items: center; justify-content: center;
+    height: 76px;
+    padding: 0 18px 22px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid rgba(26,26,31,0.1);
+  }
+  .token {
+    position: relative;
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--c);
+    border: 2.5px solid var(--ink);
+    cursor: grab;
+    touch-action: none;
+    display: flex; align-items: center; justify-content: center;
+    transition: box-shadow .2s, transform .15s;
+    box-shadow: 0 3px 0 rgba(26,26,31,0.18);
+  }
+  .token::after {
+    content: ""; width: 10px; height: 10px; border-radius: 50%;
+    background: var(--cream); margin: -12px 0 0 -12px;
+  }
+  .token:hover { box-shadow: 0 5px 0 rgba(26,26,31,0.2); }
+  .token.dragging {
+    cursor: grabbing; z-index: 50;
+    box-shadow: 0 10px 24px rgba(26,26,31,0.28);
+    transition: none;
+  }
+  .token.placed { visibility: hidden; }
+  .token.slot-empty { opacity: 0; pointer-events: none; }
+
+  .tray-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); margin-top: 14px;
+  }
+
+  /* Enter gate */
+  .enter {
+    margin-top: 26px;
+    opacity: 0; transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity .5s, transform .5s;
+  }
+  .enter.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .enter a {
+    display: inline-flex; align-items: center; gap: 14px;
+    background: var(--ink); color: var(--paper);
+    text-decoration: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px; letter-spacing: 3px; text-transform: uppercase;
+    padding: 16px 30px; border-radius: 2px;
+    transition: gap .2s, background .2s;
+  }
+  .enter a:hover { gap: 20px; background: #000; }
+  .enter a .arrow { transition: transform .2s; }
+  .enter a:hover .arrow { transform: translateX(4px); }
+
+  /* confetti burst layer */
+  .burst { position: fixed; inset: 0; pointer-events: none; z-index: 100; overflow: hidden; }
+  .burst i {
+    position: absolute; width: 9px; height: 9px; border-radius: 1px;
+    will-change: transform, opacity;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="eyebrow">GAME Lab</div>
+    <h1 class="title">Genomics &amp; Adaptive Mechanisms</h1>
+    <p class="instruction" id="instruction">
+      Guide each <strong>cell</strong> down the branch to the well of the same color.
+    </p>
+
+    <div class="tray" id="tray">
+      <!-- tokens injected via JS (shuffled) -->
+    </div>
+
+    <div class="board-wrap" id="board">
+      <svg class="board-svg" id="pegs" viewBox="0 0 340 360" aria-hidden="true"></svg>
+      <!-- wells positioned via JS -->
+      <div class="well" data-color="coral" style="--c: var(--coral);"></div>
+      <div class="well" data-color="amber" style="--c: var(--amber);"></div>
+      <div class="well" data-color="teal"  style="--c: var(--teal);"></div>
+    </div>
+
+    <div class="enter" id="enter">
+      <a href="##DEST##" target="_top">
+        <span>Enter GAME Lab</span>
+        <span class="arrow">&rarr;</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="burst" id="burst"></div>
+
+  <script>
+  (function () {
+    const COLORS = {
+      coral: getCSS('--coral'),
+      amber: getCSS('--amber'),
+      teal:  getCSS('--teal'),
+    };
+    function getCSS(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+    // ----- E-board geometry (viewBox 340x360) -----
+    // Trunk + 3 branches. Wells sit at the 3 branch tips.
+    const INK = getCSS('--ink');
+    const board = document.getElementById('board');
+    const pegSvg = document.getElementById('pegs');
+
+    // Well target positions (in board px, board is 340x360)
+    const wells = {
+      coral: { x: 244, y: 70 },   // top branch tip
+      amber: { x: 210, y: 180 },  // middle branch tip
+      teal:  { x: 244, y: 290 },  // bottom branch tip
+    };
+
+    // Each cell travels DOWN the trunk then OUT along its branch to the well.
+    // Polylines in board coordinates — the cell is constrained to these.
+    const TRUNK_TOP = [74, 50];
+    const paths = {
+      coral: [TRUNK_TOP, [74, 62],  [244, 70]],
+      amber: [TRUNK_TOP, [74, 180], [210, 180]],
+      teal:  [TRUNK_TOP, [74, 298], [244, 290]],
+    };
+
+    // Project a board-space point onto a polyline; return closest point +
+    // progress (0..1 along total arc length).
+    function projectToPath(pts, px, py) {
+      const seg = [];
+      let total = 0;
+      for (let i = 0; i < pts.length - 1; i++) {
+        const L = Math.hypot(pts[i+1][0]-pts[i][0], pts[i+1][1]-pts[i][1]);
+        seg.push(L); total += L;
+      }
+      let best = { d: Infinity, x: pts[0][0], y: pts[0][1], prog: 0 };
+      let acc = 0;
+      for (let i = 0; i < pts.length - 1; i++) {
+        const ax = pts[i][0], ay = pts[i][1];
+        const dx = pts[i+1][0] - ax, dy = pts[i+1][1] - ay;
+        const L2 = dx*dx + dy*dy;
+        let t = L2 ? ((px-ax)*dx + (py-ay)*dy) / L2 : 0;
+        t = Math.max(0, Math.min(1, t));
+        const cx = ax + dx*t, cy = ay + dy*t;
+        const d = Math.hypot(px - cx, py - cy);
+        if (d < best.d) best = { d, x: cx, y: cy, prog: (acc + seg[i]*t) / total };
+        acc += seg[i];
+      }
+      return best;
+    }
+
+    // Position well elements
+    document.querySelectorAll('.well').forEach(w => {
+      const c = w.dataset.color;
+      w.style.left = wells[c].x + 'px';
+      w.style.top  = wells[c].y + 'px';
+    });
+
+    // ----- draw pegs along the E silhouette -----
+    function inE(x, y) {
+      const trunk  = x >= 56  && x <= 92  && y >= 44 && y <= 316;
+      const top    = x >= 56  && x <= 250 && y >= 44 && y <= 80;
+      const middle = x >= 56  && x <= 216 && y >= 162 && y <= 198;
+      const bottom = x >= 56  && x <= 250 && y >= 280 && y <= 316;
+      return trunk || top || middle || bottom;
+    }
+    let pegMarkup = '';
+    // guide dashed path (the ball's descent through the E)
+    pegMarkup += '<path d="M 74 30 L 74 62 L 230 62 M 74 120 L 74 180 L 196 180 M 74 240 L 74 298 L 230 298" '
+      + 'fill="none" stroke="' + INK + '" stroke-width="2" stroke-dasharray="2 6" opacity="0.35"/>';
+    const stepX = 18, stepY = 17;
+    for (let row = 0; row < 18; row++) {
+      const y = 50 + row * stepY;
+      const off = (row % 2) * (stepX / 2);
+      for (let col = 0; col < 13; col++) {
+        const x = 60 + off + col * stepX;
+        if (inE(x, y)) pegMarkup += '<circle cx="' + x + '" cy="' + y + '" r="3" fill="' + INK + '"/>';
+      }
+    }
+    pegSvg.innerHTML = pegMarkup;
+
+    // ----- tokens (shuffled) -----
+    const tray = document.getElementById('tray');
+    const order = shuffle(['coral', 'amber', 'teal']);
+    const tokens = {};
+    order.forEach(c => {
+      const t = document.createElement('div');
+      t.className = 'token';
+      t.dataset.color = c;
+      t.style.setProperty('--c', COLORS[c]);
+      tray.appendChild(t);
+      tokens[c] = t;
+    });
+
+    function shuffle(a) { for (let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+
+    // ----- drag logic (pointer events: mouse + touch) -----
+    let placedCount = 0;
+    const instruction = document.getElementById('instruction');
+
+    Object.values(tokens).forEach(token => {
+      let dragging = false, ghost = null, progress = 0, lastBX = 0, lastBY = 0, nearWell = null;
+      const color = token.dataset.color;
+      // The cell rides DOWN the trunk and can exit out ANY branch — so wrong
+      // turns are possible. We project the pointer onto all three routes and
+      // follow whichever is nearest, then judge the well it actually reached.
+      const routes = ['coral', 'amber', 'teal'];
+
+      function boardToClient(bx, by) {
+        const r = board.getBoundingClientRect();
+        // board may be CSS-scaled; map board px → client px via its rect.
+        return { x: r.left + bx * (r.width / 340), y: r.top + by * (r.height / 360) };
+      }
+      function placeGhost(bx, by) {
+        const c = boardToClient(bx, by);
+        ghost.style.left = (c.x - 23) + 'px';
+        ghost.style.top  = (c.y - 23) + 'px';
+        ghost.style.transform = 'scale(1.06)';
+      }
+
+      token.addEventListener('pointerdown', (e) => {
+        if (token.classList.contains('placed')) return;
+        e.preventDefault();
+        dragging = true;
+        ghost = token.cloneNode(true);
+        ghost.classList.add('dragging');
+        ghost.style.position = 'fixed';
+        ghost.style.margin = '0';
+        document.body.appendChild(ghost);
+        token.classList.add('slot-empty');
+        progress = 0; nearWell = null;
+        placeGhost(paths[color][0][0], paths[color][0][1]);
+        token.setPointerCapture(e.pointerId);
+      });
+
+      token.addEventListener('pointermove', (e) => {
+        if (!dragging) return;
+        const r = board.getBoundingClientRect();
+        // client → board px (account for any CSS scale on the board)
+        const bx = (e.clientX - r.left) * (340 / r.width);
+        const by = (e.clientY - r.top)  * (360 / r.height);
+        // follow whichever branch route is closest to the pointer
+        let best = null, bestColor = null;
+        for (const rc of routes) {
+          const p = projectToPath(paths[rc], bx, by);
+          if (!best || p.d < best.d) { best = p; bestColor = rc; }
+        }
+        progress = best.prog; nearWell = bestColor;
+        lastBX = best.x; lastBY = best.y;
+        placeGhost(best.x, best.y);
+        // highlight the branch tip being approached — right (hover) or wrong
+        document.querySelectorAll('.well').forEach(w => w.classList.remove('hover', 'wrong'));
+        if (progress > 0.5) {
+          const w = well(bestColor);
+          if (!w.classList.contains('filled')) w.classList.add(bestColor === color ? 'hover' : 'wrong');
+        }
+      });
+
+      token.addEventListener('pointerup', (e) => {
+        if (!dragging) return;
+        dragging = false;
+        document.querySelectorAll('.well').forEach(x => x.classList.remove('hover', 'wrong'));
+        if (!ghost) { token.classList.remove('slot-empty'); return; }
+        // which well did the cell actually reach?
+        const reached = (progress > 0.8) ? nearWell : null;
+
+        if (reached && reached === color && !well(color).classList.contains('filled')) {
+          // correct well — seat it
+          ghost.remove(); ghost = null;
+          token.classList.remove('slot-empty');
+          token.classList.add('placed');
+          fillWell(well(color));
+        } else {
+          // wrong well (or didn't reach a tip) — warn + slide back to trunk top
+          if (reached && reached !== color) nudgeWrong();
+          const start = boardToClient(paths[color][0][0], paths[color][0][1]);
+          const g = ghost; ghost = null;
+          g.style.transition = 'left .3s ease, top .3s ease';
+          g.style.left = (start.x - 23) + 'px';
+          g.style.top  = (start.y - 23) + 'px';
+          setTimeout(() => { g.remove(); token.classList.remove('slot-empty'); }, 320);
+        }
+      });
+
+      function cancelDrag() {
+        if (!dragging) return;
+        dragging = false;
+        document.querySelectorAll('.well').forEach(x => x.classList.remove('hover', 'wrong'));
+        if (ghost) { ghost.remove(); ghost = null; }
+        token.classList.remove('slot-empty');
+      }
+      token.addEventListener('pointercancel', cancelDrag);
+      token.addEventListener('lostpointercapture', cancelDrag);
+    });
+
+    function well(color) {
+      return document.querySelector('.well[data-color="' + color + '"]');
+    }
+
+    function fillWell(well) {
+      well.classList.add('filled');
+      const seat = document.createElement('div');
+      seat.className = 'seated';
+      well.appendChild(seat);
+      placedCount++;
+      if (placedCount === 1) instruction.innerHTML = 'Nice. <strong>Two to go.</strong>';
+      else if (placedCount === 2) instruction.innerHTML = 'Almost there — <strong>one more cell.</strong>';
+      else if (placedCount === 3) win();
+    }
+
+    let wrongTimer = null;
+    function nudgeWrong() {
+      instruction.innerHTML = "That's not its well — <strong>match the color.</strong>";
+      clearTimeout(wrongTimer);
+      wrongTimer = setTimeout(() => {
+        if (placedCount < 3) instruction.innerHTML = 'Guide each <strong>cell</strong> down the branch to the well of the same color.';
+      }, 1800);
+    }
+
+    function win() {
+      instruction.innerHTML = '<strong>Cells are sorted.</strong> Welcome to the lab.';
+      document.getElementById('enter').classList.add('show');
+      burst();
+    }
+
+    // ----- confetti burst -----
+    function burst() {
+      const layer = document.getElementById('burst');
+      const cols = [COLORS.coral, COLORS.amber, COLORS.teal, getCSS('--cream')];
+      const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+      for (let i = 0; i < 70; i++) {
+        const p = document.createElement('i');
+        p.style.background = cols[i % cols.length];
+        p.style.left = cx + 'px';
+        p.style.top = cy + 'px';
+        layer.appendChild(p);
+        const ang = Math.random() * Math.PI * 2;
+        const vel = 120 + Math.random() * 320;
+        const dx = Math.cos(ang) * vel;
+        const dy = Math.sin(ang) * vel - 120;
+        const rot = (Math.random() * 720 - 360);
+        p.animate([
+          { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+          { transform: 'translate(' + dx + 'px,' + (dy + 360) + 'px) rotate(' + rot + 'deg)', opacity: 0 }
+        ], { duration: 1100 + Math.random() * 700, easing: 'cubic-bezier(.2,.6,.3,1)', fill: 'forwards' });
+        setTimeout(() => p.remove(), 1900);
+      }
+    }
+  })();
+  [[SCRIPTEND]]
+</body>
+</html>
+</script>
+<script type="text/plain" class="game"><!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GAME Lab · Enter (UMAP)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #1A1A1F;
+    --paper: #FBF7EC;
+    --cream: #F6F1E4;
+    --coral: #E8593C;
+    --amber: #E8B23A;
+    --teal: #2C8B8E;
+    --muted: #8A8270;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    background: var(--paper);
+    font-family: Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    overflow: hidden;
+  }
+  body {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh;
+    -webkit-user-select: none; user-select: none;
+    touch-action: none;
+  }
+
+  .stage {
+    width: 100%; max-width: 760px;
+    padding: 32px 24px 40px;
+    display: flex; flex-direction: column; align-items: center;
+  }
+
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 14px;
+  }
+  .title {
+    font-weight: 700; font-size: 44px; letter-spacing: -1.5px;
+    margin: 0 0 8px; text-align: center;
+  }
+  .instruction {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px; letter-spacing: 1px; color: var(--muted);
+    text-align: center; max-width: 40ch; line-height: 1.6;
+    margin: 0 0 22px; min-height: 40px;
+    transition: color .3s;
+  }
+  .instruction strong { color: var(--ink); font-weight: 600; }
+
+  /* Tray (top) — just reserves the area the flock homes into */
+  .tray {
+    width: 100%;
+    height: 84px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid rgba(26,26,31,0.1);
+  }
+
+  /* Flock layer — fixed full-viewport, dots positioned in viewport px */
+  .flock { position: fixed; inset: 0; pointer-events: none; z-index: 40; }
+  .flock.grabbing { cursor: grabbing; }
+  .fd {
+    position: fixed; top: 0; left: 0;
+    width: 8px; height: 8px; border-radius: 50%;
+    margin: -4px 0 0 -4px;
+    will-change: transform;
+    box-shadow: 0 1px 0 rgba(26,26,31,0.12);
+  }
+  .fd.lead {
+    width: 11px; height: 11px; margin: -5.5px 0 0 -5.5px;
+    box-shadow: 0 1px 0 rgba(26,26,31,0.18);
+  }
+
+  /* Board */
+  .board-wrap {
+    position: relative;
+    width: 340px; height: 360px;
+  }
+  .board-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+  /* cluster dots fade in to full color once that cluster is sorted */
+  .dot { transition: opacity .5s, r .4s; }
+  .board-svg.on-coral .c-coral { opacity: .95 !important; }
+  .board-svg.on-amber .c-amber { opacity: .95 !important; }
+  .board-svg.on-teal  .c-teal  { opacity: .95 !important; }
+
+  .well {
+    position: absolute;
+    width: 58px; height: 58px;
+    margin: -29px 0 0 -29px;
+    border-radius: 50%;
+    border: 2.5px dashed var(--c);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .25s cubic-bezier(.34,1.56,.64,1), background .25s, border-color .25s, box-shadow .25s;
+  }
+  .well::after {
+    content: "";
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--c); opacity: .5;
+    transition: opacity .2s;
+  }
+  .well.hover {
+    transform: scale(1.12);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--c) 18%, transparent);
+  }
+  .well.wrong {
+    transform: scale(1.06);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--ink) 10%, transparent);
+  }
+  .well.filled { border-style: solid; background: color-mix(in srgb, var(--c) 14%, transparent); }
+  .well.filled::after { opacity: 0; }
+  @keyframes pop { 0% { transform: scale(.4); } 70% { transform: scale(1.15); } 100% { transform: scale(1); } }
+
+  /* Enter gate */
+  .enter {
+    margin-top: 26px;
+    opacity: 0; transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity .5s, transform .5s;
+  }
+  .enter.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .enter a {
+    display: inline-flex; align-items: center; gap: 14px;
+    background: var(--ink); color: var(--paper);
+    text-decoration: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px; letter-spacing: 3px; text-transform: uppercase;
+    padding: 16px 30px; border-radius: 2px;
+    transition: gap .2s, background .2s;
+  }
+  .enter a:hover { gap: 20px; background: #000; }
+  .enter a .arrow { transition: transform .2s; }
+  .enter a:hover .arrow { transform: translateX(4px); }
+
+  .burst { position: fixed; inset: 0; pointer-events: none; z-index: 100; overflow: hidden; }
+  .burst i { position: absolute; width: 9px; height: 9px; border-radius: 1px; will-change: transform, opacity; }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="eyebrow">GAME Lab</div>
+    <h1 class="title">Genomics &amp; Adaptive Mechanisms</h1>
+    <p class="instruction" id="instruction">
+      Drag each <strong>cell population</strong> into the cluster of the same color to enter.
+    </p>
+
+    <div class="tray" id="tray">
+      <!-- tokens injected via JS (shuffled) -->
+    </div>
+
+    <div class="board-wrap" id="board">
+      <svg class="board-svg" id="umap" viewBox="0 0 340 360" aria-hidden="true"></svg>
+      <div class="well" data-color="coral" style="--c: var(--coral);"></div>
+      <div class="well" data-color="amber" style="--c: var(--amber);"></div>
+      <div class="well" data-color="teal"  style="--c: var(--teal);"></div>
+    </div>
+
+    <div class="enter" id="enter">
+      <a href="##DEST##" target="_top">
+        <span>Enter GAME Lab</span>
+        <span class="arrow">&rarr;</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="burst" id="burst"></div>
+
+  <script>
+  (function () {
+    function getCSS(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+    const COLORS = { coral: getCSS('--coral'), amber: getCSS('--amber'), teal: getCSS('--teal') };
+
+    const board = document.getElementById('board');
+    const umap = document.getElementById('umap');
+
+    // Cluster centers (board px) — the 3 lobes of the A letterform.
+    const clusters = {
+      coral: { x: 170, y: 66 },   // apex
+      amber: { x: 70,  y: 300 },  // left-leg base
+      teal:  { x: 270, y: 300 },  // right-leg base
+    };
+
+    // Position the dashed target wells at the cluster centers.
+    document.querySelectorAll('.well').forEach(w => {
+      const c = w.dataset.color;
+      w.style.left = clusters[c].x + 'px';
+      w.style.top  = clusters[c].y + 'px';
+    });
+
+    // ---- A silhouette test (viewBox 340x360) ----
+    function inA(x, y) {
+      if (y < 40 || y > 326) return false;
+      const t = (y - 40) / (320 - 40);
+      const lc = 170 - t * 112, rc = 170 + t * 112;
+      const onLeft  = Math.abs(x - lc) <= 16;
+      const onRight = Math.abs(x - rc) <= 16;
+      const cross   = y >= 196 && y <= 230 && x >= lc && x <= rc;
+      return onLeft || onRight || cross;
+    }
+    function nearestCluster(x, y) {
+      let best = 'coral', bd = Infinity;
+      for (const k in clusters) {
+        const d = (x - clusters[k].x) ** 2 + (y - clusters[k].y) ** 2;
+        if (d < bd) { bd = d; best = k; }
+      }
+      return best;
+    }
+    function rand(i) { const s = Math.sin(i * 12.9898) * 43758.5453; return s - Math.floor(s); }
+
+    // Scatter UMAP points inside the A, colored faintly by nearest cluster.
+    let markup = '';
+    let placed = 0, tries = 0;
+    while (placed < 320 && tries < 6000) {
+      const x = rand(tries * 2) * 340;
+      const y = rand(tries * 2 + 1) * 360;
+      tries++;
+      if (!inA(x, y)) continue;
+      const c = nearestCluster(x, y);
+      const r = (1.6 + rand(tries * 7) * 2).toFixed(2);
+      markup += '<circle class="dot c-' + c + '" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1)
+              + '" r="' + r + '" fill="' + COLORS[c] + '" opacity="0.3"/>';
+      placed++;
+    }
+    umap.innerHTML = markup;
+
+    // ============================================================
+    //  FLOCK SIMULATION
+    //  Each "population" is a cloud of small dots. Dots spring toward a
+    //  shared target (tray home, the cursor while dragging, or a cluster
+    //  once seated) but each keeps a personal offset + gentle wander, so the
+    //  group moves as a living flock rather than a rigid blob.
+    // ============================================================
+    const tray = document.getElementById('tray');
+    const instruction = document.getElementById('instruction');
+    const flockLayer = document.createElement('div');
+    flockLayer.className = 'flock';
+    document.body.appendChild(flockLayer);
+
+    const N = 16;                 // dots per population
+    const colorOrder = shuffle(['coral', 'amber', 'teal']);  // which color sits in which tray slot
+    function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+    // Geometry recomputed on load + resize (everything in viewport px).
+    let homes = {}, wellCenters = {};
+    function measure() {
+      const tr = tray.getBoundingClientRect();
+      const cy = tr.top + tr.height / 2;
+      const n = colorOrder.length;
+      colorOrder.forEach((c, i) => {
+        const x = tr.left + tr.width * ((i + 0.5) / n);
+        homes[c] = { x, y: cy };
+      });
+      document.querySelectorAll('.well').forEach(w => {
+        const r = w.getBoundingClientRect();
+        wellCenters[w.dataset.color] = { x: r.left + r.width/2, y: r.top + r.height/2, el: w };
+      });
+    }
+
+    // Build populations.
+    const pops = colorOrder.map((color, idx) => {
+      const home = idx;
+      const dots = [];
+      for (let i = 0; i < N; i++) {
+        // formation offset: soft disc
+        const ang = rand(idx * 99 + i * 2) * Math.PI * 2;
+        const rad = Math.sqrt(rand(idx * 99 + i * 2 + 1)) * 20;
+        dots.push({
+          ox: Math.cos(ang) * rad, oy: Math.sin(ang) * rad,
+          x: 0, y: 0, vx: 0, vy: 0,
+          phase: rand(idx * 33 + i) * Math.PI * 2,
+          spd: 0.6 + rand(idx * 7 + i) * 0.8,
+          el: null,
+        });
+      }
+      return { color, homeIdx: idx, dots, state: 'home', tx: 0, ty: 0, seedScale: 1 };
+    });
+
+    measure();
+    // initialise dot positions at their home and create elements
+    pops.forEach(p => {
+      const h = homes[p.color];
+      p.tx = h.x; p.ty = h.y;
+      p.dots.forEach(d => {
+        d.x = h.x + d.ox; d.y = h.y + d.oy;
+        const el = document.createElement('div');
+        el.className = 'fd' + (d === p.dots[0] ? ' lead' : '');
+        el.style.background = COLORS[p.color];
+        el.style.transform = 'translate(' + d.x + 'px,' + d.y + 'px)';  // initial paint
+        flockLayer.appendChild(el);
+        d.el = el;
+      });
+    });
+    window.addEventListener('resize', () => {
+      measure();
+      pops.forEach(p => {
+        if (p.state === 'home') { const h = homes[p.color]; p.tx = h.x; p.ty = h.y; }
+        else if (p.state === 'seated') { const w = wellCenters[p.color]; p.tx = w.x; p.ty = w.y; }
+      });
+    });
+
+    // ---- animation loop ----
+    let t = 0;
+    function tick() {
+      t += 0.016;
+      for (const p of pops) {
+        if (p.state === 'drag') {
+          // TRAIL FOLLOW: the head eases toward the cursor and records a path
+          // history; each following dot rides a delayed point along that path.
+          // When the cursor stops, the trail converges on the head, so the dots
+          // gather and settle (no scatter).
+          const dots = p.dots;
+          const L = dots[0];
+          L.vx = (L.vx + (p.tx - L.x) * 0.055) * 0.90;
+          L.vy = (L.vy + (p.ty - L.y) * 0.055) * 0.90;
+          L.x += L.vx; L.y += L.vy;
+          L.el.style.transform = 'translate(' + L.x + 'px,' + L.y + 'px)';
+          if (!p.trail) p.trail = [];
+          p.trail.unshift({ x: L.x, y: L.y });
+          if (p.trail.length > 240) p.trail.pop();
+          const SP = 4;  // frames of delay between successive dots
+          for (let i = 1; i < dots.length; i++) {
+            const d = dots[i];
+            const idx = Math.min(i * SP, p.trail.length - 1);
+            const tp = p.trail[idx];
+            // soft glide toward the delayed trail point
+            d.x += (tp.x - d.x) * 0.13;
+            d.y += (tp.y - d.y) * 0.13;
+            d.vx = 0; d.vy = 0;
+            d.el.style.transform = 'translate(' + d.x + 'px,' + d.y + 'px)';
+          }
+        } else {
+          // HOME / SEATED: tidy population — each dot to its offset + wander.
+          const k = 0.10, damp = 0.86, wander = 3.2;
+          for (const d of p.dots) {
+            const wx = Math.cos(t * d.spd + d.phase) * wander;
+            const wy = Math.sin(t * d.spd * 1.13 + d.phase) * wander;
+            const desX = p.tx + d.ox * p.seedScale + wx;
+            const desY = p.ty + d.oy * p.seedScale + wy;
+            d.vx = (d.vx + (desX - d.x) * k) * damp;
+            d.vy = (d.vy + (desY - d.y) * k) * damp;
+            d.x += d.vx; d.y += d.vy;
+            d.el.style.transform = 'translate(' + d.x + 'px,' + d.y + 'px)';
+          }
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    function centroid(p) {
+      let sx = 0, sy = 0;
+      for (const d of p.dots) { sx += d.x; sy += d.y; }
+      return { x: sx / p.dots.length, y: sy / p.dots.length };
+    }
+
+    // ---- pointer interaction (document-level, hit-test by centroid) ----
+    let placedCount = 0;
+    let active = null, pid = null;
+
+    document.addEventListener('pointerdown', (e) => {
+      if (active) return;
+      // grab the nearest non-seated population whose centroid is near the pointer
+      let best = null, bd = 74 * 74;
+      for (const p of pops) {
+        if (p.state === 'seated') continue;
+        const c = centroid(p);
+        const d = (e.clientX - c.x) ** 2 + (e.clientY - c.y) ** 2;
+        if (d < bd) { bd = d; best = p; }
+      }
+      if (!best) return;
+      active = best; pid = e.pointerId;
+      active.state = 'drag';
+      active.trail = [];          // fresh path history for this grab
+      active.tx = e.clientX; active.ty = e.clientY;
+      flockLayer.classList.add('grabbing');
+    });
+
+    document.addEventListener('pointermove', (e) => {
+      if (!active) return;
+      active.tx = e.clientX; active.ty = e.clientY;
+      // highlight the well the flock is hovering (right or wrong)
+      const w = wellNear(e.clientX, e.clientY);
+      document.querySelectorAll('.well').forEach(x => x.classList.remove('hover', 'wrong'));
+      if (w && !w.el.classList.contains('filled')) {
+        w.el.classList.add(w.color === active.color ? 'hover' : 'wrong');
+      }
+    });
+
+    document.addEventListener('pointerup', (e) => {
+      if (!active) return;
+      const p = active; active = null; pid = null;
+      flockLayer.classList.remove('grabbing');
+      document.querySelectorAll('.well').forEach(x => x.classList.remove('hover', 'wrong'));
+      const R = 50;  // a drop counts if even ONE dot lands within this of a well
+      const anyDotIn = (w) => {
+        for (const d of p.dots) {
+          if ((d.x - w.x) ** 2 + (d.y - w.y) ** 2 < R * R) return true;
+        }
+        return false;
+      };
+      const own = wellCenters[p.color];
+      const match = anyDotIn(own) && !own.el.classList.contains('filled');
+      if (match) {
+        // seat the flock into its cluster
+        p.state = 'seated';
+        p.seedScale = 1.35;             // spread a little to fill the lobe
+        p.tx = own.x; p.ty = own.y;
+        seatWell({ color: p.color, x: own.x, y: own.y, el: own.el });
+      } else {
+        // WRONG FALLBACK — always return the flock to its tray home
+        p.state = 'home';
+        const h = homes[p.color];
+        p.tx = h.x; p.ty = h.y;
+        // nudge if a dot was sitting in some other (wrong) well
+        for (const k in wellCenters) {
+          if (k === p.color) continue;
+          const w = wellCenters[k];
+          if (!w.el.classList.contains('filled') && anyDotIn(w)) { nudgeWrong(); break; }
+        }
+      }
+    });
+
+    function wellNear(x, y) {
+      let best = null, bd = 58 * 58;
+      for (const k in wellCenters) {
+        const w = wellCenters[k];
+        const d = (x - w.x) ** 2 + (y - w.y) ** 2;
+        if (d < bd) { bd = d; best = { color: k, x: w.x, y: w.y, el: w.el }; }
+      }
+      return best;
+    }
+
+    function seatWell(w) {
+      w.el.classList.add('filled');
+      umap.classList.add('on-' + w.color);   // light that cluster to full color
+      placedCount++;
+      if (placedCount === 1) instruction.innerHTML = 'Nice. <strong>Two clusters to go.</strong>';
+      else if (placedCount === 2) instruction.innerHTML = 'Almost — <strong>one cluster left.</strong>';
+      else if (placedCount === 3) win();
+    }
+
+    let wrongTimer = null;
+    function nudgeWrong() {
+      instruction.innerHTML = "Different cluster — <strong>match the color.</strong>";
+      clearTimeout(wrongTimer);
+      wrongTimer = setTimeout(() => {
+        if (placedCount < 3) instruction.innerHTML = 'Drag each <strong>cell population</strong> into the cluster of the same color to enter.';
+      }, 1800);
+    }
+
+    function win() {
+      instruction.innerHTML = '<strong>Clusters formed.</strong> Welcome to the lab.';
+      document.getElementById('enter').classList.add('show');
+      burst();
+    }
+
+    function burst() {
+      const layer = document.getElementById('burst');
+      const cols = [COLORS.coral, COLORS.amber, COLORS.teal, getCSS('--cream')];
+      const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+      for (let i = 0; i < 70; i++) {
+        const pp = document.createElement('i');
+        pp.style.background = cols[i % cols.length];
+        pp.style.left = cx + 'px'; pp.style.top = cy + 'px';
+        layer.appendChild(pp);
+        const ang = Math.random() * Math.PI * 2;
+        const vel = 120 + Math.random() * 320;
+        const dx = Math.cos(ang) * vel, dy = Math.sin(ang) * vel - 120;
+        const rot = (Math.random() * 720 - 360);
+        pp.animate([
+          { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+          { transform: 'translate(' + dx + 'px,' + (dy + 360) + 'px) rotate(' + rot + 'deg)', opacity: 0 }
+        ], { duration: 1100 + Math.random() * 700, easing: 'cubic-bezier(.2,.6,.3,1)', fill: 'forwards' });
+        setTimeout(() => pp.remove(), 1900);
+      }
+    }
+  })();
+  [[SCRIPTEND]]
+</body>
+</html>
+</script>
+<script type="text/plain" class="game"><!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GAME Lab · Enter (Plasmid)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #1A1A1F;
+    --paper: #FBF7EC;
+    --cream: #F6F1E4;
+    --coral: #E8593C;
+    --amber: #E8B23A;
+    --teal: #2C8B8E;
+    --muted: #8A8270;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    background: var(--paper);
+    font-family: Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    overflow: hidden;
+  }
+  body {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh;
+    -webkit-user-select: none; user-select: none;
+    touch-action: none;
+  }
+
+  .stage {
+    width: 100%; max-width: 760px;
+    padding: 32px 24px 40px;
+    display: flex; flex-direction: column; align-items: center;
+  }
+
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 14px;
+  }
+  .title {
+    font-weight: 700; font-size: 44px; letter-spacing: -1.5px;
+    margin: 0 0 8px; text-align: center;
+  }
+  .instruction {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px; letter-spacing: 1px; color: var(--muted);
+    text-align: center; max-width: 42ch; line-height: 1.6;
+    margin: 0 0 22px; min-height: 40px;
+    transition: color .3s;
+  }
+  .instruction strong { color: var(--ink); font-weight: 600; }
+
+  /* Tray + fragment chips (top) */
+  .tray {
+    display: flex; gap: 26px; align-items: center; justify-content: center;
+    height: 70px;
+    padding: 0 18px 20px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid rgba(26,26,31,0.1);
+  }
+  .token {
+    position: relative;
+    width: 60px; height: 30px; border-radius: 8px;
+    background: var(--c);
+    border: 2.5px solid var(--ink);
+    cursor: grab;
+    touch-action: none;
+    box-shadow: 0 3px 0 rgba(26,26,31,0.18);
+    transition: box-shadow .2s, transform .15s;
+  }
+  /* sticky-ends — little notches reading as a DNA fragment */
+  .token::before, .token::after {
+    content: ""; position: absolute; top: 50%; width: 7px; height: 12px;
+    margin-top: -6px; background: var(--paper);
+    border: 2.5px solid var(--ink);
+  }
+  .token::before { left: -6px; border-right: none; border-radius: 4px 0 0 4px; }
+  .token::after  { right: -6px; border-left: none; border-radius: 0 4px 4px 0; }
+  .token:hover { box-shadow: 0 5px 0 rgba(26,26,31,0.2); }
+  .token.dragging {
+    cursor: grabbing; z-index: 50;
+    box-shadow: 0 10px 24px rgba(26,26,31,0.28);
+    transition: none;
+  }
+  .token.placed { visibility: hidden; }
+  .token.slot-empty { opacity: 0; pointer-events: none; }
+
+  /* Board */
+  .board-wrap {
+    position: relative;
+    width: 360px; height: 360px;
+    transform: scale(1.2);
+    transform-origin: center;
+    margin: 44px 0;
+  }
+  .board-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .seg { transition: opacity .45s; }
+
+  .well {
+    position: absolute;
+    width: 54px; height: 54px;
+    margin: -27px 0 0 -27px;
+    border-radius: 50%;
+    border: 2.5px dashed var(--c);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .25s cubic-bezier(.34,1.56,.64,1), background .25s, box-shadow .25s, opacity .35s;
+  }
+  .well::after {
+    content: ""; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--c); opacity: .5; transition: opacity .2s;
+  }
+  .well.hover { transform: scale(1.12); box-shadow: 0 0 0 6px color-mix(in srgb, var(--c) 18%, transparent); }
+  .well.wrong { transform: scale(1.06); box-shadow: 0 0 0 6px color-mix(in srgb, var(--ink) 10%, transparent); }
+  .well.filled { opacity: 0; pointer-events: none; }
+
+  .enter {
+    margin-top: 24px;
+    opacity: 0; transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity .5s, transform .5s;
+  }
+  .enter.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .enter a {
+    display: inline-flex; align-items: center; gap: 14px;
+    background: var(--ink); color: var(--paper);
+    text-decoration: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px; letter-spacing: 3px; text-transform: uppercase;
+    padding: 16px 30px; border-radius: 2px;
+    transition: gap .2s, background .2s;
+  }
+  .enter a:hover { gap: 20px; background: #000; }
+  .enter a .arrow { transition: transform .2s; }
+  .enter a:hover .arrow { transform: translateX(4px); }
+
+  .burst { position: fixed; inset: 0; pointer-events: none; z-index: 100; overflow: hidden; }
+  .burst i { position: absolute; width: 9px; height: 9px; border-radius: 1px; will-change: transform, opacity; }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="eyebrow">GAME Lab</div>
+    <h1 class="title">Genomics &amp; Adaptive Mechanisms</h1>
+    <p class="instruction" id="instruction">
+      Drop each <strong>gene fragment</strong> into its matching site to build the plasmid.
+    </p>
+
+    <div class="tray" id="tray">
+      <!-- fragment chips injected via JS (shuffled) -->
+    </div>
+
+    <div class="board-wrap" id="board">
+      <svg class="board-svg" id="plasmid" viewBox="0 0 360 360" aria-hidden="true"></svg>
+      <div class="well" data-color="coral" style="--c: var(--coral);"></div>
+      <div class="well" data-color="amber" style="--c: var(--amber);"></div>
+      <div class="well" data-color="teal"  style="--c: var(--teal);"></div>
+    </div>
+
+    <div class="enter" id="enter">
+      <a href="##DEST##" target="_top">
+        <span>Enter GAME Lab</span>
+        <span class="arrow">&rarr;</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="burst" id="burst"></div>
+
+  <script>
+  (function () {
+    function getCSS(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+    const COLORS = { coral: getCSS('--coral'), amber: getCSS('--amber'), teal: getCSS('--teal') };
+
+    const board = document.getElementById('board');
+    const svg = document.getElementById('plasmid');
+    const instruction = document.getElementById('instruction');
+
+    // ---- plasmid geometry (viewBox 360x360) — matches the logo's G·Plasmid ----
+    const CX = 180, CY = 186, R_OUT = 118, R_IN = 84, R_MID = (R_OUT + R_IN) / 2;
+    const rad = d => d * Math.PI / 180;
+    const ARROW = 12;   // angular size of each feature's arrowhead
+
+    // Three gene features around the ring, leaving a mouth gap on the right
+    // (so it still reads as a G). Angles clockwise, 0 = right (3 o'clock).
+    const segs = {
+      coral: { a0: 28,  a1: 128 },
+      amber: { a0: 134, a1: 234 },
+      teal:  { a0: 240, a1: 332 },
+    };
+
+    // Feature path with a directional arrowhead (body + tapered tip), exactly
+    // like the logo's plasmid features.
+    function featurePath(a0, a1) {
+      const bodyEnd = a1 - ARROW;
+      const p0 = rad(a0), pB = rad(bodyEnd), p1 = rad(a1);
+      const large = (bodyEnd - a0) > 180 ? 1 : 0;
+      const x1 = CX + R_OUT * Math.cos(p0), y1 = CY + R_OUT * Math.sin(p0);
+      const x2 = CX + R_OUT * Math.cos(pB), y2 = CY + R_OUT * Math.sin(pB);
+      const tx = CX + R_MID * Math.cos(p1), ty = CY + R_MID * Math.sin(p1);
+      const x3 = CX + R_IN  * Math.cos(pB), y3 = CY + R_IN  * Math.sin(pB);
+      const x4 = CX + R_IN  * Math.cos(p0), y4 = CY + R_IN  * Math.sin(p0);
+      return 'M' + x1 + ' ' + y1 + ' A' + R_OUT + ' ' + R_OUT + ' 0 ' + large + ' 1 ' + x2 + ' ' + y2
+           + ' L' + tx + ' ' + ty + ' L' + x3 + ' ' + y3
+           + ' A' + R_IN + ' ' + R_IN + ' 0 ' + large + ' 0 ' + x4 + ' ' + y4 + ' Z';
+    }
+
+    const INK = getCSS('--ink');
+    let m = '';
+    // faint backbone features (the empty plasmid awaiting its inserts)
+    for (const c in segs) {
+      const s = segs[c];
+      m += '<path id="seg-' + c + '" class="seg" d="' + featurePath(s.a0, s.a1) + '" '
+         + 'fill="' + COLORS[c] + '" stroke="' + INK + '" stroke-width="1.6" '
+         + 'stroke-linejoin="round" opacity="0.16"/>';
+    }
+    // restriction-site ticks (line + end dot) at every feature boundary
+    [28, 128, 134, 234, 240, 332].forEach(deg => {
+      const a = rad(deg);
+      const x1 = CX + (R_OUT + 1) * Math.cos(a), y1 = CY + (R_OUT + 1) * Math.sin(a);
+      const x2 = CX + (R_OUT + 9) * Math.cos(a), y2 = CY + (R_OUT + 9) * Math.sin(a);
+      m += '<line x1="' + x1.toFixed(1) + '" y1="' + y1.toFixed(1) + '" x2="' + x2.toFixed(1) + '" y2="' + y2.toFixed(1) + '" stroke="' + INK + '" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>';
+      m += '<circle cx="' + x2.toFixed(1) + '" cy="' + y2.toFixed(1) + '" r="1.6" fill="' + INK + '" opacity="0.55"/>';
+    });
+    // MCS cassette — the G's inner tongue, a multiple-cloning-site box of cells
+    const stubX = CX, stubY = CY - 11, stubW = R_OUT - 4, stubH = 22;
+    m += '<rect x="' + stubX + '" y="' + stubY + '" width="' + stubW + '" height="' + stubH + '" fill="' + getCSS('--paper') + '" stroke="' + INK + '" stroke-width="2" opacity="0.7"/>';
+    const mcsCols = [COLORS.coral, getCSS('--cream'), COLORS.amber, COLORS.coral];
+    mcsCols.forEach((col, i) => {
+      m += '<rect x="' + (stubX + 4 + i * 16) + '" y="' + (stubY + 3) + '" width="13" height="' + (stubH - 6) + '" fill="' + col + '" stroke="' + INK + '" stroke-width="0.8" opacity="0.7"/>';
+    });
+    // origin-of-replication marker
+    const ao = rad(186);
+    m += '<circle cx="' + (CX + R_IN * Math.cos(ao)).toFixed(1) + '" cy="' + (CY + R_IN * Math.sin(ao)).toFixed(1) + '" r="3" fill="' + INK + '" opacity="0.55"/>';
+    svg.innerHTML = m;
+
+    // place wells at each segment midpoint, on the ring
+    const wellAng = {};
+    for (const c in segs) wellAng[c] = (segs[c].a0 + segs[c].a1) / 2;
+    document.querySelectorAll('.well').forEach(w => {
+      const c = w.dataset.color;
+      const a = rad(wellAng[c]);
+      w.style.left = (CX + R_MID * Math.cos(a)) + 'px';
+      w.style.top  = (CY + R_MID * Math.sin(a)) + 'px';
+    });
+
+    // ---- fragment chips (shuffled) ----
+    const tray = document.getElementById('tray');
+    const order = shuffle(['coral', 'amber', 'teal']);
+    const tokens = {};
+    order.forEach(c => {
+      const t = document.createElement('div');
+      t.className = 'token';
+      t.dataset.color = c;
+      t.style.setProperty('--c', COLORS[c]);
+      tray.appendChild(t);
+      tokens[c] = t;
+    });
+    function shuffle(a) { for (let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+
+    // ---- drag (free, snap into nearest site, mistakes allowed) ----
+    let placedCount = 0;
+
+    Object.values(tokens).forEach(token => {
+      let dragging = false, ghost = null, startX = 0, startY = 0, originRect = null;
+      const color = token.dataset.color;
+
+      token.addEventListener('pointerdown', (e) => {
+        if (token.classList.contains('placed')) return;
+        e.preventDefault();
+        dragging = true;
+        originRect = token.getBoundingClientRect();
+        ghost = token.cloneNode(true);
+        ghost.classList.add('dragging');
+        ghost.style.position = 'fixed';
+        ghost.style.left = originRect.left + 'px';
+        ghost.style.top = originRect.top + 'px';
+        ghost.style.margin = '0';
+        document.body.appendChild(ghost);
+        token.classList.add('slot-empty');
+        startX = e.clientX; startY = e.clientY;
+        token.setPointerCapture(e.pointerId);
+      });
+
+      token.addEventListener('pointermove', (e) => {
+        if (!dragging || !ghost) return;
+        const dx = e.clientX - startX, dy = e.clientY - startY;
+        ghost.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(1.06)';
+        const gr = ghost.getBoundingClientRect();
+        const w = wellAtPoint(gr.left + gr.width / 2, gr.top + gr.height / 2);
+        document.querySelectorAll('.well').forEach(x => x.classList.remove('hover', 'wrong'));
+        if (w && !w.classList.contains('filled')) {
+          w.classList.add(w.dataset.color === color ? 'hover' : 'wrong');
+        }
+      });
+
+      function endDrag(e) {
+        if (!dragging) return;
+        dragging = false;
+        document.querySelectorAll('.well').forEach(x => x.classList.remove('hover', 'wrong'));
+        if (!ghost) { token.classList.remove('slot-empty'); return; }
+        const gr = ghost.getBoundingClientRect();
+        const w = wellAtPoint(gr.left + gr.width / 2, gr.top + gr.height / 2);
+        const match = w && w.dataset.color === color && !w.classList.contains('filled');
+        if (match) {
+          ghost.remove(); ghost = null;
+          token.classList.remove('slot-empty');
+          token.classList.add('placed');
+          insertFragment(color, w);
+        } else {
+          if (w && !match && !w.classList.contains('filled')) nudgeWrong();
+          ghost.style.transition = 'transform .35s cubic-bezier(.34,1.56,.64,1)';
+          ghost.style.transform = 'translate(0,0) scale(1)';
+          const g = ghost; ghost = null;
+          setTimeout(() => { g.remove(); token.classList.remove('slot-empty'); }, 340);
+        }
+      }
+      token.addEventListener('pointerup', endDrag);
+      token.addEventListener('pointercancel', endDrag);
+      token.addEventListener('lostpointercapture', endDrag);
+    });
+
+    function wellAtPoint(cx, cy) {
+      for (const w of document.querySelectorAll('.well')) {
+        const r = w.getBoundingClientRect();
+        const wx = r.left + r.width/2, wy = r.top + r.height/2;
+        if (Math.hypot(cx - wx, cy - wy) < 60) return w;
+      }
+      return null;
+    }
+
+    function insertFragment(color, w) {
+      w.classList.add('filled');
+      // light the backbone segment to full color (the fragment ligates in)
+      document.getElementById('seg-' + color).setAttribute('opacity', '0.95');
+      placedCount++;
+      if (placedCount === 1) instruction.innerHTML = 'Ligated. <strong>Two fragments to go.</strong>';
+      else if (placedCount === 2) instruction.innerHTML = 'Almost — <strong>one fragment left.</strong>';
+      else if (placedCount === 3) win();
+    }
+
+    let wrongTimer = null;
+    function nudgeWrong() {
+      instruction.innerHTML = "Wrong site — <strong>match the color.</strong>";
+      clearTimeout(wrongTimer);
+      wrongTimer = setTimeout(() => {
+        if (placedCount < 3) instruction.innerHTML = 'Drop each <strong>gene fragment</strong> into its matching site to build the plasmid.';
+      }, 1800);
+    }
+
+    function win() {
+      instruction.innerHTML = '<strong>Plasmid assembled.</strong> Welcome to the lab.';
+      document.getElementById('enter').classList.add('show');
+      burst();
+    }
+
+    function burst() {
+      const layer = document.getElementById('burst');
+      const cols = [COLORS.coral, COLORS.amber, COLORS.teal, getCSS('--cream')];
+      const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+      for (let i = 0; i < 70; i++) {
+        const p = document.createElement('i');
+        p.style.background = cols[i % cols.length];
+        p.style.left = cx + 'px'; p.style.top = cy + 'px';
+        layer.appendChild(p);
+        const ang = Math.random() * Math.PI * 2;
+        const vel = 120 + Math.random() * 320;
+        const dx = Math.cos(ang) * vel, dy = Math.sin(ang) * vel - 120;
+        const rot = (Math.random() * 720 - 360);
+        p.animate([
+          { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+          { transform: 'translate(' + dx + 'px,' + (dy + 360) + 'px) rotate(' + rot + 'deg)', opacity: 0 }
+        ], { duration: 1100 + Math.random() * 700, easing: 'cubic-bezier(.2,.6,.3,1)', fill: 'forwards' });
+        setTimeout(() => p.remove(), 1900);
+      }
+    }
+  })();
+  [[SCRIPTEND]]
+</body>
+</html>
+</script>
+<script type="text/plain" class="game"><!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GAME Lab · Enter (Reads)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #1A1A1F;
+    --paper: #FBF7EC;
+    --cream: #F6F1E4;
+    --coral: #E8593C;
+    --amber: #E8B23A;
+    --teal: #2C8B8E;
+    --muted: #8A8270;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    background: var(--paper);
+    font-family: Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    overflow: hidden;
+  }
+  body {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh;
+    -webkit-user-select: none; user-select: none;
+    touch-action: none;
+  }
+
+  .stage {
+    width: 100%; max-width: 760px;
+    padding: 32px 24px 40px;
+    display: flex; flex-direction: column; align-items: center;
+  }
+
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 14px;
+  }
+  .title {
+    font-weight: 700; font-size: 44px; letter-spacing: -1.5px;
+    margin: 0 0 8px; text-align: center;
+  }
+  .instruction {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px; letter-spacing: 1px; color: var(--muted);
+    text-align: center; max-width: 42ch; line-height: 1.6;
+    margin: 0 0 22px; min-height: 40px;
+    transition: color .3s;
+  }
+  .instruction strong { color: var(--ink); font-weight: 600; }
+
+  /* Tray + read-stack chips (top) */
+  .tray {
+    display: flex; gap: 26px; align-items: center; justify-content: center;
+    height: 76px;
+    padding: 0 18px 20px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid rgba(26,26,31,0.1);
+  }
+  .token {
+    position: relative;
+    width: 64px; height: 40px; border-radius: 7px;
+    background: var(--paper);
+    border: 2.5px solid var(--ink);
+    cursor: grab;
+    touch-action: none;
+    padding: 6px 7px;
+    display: flex; flex-direction: column; justify-content: center; gap: 3px;
+    box-shadow: 0 3px 0 rgba(26,26,31,0.18);
+    transition: box-shadow .2s, transform .15s;
+  }
+  .token .rd { height: 4px; border-radius: 2px; background: var(--c); }
+  .token .rd:nth-child(1) { width: 80%; }
+  .token .rd:nth-child(2) { width: 100%; margin-left: 8%; }
+  .token .rd:nth-child(3) { width: 64%; margin-left: 4%; }
+  .token .rd:nth-child(4) { width: 88%; }
+  .token:hover { box-shadow: 0 5px 0 rgba(26,26,31,0.2); }
+  .token.dragging {
+    cursor: grabbing; z-index: 50;
+    box-shadow: 0 10px 24px rgba(26,26,31,0.28);
+    transition: none;
+  }
+  .token.placed { visibility: hidden; }
+  .token.slot-empty { opacity: 0; pointer-events: none; }
+
+  /* Board */
+  .board-wrap {
+    position: relative;
+    width: 360px; height: 360px;
+    transform: scale(1.2);
+    transform-origin: center;
+    margin: 44px 0;
+  }
+  .board-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .rdbar { transition: opacity .5s; }
+  .board-svg.on-coral .r-coral { opacity: .95 !important; }
+  .board-svg.on-amber .r-amber { opacity: .95 !important; }
+  .board-svg.on-teal  .r-teal  { opacity: .95 !important; }
+
+  .well {
+    position: absolute;
+    width: 54px; height: 54px;
+    margin: -27px 0 0 -27px;
+    border-radius: 50%;
+    border: 2.5px dashed var(--c);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s, opacity .35s;
+  }
+  .well::after {
+    content: ""; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--c); opacity: .5; transition: opacity .2s;
+  }
+  .well.hover { transform: scale(1.12); box-shadow: 0 0 0 6px color-mix(in srgb, var(--c) 18%, transparent); }
+  .well.wrong { transform: scale(1.06); box-shadow: 0 0 0 6px color-mix(in srgb, var(--ink) 10%, transparent); }
+  .well.filled { opacity: 0; pointer-events: none; }
+
+  .enter {
+    margin-top: 24px;
+    opacity: 0; transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity .5s, transform .5s;
+  }
+  .enter.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .enter a {
+    display: inline-flex; align-items: center; gap: 14px;
+    background: var(--ink); color: var(--paper);
+    text-decoration: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px; letter-spacing: 3px; text-transform: uppercase;
+    padding: 16px 30px; border-radius: 2px;
+    transition: gap .2s, background .2s;
+  }
+  .enter a:hover { gap: 20px; background: #000; }
+  .enter a .arrow { transition: transform .2s; }
+  .enter a:hover .arrow { transform: translateX(4px); }
+
+  .burst { position: fixed; inset: 0; pointer-events: none; z-index: 100; overflow: hidden; }
+  .burst i { position: absolute; width: 9px; height: 9px; border-radius: 1px; will-change: transform, opacity; }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="eyebrow">GAME Lab</div>
+    <h1 class="title">Genomics &amp; Adaptive Mechanisms</h1>
+    <p class="instruction" id="instruction">
+      Drop each <strong>read stack</strong> onto its matching region to align the reads.
+    </p>
+
+    <div class="tray" id="tray">
+      <!-- read-stack chips injected via JS (shuffled) -->
+    </div>
+
+    <div class="board-wrap" id="board">
+      <svg class="board-svg" id="reads" viewBox="0 0 360 360" aria-hidden="true"></svg>
+      <div class="well" data-color="coral" style="--c: var(--coral);"></div>
+      <div class="well" data-color="amber" style="--c: var(--amber);"></div>
+      <div class="well" data-color="teal"  style="--c: var(--teal);"></div>
+    </div>
+
+    <div class="enter" id="enter">
+      <a href="##DEST##" target="_top">
+        <span>Enter GAME Lab</span>
+        <span class="arrow">&rarr;</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="burst" id="burst"></div>
+
+  <script>
+  (function () {
+    function getCSS(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+    const COLORS = { coral: getCSS('--coral'), amber: getCSS('--amber'), teal: getCSS('--teal') };
+    const INK = getCSS('--ink');
+
+    const board = document.getElementById('board');
+    const svg = document.getElementById('reads');
+    const instruction = document.getElementById('instruction');
+
+    // ---- G·Reads geometry (viewBox 360x360) — matches the logo's dense reads ----
+    const CX = 180, CY = 184, R_OUT = 122, R_IN = 74, R_MID = (R_OUT + R_IN) / 2;
+    const MOUTH = 25 * Math.PI / 180;   // half-angle of the right-facing opening
+
+    function inG(x, y) {
+      const dx = x - CX, dy = y - CY, r = Math.hypot(dx, dy);
+      if (r >= R_IN && r <= R_OUT) {
+        const ang = Math.atan2(dy, dx);
+        if (Math.abs(ang) < MOUTH) return false;   // mouth gap on the right
+        return true;
+      }
+      if (x >= CX && x <= CX + 96 && y >= CY - 18 && y <= CY + 18) return true;  // inner stub
+      return false;
+    }
+
+    // 3 colored regions (lobes) — top=coral, left=amber, bottom=teal.
+    const regions = {
+      coral: { x: CX,           y: CY - R_MID },
+      amber: { x: CX - R_MID,   y: CY },
+      teal:  { x: CX,           y: CY + R_MID },
+    };
+    function regionOf(x, y) {
+      let best = 'coral', bd = Infinity;
+      for (const k in regions) {
+        const d = (x - regions[k].x) ** 2 + (y - regions[k].y) ** 2;
+        if (d < bd) { bd = d; best = k; }
+      }
+      return best;
+    }
+    function rand(i) { const s = Math.sin(i * 12.9898) * 43758.5453; return s - Math.floor(s); }
+
+    // Build densely-stacked horizontal reads filling the G, each tinted by region.
+    let m = '';
+    const rowH = 4;
+    let ri = 0;
+    for (let y = CY - R_OUT; y <= CY + R_OUT; y += rowH) {
+      const spans = [];
+      let inSeg = false, x0 = 0;
+      for (let x = 0; x <= 360; x++) {
+        const inside = inG(x, y);
+        if (inside && !inSeg) { inSeg = true; x0 = x; }
+        else if (!inside && inSeg) { inSeg = false; spans.push([x0, x]); }
+      }
+      if (inSeg) spans.push([x0, 360]);
+      spans.forEach((sp, si) => {
+        const w = sp[1] - sp[0];
+        if (w < 6) return;
+        const n = 1 + Math.floor(rand(ri * 13 + si * 5) * 2) + (w > 60 ? 1 : 0);
+        for (let i = 0; i < n; i++) {
+          const rw = Math.max(6, Math.floor(6 + rand(ri * 17 + i * 11 + si * 3) * Math.max(2, w - 8)));
+          const rx = sp[0] + Math.floor(rand(ri * 19 + i * 13 + si * 7) * Math.max(1, w - rw));
+          const reg = regionOf(rx + rw / 2, y);
+          m += '<rect class="rdbar r-' + reg + '" x="' + rx + '" y="' + y.toFixed(1) + '" width="' + rw + '" height="' + (rowH - 1) + '" '
+             + 'fill="' + COLORS[reg] + '" stroke="' + INK + '" stroke-width="0.4" opacity="0.16"/>';
+        }
+        ri++;
+      });
+    }
+    svg.innerHTML = m;
+
+    // place wells at the 3 region centers
+    document.querySelectorAll('.well').forEach(w => {
+      const c = w.dataset.color;
+      w.style.left = regions[c].x + 'px';
+      w.style.top  = regions[c].y + 'px';
+    });
+
+    // ---- read-stack chips (shuffled) ----
+    const tray = document.getElementById('tray');
+    const order = shuffle(['coral', 'amber', 'teal']);
+    const tokens = {};
+    order.forEach(c => {
+      const t = document.createElement('div');
+      t.className = 'token';
+      t.dataset.color = c;
+      t.style.setProperty('--c', COLORS[c]);
+      t.innerHTML = '<span class="rd"></span><span class="rd"></span><span class="rd"></span><span class="rd"></span>';
+      tray.appendChild(t);
+      tokens[c] = t;
+    });
+    function shuffle(a) { for (let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+
+    // ---- drag (free, snap to nearest region, mistakes allowed) ----
+    let placedCount = 0;
+
+    Object.values(tokens).forEach(token => {
+      let dragging = false, ghost = null, startX = 0, startY = 0, originRect = null;
+      const color = token.dataset.color;
+
+      token.addEventListener('pointerdown', (e) => {
+        if (token.classList.contains('placed')) return;
+        e.preventDefault();
+        dragging = true;
+        originRect = token.getBoundingClientRect();
+        ghost = token.cloneNode(true);
+        ghost.classList.add('dragging');
+        ghost.style.position = 'fixed';
+        ghost.style.left = originRect.left + 'px';
+        ghost.style.top = originRect.top + 'px';
+        ghost.style.margin = '0';
+        document.body.appendChild(ghost);
+        token.classList.add('slot-empty');
+        startX = e.clientX; startY = e.clientY;
+        token.setPointerCapture(e.pointerId);
+      });
+
+      token.addEventListener('pointermove', (e) => {
+        if (!dragging || !ghost) return;
+        const dx = e.clientX - startX, dy = e.clientY - startY;
+        ghost.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(1.06)';
+        const gr = ghost.getBoundingClientRect();
+        const w = wellAtPoint(gr.left + gr.width / 2, gr.top + gr.height / 2);
+        document.querySelectorAll('.well').forEach(x => x.classList.remove('hover', 'wrong'));
+        if (w && !w.classList.contains('filled')) {
+          w.classList.add(w.dataset.color === color ? 'hover' : 'wrong');
+        }
+      });
+
+      function endDrag(e) {
+        if (!dragging) return;
+        dragging = false;
+        document.querySelectorAll('.well').forEach(x => x.classList.remove('hover', 'wrong'));
+        if (!ghost) { token.classList.remove('slot-empty'); return; }
+        const gr = ghost.getBoundingClientRect();
+        const w = wellAtPoint(gr.left + gr.width / 2, gr.top + gr.height / 2);
+        const match = w && w.dataset.color === color && !w.classList.contains('filled');
+        if (match) {
+          ghost.remove(); ghost = null;
+          token.classList.remove('slot-empty');
+          token.classList.add('placed');
+          alignReads(color, w);
+        } else {
+          if (w && !match && !w.classList.contains('filled')) nudgeWrong();
+          ghost.style.transition = 'transform .35s cubic-bezier(.34,1.56,.64,1)';
+          ghost.style.transform = 'translate(0,0) scale(1)';
+          const g = ghost; ghost = null;
+          setTimeout(() => { g.remove(); token.classList.remove('slot-empty'); }, 340);
+        }
+      }
+      token.addEventListener('pointerup', endDrag);
+      token.addEventListener('pointercancel', endDrag);
+      token.addEventListener('lostpointercapture', endDrag);
+    });
+
+    function wellAtPoint(cx, cy) {
+      for (const w of document.querySelectorAll('.well')) {
+        const r = w.getBoundingClientRect();
+        const wx = r.left + r.width/2, wy = r.top + r.height/2;
+        if (Math.hypot(cx - wx, cy - wy) < 60) return w;
+      }
+      return null;
+    }
+
+    function alignReads(color, w) {
+      w.classList.add('filled');
+      svg.classList.add('on-' + color);   // light that region's reads to full color
+      placedCount++;
+      if (placedCount === 1) instruction.innerHTML = 'Aligned. <strong>Two regions to go.</strong>';
+      else if (placedCount === 2) instruction.innerHTML = 'Almost — <strong>one region left.</strong>';
+      else if (placedCount === 3) win();
+    }
+
+    let wrongTimer = null;
+    function nudgeWrong() {
+      instruction.innerHTML = "Wrong region — <strong>match the color.</strong>";
+      clearTimeout(wrongTimer);
+      wrongTimer = setTimeout(() => {
+        if (placedCount < 3) instruction.innerHTML = 'Drop each <strong>read stack</strong> onto its matching region to align the reads.';
+      }, 1800);
+    }
+
+    function win() {
+      instruction.innerHTML = '<strong>Reads aligned.</strong> Welcome to the lab.';
+      document.getElementById('enter').classList.add('show');
+      burst();
+    }
+
+    function burst() {
+      const layer = document.getElementById('burst');
+      const cols = [COLORS.coral, COLORS.amber, COLORS.teal, getCSS('--cream')];
+      const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+      for (let i = 0; i < 70; i++) {
+        const p = document.createElement('i');
+        p.style.background = cols[i % cols.length];
+        p.style.left = cx + 'px'; p.style.top = cy + 'px';
+        layer.appendChild(p);
+        const ang = Math.random() * Math.PI * 2;
+        const vel = 120 + Math.random() * 320;
+        const dx = Math.cos(ang) * vel, dy = Math.sin(ang) * vel - 120;
+        const rot = (Math.random() * 720 - 360);
+        p.animate([
+          { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+          { transform: 'translate(' + dx + 'px,' + (dy + 360) + 'px) rotate(' + rot + 'deg)', opacity: 0 }
+        ], { duration: 1100 + Math.random() * 700, easing: 'cubic-bezier(.2,.6,.3,1)', fill: 'forwards' });
+        setTimeout(() => p.remove(), 1900);
+      }
+    }
+  })();
+  [[SCRIPTEND]]
+</body>
+</html>
+</script>
+<script type="text/plain" class="game"><!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GAME Lab · Enter (Hopscotch)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #1A1A1F;
+    --paper: #FBF7EC;
+    --cream: #F6F1E4;
+    --coral: #E8593C;
+    --amber: #E8B23A;
+    --teal: #2C8B8E;
+    --muted: #8A8270;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    background: var(--paper);
+    font-family: Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    overflow: hidden;
+  }
+  body {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh;
+    -webkit-user-select: none; user-select: none;
+    touch-action: none;
+  }
+
+  .stage {
+    width: 100%; max-width: 760px;
+    padding: 32px 24px 40px;
+    display: flex; flex-direction: column; align-items: center;
+  }
+
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 14px;
+  }
+  .title {
+    font-weight: 700; font-size: 44px; letter-spacing: -1.5px;
+    margin: 0 0 8px; text-align: center;
+  }
+  .instruction {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px; letter-spacing: 1px; color: var(--muted);
+    text-align: center; max-width: 42ch; line-height: 1.6;
+    margin: 0 0 22px; min-height: 40px;
+    transition: color .3s;
+  }
+  .instruction strong { color: var(--ink); font-weight: 600; }
+  .cw {
+    display: inline-block; width: 13px; height: 13px; border-radius: 50%;
+    border: 1.5px solid var(--ink); vertical-align: -2px; margin: 0 2px;
+  }
+
+  /* Board */
+  .board-wrap {
+    position: relative;
+    width: 360px; height: 360px;
+  }
+  .mtile {
+    position: absolute;
+    width: 48px; height: 48px;
+    margin: -24px 0 0 -24px;       /* positioned by center */
+    border-radius: 7px;
+    border: 2.5px solid var(--ink);
+    background: var(--c);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'IBM Plex Mono', monospace; font-weight: 600;
+    font-size: 16px; color: var(--ink);
+    opacity: 0.9;
+    transition: opacity .3s, transform .2s, box-shadow .3s;
+    cursor: pointer;
+  }
+  .mtile.done {
+    opacity: 1;
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--ink) 18%, transparent);
+  }
+  .mtile.cue {
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ink) 22%, transparent); }
+    50%      { box-shadow: 0 0 0 8px color-mix(in srgb, var(--ink) 0%, transparent); transform: scale(1.06); }
+  }
+
+  .stone {
+    position: absolute;
+    width: 30px; height: 30px; border-radius: 50%;
+    margin: -15px 0 0 -15px;
+    background: var(--ink);
+    border: 2.5px solid var(--ink);
+    z-index: 5;
+    box-shadow: 0 4px 10px rgba(26,26,31,0.3);
+    transition: left .32s cubic-bezier(.34,1.4,.5,1), top .32s cubic-bezier(.34,1.4,.5,1);
+    pointer-events: none;
+  }
+  .stone::after {
+    content: ""; position: absolute; left: 7px; top: 6px;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--cream);
+  }
+
+  .enter {
+    margin-top: 24px;
+    opacity: 0; transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity .5s, transform .5s;
+  }
+  .enter.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .enter a {
+    display: inline-flex; align-items: center; gap: 14px;
+    background: var(--ink); color: var(--paper);
+    text-decoration: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px; letter-spacing: 3px; text-transform: uppercase;
+    padding: 16px 30px; border-radius: 2px;
+    transition: gap .2s, background .2s;
+  }
+  .enter a:hover { gap: 20px; background: #000; }
+  .enter a .arrow { transition: transform .2s; }
+  .enter a:hover .arrow { transform: translateX(4px); }
+
+  .burst { position: fixed; inset: 0; pointer-events: none; z-index: 100; overflow: hidden; }
+  .burst i { position: absolute; width: 9px; height: 9px; border-radius: 1px; will-change: transform, opacity; }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="eyebrow">GAME Lab</div>
+    <h1 class="title">Genomics &amp; Adaptive Mechanisms</h1>
+    <p class="instruction" id="instruction">
+      Hop the stone to the colour shown, one tile at a time.
+    </p>
+
+    <div class="board-wrap" id="board">
+      <!-- tiles + stone injected via JS -->
+      <div class="stone" id="stone"></div>
+    </div>
+
+    <div class="enter" id="enter">
+      <a href="##DEST##" target="_top">
+        <span>Enter GAME Lab</span>
+        <span class="arrow">&rarr;</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="burst" id="burst"></div>
+
+  <script>
+  (function () {
+    function getCSS(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+    const COLORS = { coral: getCSS('--coral'), amber: getCSS('--amber'), cream: getCSS('--cream') };
+    const PAL = [COLORS.cream, COLORS.amber, COLORS.coral];
+    function rand(i) { const s = Math.sin(i * 12.9898) * 43758.5453; return s - Math.floor(s); }
+
+    const board = document.getElementById('board');
+    const stone = document.getElementById('stone');
+    const instruction = document.getElementById('instruction');
+
+    // ---- M hopscotch layout (board 360x360) — mirrors the logo's M tiles ----
+    const OX = 30, OY = 34, STEPX = 64, STEPY = 60, HALF = 24;
+    const g = (cx, cy) => ({ x: OX + cx * STEPX + HALF, y: OY + cy * STEPY + HALF });
+    // n = hop order; grid cells trace the M (up left, down-up the middle V, up right)
+    const cells = [
+      { n: 1,  ...g(0, 4) }, { n: 2,  ...g(0, 3) }, { n: 3,  ...g(0, 2) },
+      { n: 4,  ...g(0, 1) }, { n: 5,  ...g(0, 0) },
+      { n: 6,  ...g(1, 1) }, { n: 7,  ...g(2, 2) }, { n: 8,  ...g(3, 1) },
+      { n: 9,  ...g(4, 0) }, { n: 10, ...g(4, 1) }, { n: 11, ...g(4, 2) },
+      { n: 12, ...g(4, 3) }, { n: 13, ...g(4, 4) },
+    ];
+    const total = cells.length;
+    const tileEls = {};
+
+    const NAMES = ['cream', 'amber', 'coral'];
+    const LABEL = { cream: 'Sand', amber: 'Amber', coral: 'Coral' };
+    const tileColor = [];   // index -> color name
+
+    cells.forEach((c, idx) => {
+      const name = NAMES[Math.floor(rand(idx * 13 + 7) * NAMES.length)];
+      tileColor[idx] = name;
+      const el = document.createElement('div');
+      el.className = 'mtile';
+      el.style.setProperty('--c', COLORS[name]);
+      el.style.left = c.x + 'px';
+      el.style.top = c.y + 'px';
+      el.textContent = c.n;
+      el.dataset.idx = idx;
+      el.dataset.cname = name;
+      board.appendChild(el);
+      tileEls[c.n] = el;
+      el.addEventListener('pointerdown', (e) => { e.preventDefault(); tryTap(idx); });
+    });
+
+    // Build the colour sequence — one hop per distinct colour present, in order.
+    const present = NAMES.filter(n => tileColor.includes(n));
+    const sequence = shuffle(present.slice());
+    let step = 0;
+
+    // stone rests on the first tile to start
+    moveStone(cells[0].x, cells[0].y);
+    promptStep();
+
+    function moveStone(x, y) { stone.style.left = x + 'px'; stone.style.top = y + 'px'; }
+    function swatch(name) { return '<span class="cw" style="background:' + COLORS[name] + '"></span>'; }
+    function shuffle(a) { for (let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+
+    function promptStep() {
+      const want = sequence[step];
+      document.querySelectorAll('.mtile').forEach(el => {
+        el.classList.toggle('cue', el.dataset.cname === want && !el.classList.contains('done'));
+      });
+      const n = step + 1, of = sequence.length;
+      instruction.innerHTML = n + '/' + of + ' &middot; hop to a ' + swatch(want) + '<strong>' + LABEL[want] + '</strong> tile.';
+    }
+
+    let wrongTimer = null;
+    function tryTap(idx) {
+      const el = board.querySelector('.mtile[data-idx="' + idx + '"]');
+      if (el.classList.contains('done')) return;
+      const want = sequence[step];
+      if (el.dataset.cname === want) {
+        el.classList.add('done');
+        el.classList.remove('cue');
+        moveStone(cells[idx].x, cells[idx].y);
+        step++;
+        if (step >= sequence.length) {
+          document.querySelectorAll('.mtile').forEach(e => e.classList.remove('cue'));
+          setTimeout(win, 360);
+        } else {
+          promptStep();
+        }
+      } else {
+        instruction.innerHTML = 'Wrong colour — go for ' + swatch(want) + '<strong>' + LABEL[want] + '</strong>.';
+        clearTimeout(wrongTimer);
+        wrongTimer = setTimeout(promptStep, 1500);
+      }
+    }
+
+    function win() {
+      instruction.innerHTML = '<strong>Course complete.</strong> Welcome to the lab.';
+      document.getElementById('enter').classList.add('show');
+      burst();
+    }
+
+    function burst() {
+      const layer = document.getElementById('burst');
+      const cols = [COLORS.coral, COLORS.amber, getCSS('--teal'), COLORS.cream];
+      const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+      for (let i = 0; i < 70; i++) {
+        const p = document.createElement('i');
+        p.style.background = cols[i % cols.length];
+        p.style.left = cx + 'px'; p.style.top = cy + 'px';
+        layer.appendChild(p);
+        const ang = Math.random() * Math.PI * 2;
+        const vel = 120 + Math.random() * 320;
+        const dx = Math.cos(ang) * vel, dy = Math.sin(ang) * vel - 120;
+        const rot = (Math.random() * 720 - 360);
+        p.animate([
+          { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+          { transform: 'translate(' + dx + 'px,' + (dy + 360) + 'px) rotate(' + rot + 'deg)', opacity: 0 }
+        ], { duration: 1100 + Math.random() * 700, easing: 'cubic-bezier(.2,.6,.3,1)', fill: 'forwards' });
+        setTimeout(() => p.remove(), 1900);
+      }
+    }
+  })();
+  [[SCRIPTEND]]
+</body>
+</html>
+</script>
+
+  <script>
+  (function () {
+    var ENTER_URL = '#';  /* <-- set to your real site URL */
+    var games = [].slice.call(document.querySelectorAll('script.game'));
+    var html = games[Math.floor(Math.random() * games.length)].textContent;
+    html = html.split('[[SCRIPTEND]]').join('<' + '/script>').split('##DEST##').join(ENTER_URL);
+    var f = document.getElementById('frame');
+    f.addEventListener('load', function () { var s = document.getElementById('splash'); if (s) { s.style.opacity = '0'; setTimeout(function(){ s.remove(); }, 400); } });
+    f.srcdoc = html;
+  })();
+</script>
+</body>
+</html>
