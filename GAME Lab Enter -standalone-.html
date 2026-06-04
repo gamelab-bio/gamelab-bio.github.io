@@ -57,7 +57,7 @@
 
   .stage {
     width: 100%; max-width: 760px;
-    padding: 32px 24px 40px;
+    padding: clamp(14px, 3vw, 32px) clamp(10px, 3vw, 24px) clamp(18px, 3vw, 40px);
     display: flex; flex-direction: column; align-items: center;
   }
 
@@ -68,7 +68,7 @@
     color: var(--muted); margin-bottom: 14px;
   }
   .title {
-    font-weight: 700; font-size: 44px; letter-spacing: -1.5px;
+    font-weight: 700; font-size: clamp(22px, 7vw, 44px); letter-spacing: -1.5px;
     margin: 0 0 8px; text-align: center;
   }
   .title .me { letter-spacing: -3px; }
@@ -131,9 +131,9 @@
 
   /* Tray + tokens */
   .tray {
-    display: flex; gap: 22px; align-items: center; justify-content: center;
+    display: flex; gap: clamp(8px, 4vw, 22px); align-items: center; justify-content: center;
     height: 76px;
-    padding: 0 18px 22px;
+    padding: 0 clamp(8px, 3vw, 18px) 22px;
     margin-bottom: 6px;
     border-bottom: 1px solid rgba(26,26,31,0.1);
   }
@@ -450,6 +450,17 @@
       }, 1800);
     }
 
+    (function(){
+      var b = board, NW = 340, NH = 360;
+      function fit(){
+        var s = Math.min(1, (window.innerWidth - 48) / NW);
+        b.style.transform = 'scale('+s+')';
+        b.style.transformOrigin = 'top center';
+        b.style.marginBottom = ((s-1)*NH)+'px';
+      }
+      fit(); window.addEventListener('resize', fit);
+    })();
+
     function win() {
       instruction.innerHTML = '<strong>Cells are sorted.</strong> Welcome to the lab.';
       document.getElementById('enter').classList.add('show');
@@ -520,7 +531,7 @@
 
   .stage {
     width: 100%; max-width: 760px;
-    padding: 32px 24px 40px;
+    padding: clamp(14px, 3vw, 32px) clamp(10px, 3vw, 24px) clamp(18px, 3vw, 40px);
     display: flex; flex-direction: column; align-items: center;
   }
 
@@ -530,7 +541,7 @@
     color: var(--muted); margin-bottom: 14px;
   }
   .title {
-    font-weight: 700; font-size: 44px; letter-spacing: -1.5px;
+    font-weight: 700; font-size: clamp(22px, 7vw, 44px); letter-spacing: -1.5px;
     margin: 0 0 8px; text-align: center;
   }
   .instruction {
@@ -784,7 +795,15 @@
         d.el = el;
       });
     });
+    function fitBoard() {
+      var s = Math.min(1, (window.innerWidth - 48) / 340);
+      board.style.transform = 'scale(' + s + ')';
+      board.style.transformOrigin = 'top center';
+      board.style.marginBottom = ((s - 1) * 360) + 'px';
+    }
+    fitBoard();
     window.addEventListener('resize', () => {
+      fitBoard();
       measure();
       pops.forEach(p => {
         if (p.state === 'home') { const h = homes[p.color]; p.tx = h.x; p.ty = h.y; }
@@ -1009,7 +1028,7 @@
 
   .stage {
     width: 100%; max-width: 760px;
-    padding: 32px 24px 40px;
+    padding: clamp(14px, 3vw, 32px) clamp(10px, 3vw, 24px) clamp(18px, 3vw, 40px);
     display: flex; flex-direction: column; align-items: center;
   }
 
@@ -1019,7 +1038,7 @@
     color: var(--muted); margin-bottom: 14px;
   }
   .title {
-    font-weight: 700; font-size: 44px; letter-spacing: -1.5px;
+    font-weight: 700; font-size: clamp(22px, 7vw, 44px); letter-spacing: -1.5px;
     margin: 0 0 8px; text-align: center;
   }
   .instruction {
@@ -1033,7 +1052,7 @@
 
   /* Tray + fragment chips (top) */
   .tray {
-    display: flex; gap: 26px; align-items: center; justify-content: center;
+    display: flex; gap: clamp(8px, 4vw, 26px); align-items: center; justify-content: center;
     height: 70px;
     padding: 0 18px 20px;
     margin-bottom: 8px;
@@ -1070,9 +1089,7 @@
   .board-wrap {
     position: relative;
     width: 360px; height: 360px;
-    transform: scale(1.2);
-    transform-origin: center;
-    margin: 44px 0;
+    transform-origin: top center;
   }
   .board-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
   .seg { transition: opacity .45s; }
@@ -1328,6 +1345,17 @@
       }, 1800);
     }
 
+    (function(){
+      var b = board, NW = 360, NH = 360;
+      function fit(){
+        var s = Math.min(1.2, (window.innerWidth - 48) / NW);
+        b.style.transform = 'scale('+s+')';
+        b.style.transformOrigin = 'top center';
+        b.style.marginBottom = ((s-1)*NH)+'px';
+      }
+      fit(); window.addEventListener('resize', fit);
+    })();
+
     function win() {
       instruction.innerHTML = '<strong>Plasmid assembled.</strong> Welcome to the lab.';
       document.getElementById('enter').classList.add('show');
@@ -1395,7 +1423,7 @@
 
   .stage {
     width: 100%; max-width: 760px;
-    padding: 32px 24px 40px;
+    padding: clamp(14px, 3vw, 32px) clamp(10px, 3vw, 24px) clamp(18px, 3vw, 40px);
     display: flex; flex-direction: column; align-items: center;
   }
 
@@ -1405,7 +1433,7 @@
     color: var(--muted); margin-bottom: 14px;
   }
   .title {
-    font-weight: 700; font-size: 44px; letter-spacing: -1.5px;
+    font-weight: 700; font-size: clamp(22px, 7vw, 44px); letter-spacing: -1.5px;
     margin: 0 0 8px; text-align: center;
   }
   .instruction {
@@ -1419,9 +1447,9 @@
 
   /* Tray + read-stack chips (top) */
   .tray {
-    display: flex; gap: 26px; align-items: center; justify-content: center;
+    display: flex; gap: clamp(8px, 4vw, 26px); align-items: center; justify-content: center;
     height: 76px;
-    padding: 0 18px 20px;
+    padding: 0 clamp(8px, 3vw, 18px) 20px;
     margin-bottom: 8px;
     border-bottom: 1px solid rgba(26,26,31,0.1);
   }
@@ -1455,9 +1483,7 @@
   .board-wrap {
     position: relative;
     width: 360px; height: 360px;
-    transform: scale(1.2);
-    transform-origin: center;
-    margin: 44px 0;
+    transform-origin: top center;
   }
   .board-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
   .rdbar { transition: opacity .5s; }
@@ -1716,6 +1742,17 @@
       }, 1800);
     }
 
+    (function(){
+      var b = board, NW = 360, NH = 360;
+      function fit(){
+        var s = Math.min(1.2, (window.innerWidth - 48) / NW);
+        b.style.transform = 'scale('+s+')';
+        b.style.transformOrigin = 'top center';
+        b.style.marginBottom = ((s-1)*NH)+'px';
+      }
+      fit(); window.addEventListener('resize', fit);
+    })();
+
     function win() {
       instruction.innerHTML = '<strong>Reads aligned.</strong> Welcome to the lab.';
       document.getElementById('enter').classList.add('show');
@@ -1783,7 +1820,7 @@
 
   .stage {
     width: 100%; max-width: 760px;
-    padding: 32px 24px 40px;
+    padding: clamp(14px, 3vw, 32px) clamp(10px, 3vw, 24px) clamp(18px, 3vw, 40px);
     display: flex; flex-direction: column; align-items: center;
   }
 
@@ -1793,7 +1830,7 @@
     color: var(--muted); margin-bottom: 14px;
   }
   .title {
-    font-weight: 700; font-size: 44px; letter-spacing: -1.5px;
+    font-weight: 700; font-size: clamp(22px, 7vw, 44px); letter-spacing: -1.5px;
     margin: 0 0 8px; text-align: center;
   }
   .instruction {
@@ -1993,6 +2030,17 @@
         wrongTimer = setTimeout(promptStep, 1500);
       }
     }
+
+    (function(){
+      var b = board, NW = 360, NH = 360;
+      function fit(){
+        var s = Math.min(1, (window.innerWidth - 48) / NW);
+        b.style.transform = 'scale('+s+')';
+        b.style.transformOrigin = 'top center';
+        b.style.marginBottom = ((s-1)*NH)+'px';
+      }
+      fit(); window.addEventListener('resize', fit);
+    })();
 
     function win() {
       instruction.innerHTML = '<strong>Course complete.</strong> Welcome to the lab.';
