@@ -454,7 +454,7 @@
     (function(){
       var b = board, NW = 340, NH = 360;
       function fit(){
-        var s = Math.min(1, (window.innerWidth - 48) / NW);
+        var s = Math.min(1, (window.innerWidth - 48) / NW, (window.innerHeight - 270) / NH);
         b.style.transform = 'scale('+s+')';
         b.style.transformOrigin = 'top center';
         b.style.marginBottom = ((s-1)*NH)+'px';
@@ -798,7 +798,7 @@
       });
     });
     function fitBoard() {
-      var s = Math.min(1, (window.innerWidth - 48) / 340);
+      var s = Math.min(1, (window.innerWidth - 48) / 340, (window.innerHeight - 280) / 360);
       board.style.transform = 'scale(' + s + ')';
       board.style.transformOrigin = 'top center';
       board.style.marginBottom = ((s - 1) * 360) + 'px';
@@ -1351,7 +1351,7 @@
     (function(){
       var b = board, NW = 360, NH = 360;
       function fit(){
-        var s = Math.min(1.2, (window.innerWidth - 48) / NW);
+        var s = Math.min(1.2, (window.innerWidth - 48) / NW, (window.innerHeight - 265) / NH);
         b.style.transform = 'scale('+s+')';
         b.style.transformOrigin = 'top center';
         b.style.marginBottom = ((s-1)*NH)+'px';
@@ -1749,7 +1749,7 @@
     (function(){
       var b = board, NW = 360, NH = 360;
       function fit(){
-        var s = Math.min(1.2, (window.innerWidth - 48) / NW);
+        var s = Math.min(1.2, (window.innerWidth - 48) / NW, (window.innerHeight - 265) / NH);
         b.style.transform = 'scale('+s+')';
         b.style.transformOrigin = 'top center';
         b.style.marginBottom = ((s-1)*NH)+'px';
@@ -2039,7 +2039,7 @@
     (function(){
       var b = board, NW = 360, NH = 360;
       function fit(){
-        var s = Math.min(1, (window.innerWidth - 48) / NW);
+        var s = Math.min(1, (window.innerWidth - 48) / NW, (window.innerHeight - 200) / NH);
         b.style.transform = 'scale('+s+')';
         b.style.transformOrigin = 'top center';
         b.style.marginBottom = ((s-1)*NH)+'px';
