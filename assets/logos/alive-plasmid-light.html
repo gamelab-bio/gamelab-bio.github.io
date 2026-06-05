@@ -6,8 +6,7 @@
 <style>
   html,body{margin:0;height:100%;background:#FBF7EC;font-family:Helvetica,Arial,sans-serif}
   #root{min-height:100vh;display:flex;align-items:center;justify-content:center}
-  .logo-tile{width:min(820px,94vw);border:none!important}
-  .logo-stage{padding:32px}
+  .logo-tile{width:820px;max-width:96vw;border:none!important}
   .logo-meta{display:none!important}
 </style></head><body><div id="root"></div>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
@@ -657,20 +656,19 @@ function MakeCompositeWordmark({ Gvariant, badge, dark = false, gSize = 0.86, am
   // Mini P6-style confetti clusters to sit beside "Lab" — four populations,
   // just a few cells each.
   const labClusters = [
-    { cx: 5, cy: 11, color: pCoral, n: 9 },
-    { cx: 15, cy: 8, color: pAmber, n: 8 },
-    { cx: 8, cy: 22, color: pTeal, n: 9 },
-    { cx: 20, cy: 19, color: "#3C61D8", n: 8 },
-    { cx: 27, cy: 12, color: "#5BA86B", n: 7 },
+    { cx: 9, cy: 8, color: "#E11D2A", n: 9, spread: 8.5 },
+    { cx: 22, cy: 14, color: "#1EA64A", n: 11, spread: 11 },
+    { cx: 12, cy: 22, color: "#1F5BE0", n: 9, spread: 8.5 },
   ];
   const labCells = [];
+  const labRot = Math.floor(Math.random() * 360);
   labClusters.forEach((cl, ci) => {
     for (let i = 0; i < cl.n; i++) {
       const ang = cSeed(ci * 53 + i * 2 + 1) * Math.PI * 2;
-      const rad = cSeed(ci * 53 + i * 2 + 2) * 5.2;
+      const rad = cSeed(ci * 53 + i * 2 + 2) * (cl.spread || 5.2);
       labCells.push({
-        x: cl.cx + Math.cos(ang) * rad,
-        y: cl.cy + Math.sin(ang) * rad,
+        x: cl.cx + Math.cos(ang) * rad + 6,
+        y: cl.cy + Math.sin(ang) * rad + 3,
         r: 1.1 + cSeed(ci * 31 + i + 5) * 1.0,
         c: cl.color,
       });
@@ -678,7 +676,7 @@ function MakeCompositeWordmark({ Gvariant, badge, dark = false, gSize = 0.86, am
   });
   return (
     <div className="logo-tile" style={{ background: bg, color: ink }}>
-      <div className="logo-stage" style={{ flexDirection: "column", gap: 24, padding: "36px 28px" }}>
+      <div className="logo-stage" style={{ flexDirection: "column", gap: 24, padding: "36px 28px", position: "relative" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 4 }}>
           <span style={{ display: "inline-flex", transform: "translateY(-5px)" }}>
             <Gvariant size={gSize} ink={ink} paper={paper} />
@@ -687,20 +685,22 @@ function MakeCompositeWordmark({ Gvariant, badge, dark = false, gSize = 0.86, am
           <LetterM size={ameSize} ink={ink} />
           <LetterE size={ameSize} ink={ink} />
         </div>
-        <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ position: "relative", display: "flex", justifyContent: "center", alignItems: "center" }}>
           <div style={{
             fontFamily: "Helvetica, Arial, sans-serif", fontWeight: 700,
             fontSize: 26, letterSpacing: 1.5, color: wordColor
           }}>
             Lab
           </div>
-          <svg width="56" height="44" viewBox="0 0 38 32" style={{ position: "absolute", left: "calc(50% + 34px)", top: "50%", transform: "translateY(-50%)" }}>
-            <style>{`@keyframes labdrift{0%,100%{transform:translate(0px,0px)}25%{transform:translate(0.7px,-0.6px)}50%{transform:translate(-0.6px,0.6px)}75%{transform:translate(0.5px,0.5px)}}@media (prefers-reduced-motion:reduce){.labcell{animation:none!important}}`}</style>
+          <svg width="46" height="42" viewBox="0 0 40 36" style={{ position: "absolute", left: "calc(50% + 30px)", top: "50%", transform: `translateY(-50%) rotate(${labRot}deg)` }}>
+            <style>{`@keyframes labdrift{0%,100%{transform:translate(0px,0px)}25%{transform:translate(0.7px,-0.6px)}50%{transform:translate(-0.6px,0.6px)}75%{transform:translate(0.5px,0.5px)}}@keyframes labspin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){.labcell,.labspin{animation:none!important}}`}</style>
+            <g className="labspin" style={{ transformBox: "fill-box", transformOrigin: "center", animation: "labspin 70s linear infinite" }}>
             {labCells.map((d, i) => (
               <circle key={i} className="labcell" cx={d.x.toFixed(1)} cy={d.y.toFixed(1)} r={d.r.toFixed(1)} fill={d.c} opacity={0.9}
                 style={{ transformBox: "fill-box", transformOrigin: "center",
                   animation: `labdrift ${(2.6 + cSeed(i * 7 + 2) * 1.9).toFixed(2)}s ease-in-out ${(cSeed(i * 5 + 1) * 2.2).toFixed(2)}s infinite` }} />
             ))}
+            </g>
           </svg>
         </div>
         <div style={{
