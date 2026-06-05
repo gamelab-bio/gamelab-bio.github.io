@@ -2090,11 +2090,16 @@
 
     const NAMES = ['cream', 'amber', 'coral'];
     const LABEL = { cream: 'Sand', amber: 'Amber', coral: 'Coral' };
-    const tileColor = [];   // index -> color name
+    // index -> colour name. Seed one tile of each colour so none is ever
+    // absent, fill the rest at random, then shuffle so positions vary per load.
+    const tileColor = NAMES.slice();
+    for (let i = NAMES.length; i < cells.length; i++) {
+      tileColor[i] = NAMES[Math.floor(Math.random() * NAMES.length)];
+    }
+    shuffle(tileColor);
 
     cells.forEach((c, idx) => {
-      const name = NAMES[Math.floor(Math.random() * NAMES.length)];
-      tileColor[idx] = name;
+      const name = tileColor[idx];
       const el = document.createElement('div');
       el.className = 'mtile';
       el.style.setProperty('--c', COLORS[name]);
