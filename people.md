@@ -6,7 +6,9 @@ permalink: /people.html
 
 ## Principal Investigator
 
-**[PI Name]** — [Title], [Institution]
+**Selahattin Can Ozcan** — [Title], [Institution] · [scanozcan.github.io](https://scanozcan.github.io)
+
+Can studies how cancer cells adapt, communicate, and survive under stress, combining cancer genomics with computational and game-theoretic approaches.
 
 ---
 
