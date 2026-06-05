@@ -36,3 +36,19 @@ transcriptional landscapes that cancer cells deploy under cellular, metabolic,
 and microenvironmental stress — and how these regulatory programs prime cells
 for adaptation. To resolve this at the level of specific genomic loci, we use
 quantitative proximity-labelling approaches, including CASPEX and GLProxScape.
+
+## Our tools
+
+We develop and apply quantitative methods to read out how cancer cells adapt.
+
+### CASPEX & GLProxScape
+
+Placeholder description of CASPEX and GLProxScape.
+
+### CellMUX-CRISPR screens
+
+Placeholder description of CellMUX-CRISPR screens.
+
+### scRNA-seq and spatial transcriptomics
+
+Placeholder description of scRNA-seq and spatial transcriptomics.
