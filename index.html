@@ -2067,17 +2067,8 @@
   <script>
   (function () {
     function getCSS(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
-    // Shuffle the vivid hues coral/amber so colours land in different spots each
-    // reload (cream stays the muted accent); matching logic is keyed by name.
-    (function () {
-      const root = document.documentElement, names = ['--coral', '--amber'];
-      const vals = names.map(n => getComputedStyle(root).getPropertyValue(n).trim());
-      for (let i = vals.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [vals[i], vals[j]] = [vals[j], vals[i]]; }
-      names.forEach((n, i) => root.style.setProperty(n, vals[i]));
-    })();
     const COLORS = { coral: getCSS('--coral'), amber: getCSS('--amber'), cream: getCSS('--cream') };
     const PAL = [COLORS.cream, COLORS.amber, COLORS.coral];
-    function rand(i) { const s = Math.sin(i * 12.9898) * 43758.5453; return s - Math.floor(s); }
 
     const board = document.getElementById('board');
     const stone = document.getElementById('stone');
@@ -2102,7 +2093,7 @@
     const tileColor = [];   // index -> color name
 
     cells.forEach((c, idx) => {
-      const name = NAMES[Math.floor(rand(idx * 13 + 7) * NAMES.length)];
+      const name = NAMES[Math.floor(Math.random() * NAMES.length)];
       tileColor[idx] = name;
       const el = document.createElement('div');
       el.className = 'mtile';
