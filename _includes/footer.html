@@ -12,22 +12,3 @@
     <p class="footer-copyright">&copy; GAME Lab, {{ site.time | date: '%Y' }}</p>
   </div>
 </footer>
-
-<button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode"></button>
-<script>
-  (function () {
-    var btn = document.getElementById('theme-toggle');
-    if (!btn) return;
-    function render() {
-      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
-      btn.innerHTML = dark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-    }
-    render();
-    btn.addEventListener('click', function () {
-      var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      try { localStorage.setItem('theme', next); } catch (e) {}
-      render();
-    });
-  })();
-</script>
