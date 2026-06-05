@@ -6,14 +6,33 @@ permalink: /research.html
 
 ## Research themes
 
-### Genomic adaptation
+We study how cancer cells adapt across the stages of disease — from early
+transformation through progression, dissemination, and therapy resistance. We
+focus on the genomic and transcriptional strategies that make this adaptation
+possible, and on how those strategies coexist and regulate one another within a
+single tumour.
 
-Placeholder description of research theme 1.
+### Inter-cellular and inter-strategy games in cancer
 
-### Transcriptional regulation
+A tumour is an ecosystem in which cancer cells play games. We model the
+interactions between cells — and between the strategies they pursue — as
+evolutionary games, where each cell's payoff depends on what its neighbours are
+doing. This game-theoretic view explains how distinct strategies coexist,
+compete, cooperate, and regulate one another: why heterogeneity is stable, when
+one strategy outcompetes another, and how the rules of the game might be turned
+against the tumour.
 
-Placeholder description of research theme 2.
+### Single-cell strategies of adaptation and resistance
 
-### Single-cell genomics
+Adaptation is a property of heterogeneous populations. Using single-cell
+genomics and transcriptomics, we resolve the distinct strategies individual
+cells deploy to evade therapy, disseminate, and reseed — connecting cell-level
+behaviour to the trajectory of the disease.
 
-Placeholder description of research theme 3.
+### Stress-responsive epigenetic and transcriptional landscapes
+
+Stress reshapes how the genome is read. We map the epigenetic and
+transcriptional landscapes that cancer cells deploy under cellular, metabolic,
+and microenvironmental stress — and how these regulatory programs prime cells
+for adaptation. To resolve this at the level of specific genomic loci, we use
+quantitative proximity-labelling approaches, including CASPEX and GLProxScape.
