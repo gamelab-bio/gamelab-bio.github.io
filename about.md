@@ -5,7 +5,8 @@ permalink: /about.html
 ---
 
 <div class="lab-hero">
-  <img src="/assets/images/logo.svg" alt="GAME Lab" class="hero-logo" />
+  <img src="/assets/images/logo.svg" alt="GAME Lab" class="hero-logo logo-light" />
+  <img src="/assets/images/logo-dark.svg" alt="GAME Lab" class="hero-logo logo-dark" />
 </div>
 
 ## Welcome to the GAME Lab
