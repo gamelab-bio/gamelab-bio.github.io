@@ -2,6 +2,8 @@ title: "GAME Lab"
 description: "Genomics & Adaptive Mechanisms"
 baseurl: ""
 url: "https://gamelab-bio.github.io"
+email: "gamelab.bio@gmail.com"
+github_username: "gamelab-bio"
 
 theme: minima
 plugins:
