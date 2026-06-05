@@ -60,11 +60,24 @@ a {
   margin: 2rem -2rem 2rem;
 }
 
+// The logo now lives in an iframe (a self-contained animated wordmark). It has a
+// fixed natural size, so .hero-logo-scaler clips/centres it and JS scales it to
+// fit the column width — mirroring how the old SVG used to scale down.
+.hero-logo-scaler {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
 .hero-logo {
-  width: 85%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 720px;
+  height: 420px;
+  border: 0;
+  transform: translateX(-50%);
+  transform-origin: top center;
 }
 
 // Colour the "G" in GAME Lab — we inject a span in the title if needed,
@@ -253,12 +266,6 @@ pre, code {
     color: var(--coral);
   }
 }
-
-// ── Logo theme swap ───────────────────────────────────────────────────────────
-
-.logo-dark { display: none; }
-[data-theme="dark"] .logo-light { display: none; }
-[data-theme="dark"] .logo-dark { display: block; }
 
 // ── Responsive ───────────────────────────────────────────────────────────────
 

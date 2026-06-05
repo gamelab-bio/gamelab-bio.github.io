@@ -1,0 +1,818 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>GAME Lab — animated logo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  html,body{margin:0;height:100%;background:#FBF7EC;font-family:Helvetica,Arial,sans-serif}
+  #root{min-height:100vh;display:flex;align-items:center;justify-content:center}
+  .logo-tile{width:min(820px,94vw);border:none!important}
+  .logo-stage{padding:32px}
+  .logo-meta{display:none!important}
+</style></head><body><div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel">
+/* GAME Lab — playful directions.
+   Bright accents, real-game metaphors, science still honest. */
+
+// Playful palette
+const pInk    = "#1A1A1F";
+const pCream  = "#F6F1E4";
+const pCoral  = "#E8593C";
+const pAmber  = "#E8B23A";
+const pTeal   = "#2C8B8E";
+const pBlue   = "#3C61D8";
+const pPaper  = "#FBF7EC";
+const pMuted  = "#8A8270";
+
+// ── P1. PLINKO LINEAGE ─────────────────────────────────────────────────────────
+// A Galton/Plinko board: a single cell at the top falls through a triangular
+// grid of pegs, branching at each — three colored balls land in bins below.
+// Literally lineage as a game of chance — adaptive dynamics through structured noise.
+const LogoPlinko = () => {
+  // Triangular peg grid, 5 rows
+  const pegs = [];
+  for (let r = 0; r < 5; r++) {
+    for (let c = 0; c <= r; c++) {
+      pegs.push([60 + c * 36 - r * 18, 50 + r * 24]);
+    }
+  }
+  return (
+    <div className="logo-tile" style={{ background: pPaper, color: pInk }}>
+      <div className="logo-stage">
+        <svg viewBox="0 0 320 220" width="320" height="220">
+          {/* trace path: a zig-zag drop through the pegs */}
+          <path d="M 60 24 L 60 50 L 78 74 L 60 98 L 78 122 L 96 146 L 96 170"
+                fill="none" stroke={pInk} strokeWidth="2" strokeDasharray="3 4" opacity="0.6" />
+          {/* pegs */}
+          {pegs.map(([x,y],i) => (
+            <circle key={i} cx={x} cy={y} r="2.6" fill={pInk} />
+          ))}
+          {/* dropping cell */}
+          <circle cx="60" cy="20" r="6" fill={pCoral} />
+          {/* landing balls in bins */}
+          <circle cx="36"  cy="184" r="7" fill={pAmber} />
+          <circle cx="96"  cy="184" r="7" fill={pCoral} />
+          <circle cx="156" cy="184" r="7" fill={pTeal} />
+          {/* bin floor */}
+          <line x1="6" y1="200" x2="186" y2="200" stroke={pInk} strokeWidth="2" />
+          {/* tick dividers */}
+          {[6, 66, 126, 186].map((x,i) =>
+            <line key={i} x1={x} y1="200" x2={x} y2="178" stroke={pInk} strokeWidth="1.4" />
+          )}
+          {/* wordmark */}
+          <text x="208" y="124" fontFamily="Helvetica, Arial, sans-serif" fontWeight="700"
+                fontSize="38" letterSpacing="-1.5" fill={pInk}>GAME</text>
+          <text x="208" y="146" fontFamily="'IBM Plex Mono', monospace" fontWeight="500"
+                fontSize="10" letterSpacing="2.4" fill={pMuted}>LABORATORY</text>
+        </svg>
+      </div>
+      <div className="logo-meta">
+        <div className="logo-name">P1 · Plinko Lineage</div>
+        <div className="logo-cap">Galton-board lineage · one cell, three fates, stochastic descent</div>
+      </div>
+    </div>
+  );
+};
+
+// ── P2. DIE OF CELLS ───────────────────────────────────────────────────────────
+// A six-sided die where the pips are cells. The face showing reads as a tiny
+// well-plate. Literal game iconography, scientific reading underneath.
+const LogoDie = () => (
+  <div className="logo-tile" style={{ background: pPaper, color: pInk }}>
+    <div className="logo-stage">
+      <svg viewBox="0 0 320 200" width="320" height="200">
+        <g transform="translate(28,30)">
+          {/* die body */}
+          <rect x="0" y="0" width="130" height="130" rx="22" ry="22"
+                fill={pCoral} stroke={pInk} strokeWidth="3" />
+          {/* 5 pips arranged classically */}
+          <circle cx="32"  cy="32"  r="10" fill={pCream} stroke={pInk} strokeWidth="2.5" />
+          <circle cx="98"  cy="32"  r="10" fill={pCream} stroke={pInk} strokeWidth="2.5" />
+          <circle cx="65"  cy="65"  r="10" fill={pInk} />
+          <circle cx="32"  cy="98"  r="10" fill={pCream} stroke={pInk} strokeWidth="2.5" />
+          <circle cx="98"  cy="98"  r="10" fill={pCream} stroke={pInk} strokeWidth="2.5" />
+        </g>
+        <text x="180" y="100" fontFamily="Helvetica, Arial, sans-serif" fontWeight="700"
+              fontSize="42" letterSpacing="-1.5" fill={pInk}>GAME</text>
+        <text x="180" y="124" fontFamily="Helvetica, Arial, sans-serif" fontWeight="700"
+              fontSize="42" letterSpacing="-1.5" fill={pInk}>Lab</text>
+      </svg>
+    </div>
+    <div className="logo-meta">
+      <div className="logo-name">P2 · Die of Cells</div>
+      <div className="logo-cap">Six-sided die · pips read as wells in a plate</div>
+    </div>
+  </div>
+);
+
+// ── P3. PAC-G ──────────────────────────────────────────────────────────────────
+// The G is a Pac-Man-style chomper closing in on a tiny cell. Friendly,
+// instantly readable, but the "cell" makes it lab-coded.
+const LogoPacG = () => (
+  <div className="logo-tile" style={{ background: pInk, color: pCream }}>
+    <div className="logo-stage">
+      <svg viewBox="0 0 360 200" width="360" height="200">
+        {/* Pac-G: circle with a wedge cut + the G's inner stub */}
+        <g transform="translate(40,40)">
+          <path d="M 60 60
+                   m -60 0
+                   a 60 60 0 1 1 102 42
+                   L 60 60 Z"
+                fill={pAmber} stroke={pInk} strokeWidth="0" />
+          {/* the inner stub of the G — a small horizontal bar inside */}
+          <rect x="42" y="56" width="34" height="10" rx="2" fill={pInk} />
+          {/* eye */}
+          <circle cx="62" cy="28" r="6" fill={pInk} />
+          <circle cx="64" cy="26" r="2" fill={pCream} />
+        </g>
+        {/* tiny cell about to be eaten */}
+        <circle cx="180" cy="100" r="6" fill={pCream} />
+        <circle cx="200" cy="100" r="4" fill={pCream} opacity="0.7" />
+        <circle cx="216" cy="100" r="3" fill={pCream} opacity="0.5" />
+        {/* AME continuation */}
+        <text x="232" y="116" fontFamily="Helvetica, Arial, sans-serif" fontWeight="700"
+              fontSize="56" letterSpacing="-2" fill={pCream}>AME</text>
+        <text x="40" y="178" fontFamily="'IBM Plex Mono', monospace" fontWeight="500"
+              fontSize="10" letterSpacing="2.4" fill={pAmber}>LABORATORY</text>
+      </svg>
+    </div>
+    <div className="logo-meta">
+      <div className="logo-name">P3 · Pac-G</div>
+      <div className="logo-cap">G as a chomper · cell trail mid-consumption</div>
+    </div>
+  </div>
+);
+
+// ── P4. HOPSCOTCH LANDSCAPE ────────────────────────────────────────────────────
+// Fitness landscape as a hopscotch board. Numbered squares, footprints between,
+// little stone/cell tokens. The board itself is the adaptive walk.
+const LogoHopscotch = () => (
+  <div className="logo-tile" style={{ background: pPaper, color: pInk }}>
+    <div className="logo-stage">
+      <svg viewBox="0 0 320 220" width="320" height="220">
+        <g transform="translate(36,18)">
+          {/* single square row */}
+          <rect x="20" y="0"   width="44" height="44" fill={pCream} stroke={pInk} strokeWidth="2.5" />
+          <text x="42" y="29"  fontFamily="'IBM Plex Mono', monospace" fontWeight="600"
+                fontSize="16" textAnchor="middle" fill={pInk}>1</text>
+          {/* double row */}
+          <rect x="0"  y="50"  width="44" height="44" fill={pAmber}  stroke={pInk} strokeWidth="2.5" />
+          <rect x="46" y="50"  width="44" height="44" fill={pCream}  stroke={pInk} strokeWidth="2.5" />
+          <text x="22" y="79"  fontFamily="'IBM Plex Mono', monospace" fontWeight="600"
+                fontSize="16" textAnchor="middle" fill={pInk}>2</text>
+          <text x="68" y="79"  fontFamily="'IBM Plex Mono', monospace" fontWeight="600"
+                fontSize="16" textAnchor="middle" fill={pInk}>3</text>
+          {/* single */}
+          <rect x="20" y="100" width="44" height="44" fill={pCream} stroke={pInk} strokeWidth="2.5" />
+          <text x="42" y="129" fontFamily="'IBM Plex Mono', monospace" fontWeight="600"
+                fontSize="16" textAnchor="middle" fill={pInk}>4</text>
+          {/* double row */}
+          <rect x="0"  y="150" width="44" height="44" fill={pCream} stroke={pInk} strokeWidth="2.5" />
+          <rect x="46" y="150" width="44" height="44" fill={pCoral} stroke={pInk} strokeWidth="2.5" />
+          <text x="22" y="179" fontFamily="'IBM Plex Mono', monospace" fontWeight="600"
+                fontSize="16" textAnchor="middle" fill={pInk}>5</text>
+          <text x="68" y="179" fontFamily="'IBM Plex Mono', monospace" fontWeight="600"
+                fontSize="16" textAnchor="middle" fill={pInk}>6</text>
+          {/* stone / cell token on square 3 */}
+          <circle cx="68" cy="72" r="6" fill={pInk} />
+          <circle cx="66" cy="70" r="2" fill={pCream} />
+        </g>
+        {/* wordmark */}
+        <text x="160" y="118" fontFamily="Helvetica, Arial, sans-serif" fontWeight="700"
+              fontSize="44" letterSpacing="-1.5" fill={pInk}>GAME</text>
+        <text x="160" y="148" fontFamily="Helvetica, Arial, sans-serif" fontWeight="700"
+              fontSize="44" letterSpacing="-1.5" fill={pInk}>Lab</text>
+      </svg>
+    </div>
+    <div className="logo-meta">
+      <div className="logo-name">P4 · Hopscotch Landscape</div>
+      <div className="logo-cap">Fitness landscape as a hopscotch board · cell token in transit</div>
+    </div>
+  </div>
+);
+
+// ── P5. BOUNCY PITCHFORK ───────────────────────────────────────────────────────
+// The bifurcation, but with playful springy arcs and color-coded tips.
+const LogoBouncy = () => (
+  <div className="logo-tile" style={{ background: pPaper, color: pInk }}>
+    <div className="logo-stage">
+      <svg viewBox="0 0 340 200" width="340" height="200">
+        <g transform="translate(20,42)">
+          {/* incoming */}
+          <path d="M 0 60 Q 30 60 56 60" fill="none" stroke={pInk} strokeWidth="6" strokeLinecap="round" />
+          {/* upper bouncy branch */}
+          <path d="M 56 60 C 90 60 90 14 130 14 C 150 14 156 26 168 14"
+                fill="none" stroke={pCoral} strokeWidth="6" strokeLinecap="round" />
+          {/* lower bouncy branch */}
+          <path d="M 56 60 C 90 60 90 106 130 106 C 150 106 156 94 168 106"
+                fill="none" stroke={pTeal} strokeWidth="6" strokeLinecap="round" />
+          {/* unstable middle, with bounce */}
+          <path d="M 56 60 C 90 60 130 60 168 60"
+                fill="none" stroke={pInk} strokeWidth="3" strokeDasharray="2 6" />
+          {/* bifurcation pivot */}
+          <circle cx="56" cy="60" r="7" fill={pAmber} stroke={pInk} strokeWidth="2.5" />
+          {/* terminal cells */}
+          <circle cx="168" cy="14"  r="6.5" fill={pCoral} stroke={pInk} strokeWidth="2.5" />
+          <circle cx="168" cy="106" r="6.5" fill={pTeal}  stroke={pInk} strokeWidth="2.5" />
+        </g>
+        {/* wordmark */}
+        <text x="218" y="105" fontFamily="Helvetica, Arial, sans-serif" fontWeight="700"
+              fontSize="38" letterSpacing="-1.5" fill={pInk}>GAME</text>
+        <text x="218" y="138" fontFamily="Helvetica, Arial, sans-serif" fontWeight="700"
+              fontSize="38" letterSpacing="-1.5" fill={pInk}>Lab</text>
+      </svg>
+    </div>
+    <div className="logo-meta">
+      <div className="logo-name">P5 · Bouncy Pitchfork</div>
+      <div className="logo-cap">Bifurcation with springy arcs · two fates, two colors</div>
+    </div>
+  </div>
+);
+
+// ── P6. CONFETTI UMAP ──────────────────────────────────────────────────────────
+// UMAP scatter but with colorful clusters — each population a different hue.
+const LogoConfetti = () => {
+  const seed = (i) => {
+    const s = Math.sin(i * 12.9898) * 43758.5453;
+    return s - Math.floor(s);
+  };
+  const clusters = [
+    { cx: 22, cy: 28, r: 14, color: pCoral },
+    { cx: 50, cy: 22, r: 12, color: pAmber },
+    { cx: 40, cy: 56, r: 16, color: pTeal },
+    { cx: 18, cy: 64, r: 10, color: pBlue },
+  ];
+  const pts = [];
+  clusters.forEach((cl, ci) => {
+    const n = 38;
+    for (let i = 0; i < n; i++) {
+      const ang = seed(ci * 100 + i * 2) * Math.PI * 2;
+      const rad = seed(ci * 100 + i * 2 + 1) * cl.r;
+      pts.push([
+        cl.cx + Math.cos(ang) * rad,
+        cl.cy + Math.sin(ang) * rad,
+        1.2 + seed(ci * 50 + i) * 1.3,
+        cl.color
+      ]);
+    }
+  });
+  return (
+    <div className="logo-tile" style={{ background: pPaper, color: pInk }}>
+      <div className="logo-stage">
+        <svg viewBox="0 0 320 200" width="320" height="200">
+          <g transform="translate(36,38) scale(1.7)">
+            {pts.map(([x,y,r,c],i) =>
+              <circle key={i} cx={x} cy={y} r={r} fill={c} opacity={0.85} />
+            )}
+          </g>
+          <text x="200" y="100" fontFamily="Helvetica, Arial, sans-serif" fontWeight="700"
+                fontSize="40" letterSpacing="-1.5" fill={pInk}>GAME</text>
+          <text x="200" y="132" fontFamily="Helvetica, Arial, sans-serif" fontWeight="700"
+                fontSize="40" letterSpacing="-1.5" fill={pInk}>Lab</text>
+        </svg>
+      </div>
+      <div className="logo-meta">
+        <div className="logo-name">P6 · Confetti UMAP</div>
+        <div className="logo-cap">Multi-color single-cell clusters · populations as palette</div>
+      </div>
+    </div>
+  );
+};
+
+Object.assign(window, {
+  LogoPlinko, LogoDie, LogoPacG, LogoHopscotch, LogoBouncy, LogoConfetti
+});
+
+/* GAME Lab — illustrated wordmark.
+   Each letter is its own playful, scientifically honest motif.
+   All letters draw inside the same y=20..180 vertical band, so they align
+   in the composite. */
+
+const cSeed = (i) => {
+  const s = Math.sin(i * 12.9898) * 43758.5453;
+  return s - Math.floor(s);
+};
+
+// G silhouette test (annulus + inner stub) reused by Reads and Plasmid.
+// Thicker ring + wider stub so the G reads more obviously circular.
+const inG_silhouette = (x, y) => {
+  const dx = x - 80, dy = y - 100;
+  const r = Math.hypot(dx, dy);
+  if (r >= 50 && r <= 80) {
+    const ang = Math.atan2(dy, dx);
+    if (Math.abs(ang) < Math.PI / 7) return false;
+    return true;
+  }
+  if (x >= 80 && x <= 150 && y >= 89 && y <= 113) return true;
+  return false;
+};
+
+// ── LETTER G · READS ───────────────────────────────────────────────────────────
+// Stacked horizontal sequencing reads filling a G silhouette. Tighter row
+// pitch (4px) so the curved top and bottom of the G read as smoothly round.
+function LetterGReads({ size = 1, label = false, ink = pInk }) {
+  const palette = [pCoral, pAmber, pCream];
+  const reads = [];
+  // Elegant G ring: moderate thickness, full height so it matches M/E in size
+  // without looking heavy. A clean wide opening + a clear inner bar read as G.
+  const RIN = 50, ROUT = 80, CX = 80, CY = 100;
+  const inGReads = (x, y) => {
+    const dx = x - CX, dy = y - CY, r = Math.hypot(dx, dy);
+    if (r >= RIN && r <= ROUT) {
+      const ang = Math.atan2(dy, dx);
+      if (Math.abs(ang) < Math.PI / 10) return false;   // smaller opening — closes into a G, not a C
+      return true;
+    }
+    if (x >= CX && x <= 146 && y >= 103 && y <= 115) return true;  // inner bar, slightly lower
+    return false;
+  };
+  const rowH = 4;
+  for (let y = CY - ROUT; y <= CY + ROUT; y += rowH) {
+    const segs = [];
+    let inSeg = false, segStart = 0;
+    for (let x = 0; x <= 160; x++) {
+      const inside = inGReads(x, y);
+      if (inside && !inSeg) { inSeg = true; segStart = x; }
+      else if (!inside && inSeg) { inSeg = false; segs.push([segStart, x]); }
+    }
+    if (inSeg) segs.push([segStart, 160]);
+    const row = Math.round((y - (CY - ROUT)) / rowH);
+    segs.forEach(([a, b], si) => {
+      const width = b - a;
+      if (width < 6) return;
+      // Fragmented "reads" — several short, staggered pieces per row. Thin the
+      // very top AND bottom of the ring so the ends don't sit heavy.
+      const nReads = (y < 40 || y > 160)
+        ? 1
+        : 1 + Math.floor(cSeed(row * 13 + si * 5) * 2) + (width > 30 ? 1 : 0);
+      for (let i = 0; i < nReads; i++) {
+        const readW = Math.max(6, Math.floor(6 + cSeed(row * 17 + i * 11 + si * 3) * Math.max(2, width - 8)));
+        const readX = a + Math.floor(cSeed(row * 19 + i * 13 + si * 7) * Math.max(1, width - readW));
+        const color = palette[Math.floor(cSeed(row * 23 + i * 17 + si * 11) * palette.length)];
+        reads.push({ x: readX, y, w: readW, h: rowH - 1, fill: color });
+      }
+      // A couple of small reads on the top-right of the ring for a touch of
+      // texture up top (rows y=28 & 32, right portion only).
+      if (y >= 26 && y <= 34 && b > 100) {
+        const sw = 7 + Math.floor(cSeed(row * 31 + 7) * 5);
+        const sx = Math.max(a + 2, b - sw - 4 - Math.floor(cSeed(row * 37 + 3) * 8));
+        const sc = palette[Math.floor(cSeed(row * 41 + 9) * palette.length)];
+        reads.push({ x: sx, y, w: sw, h: rowH - 1, fill: sc });
+      }
+    });
+  }
+  return (
+    <svg viewBox="0 0 160 200" width={160 * size} height={200 * size}>
+      {reads.map((r, i) => (
+        <rect key={i} x={r.x} y={r.y} width={r.w} height={r.h}
+              fill={r.fill} stroke={ink} strokeWidth="0.5" />
+      ))}
+      {label && (
+        <text x="80" y="198" textAnchor="middle" fontFamily="'IBM Plex Mono', monospace"
+              fontSize="9" letterSpacing="2" fill={pMuted}>G · READS</text>
+      )}
+    </svg>
+  );
+}
+
+// ── LETTER G · PLASMID ─────────────────────────────────────────────────────────
+// Annotated circular genome map shaped as G: colored gene-region segments with
+// directional arrow tips, restriction-site tick marks, origin of replication
+// marker, and an MCS cassette in the inner stub.
+function LetterGPlasmid({ size = 1, label = false, ink = pInk, paper = pPaper }) {
+  const cx = 80, cy = 100, rIn = 54, rOut = 80;
+  const rMid = (rIn + rOut) / 2;
+  const rTick = rOut + 7;
+  const rLabel = rOut + 14;
+  // Five gene features with directional arrows. Each entry: arc start/end
+  // (degrees, going around the G, skipping the right opening), fill color,
+  // optional short label drawn outside the ring.
+  const features = [
+    { s:  32, e:  84, color: pCoral, label: "lacZ"  },
+    { s:  88, e: 148, color: pAmber, label: "Amp"   },
+    { s: 152, e: 212, color: pCream, label: "ori"   },
+    { s: 216, e: 272, color: pCoral, label: "Cas9"  },
+    { s: 276, e: 328, color: pAmber, label: "TetR"  },
+  ];
+  const arrowDeg = 10;       // angular size of the arrow tip
+  const arrowOver = 2.5;     // how far the arrow tip pokes past the ring
+  const rad = (d) => d * Math.PI / 180;
+
+  // Build path for one feature: body from sd → ed-arrowDeg, then arrow tip out
+  // to ed (at mid-radius), tapering back to the inner radius.
+  function featurePath(sd, ed) {
+    const bodyEnd = ed - arrowDeg;
+    const sR = rad(sd), bR = rad(bodyEnd), eR = rad(ed);
+    const x1 = cx + rOut * Math.cos(sR),    y1 = cy + rOut * Math.sin(sR);
+    const x2 = cx + rOut * Math.cos(bR),    y2 = cy + rOut * Math.sin(bR);
+    const tx = cx + (rMid + arrowOver) * Math.cos(eR),
+          ty = cy + (rMid + arrowOver) * Math.sin(eR);
+    const x3 = cx + rIn * Math.cos(bR),     y3 = cy + rIn * Math.sin(bR);
+    const x4 = cx + rIn * Math.cos(sR),     y4 = cy + rIn * Math.sin(sR);
+    const large = (bodyEnd - sd) > 180 ? 1 : 0;
+    return `M ${x1.toFixed(2)} ${y1.toFixed(2)}
+            A ${rOut} ${rOut} 0 ${large} 1 ${x2.toFixed(2)} ${y2.toFixed(2)}
+            L ${tx.toFixed(2)} ${ty.toFixed(2)}
+            L ${x3.toFixed(2)} ${y3.toFixed(2)}
+            A ${rIn} ${rIn} 0 ${large} 0 ${x4.toFixed(2)} ${y4.toFixed(2)}
+            Z`;
+  }
+
+  // Restriction sites: each is the angle around the ring where the enzyme
+  // cuts. Drawn as a tick mark outside the ring. A couple get small labels.
+  const cutSites = [
+    { deg:  68, name: "EcoRI"  },
+    { deg: 120, name: "BamHI"  },
+    { deg: 304, name: "NotI"   },
+  ];
+
+  // Origin of replication: small arrow marker pointing inward at one position.
+  const oriAng = 180;
+
+  // MCS cassette inside the inner stub (the G's horizontal bar)
+  const mcsCells = [
+    { x: 82,  w: 12, color: pCoral },
+    { x: 96,  w: 12, color: pCream },
+    { x: 110, w: 12, color: pAmber },
+    { x: 124, w: 12, color: pCoral },
+  ];
+
+  return (
+    <svg viewBox="0 0 160 200" width={160 * size} height={200 * size}>
+      {/* gene features with arrows */}
+      {features.map((f, i) => (
+        <path key={"f" + i} d={featurePath(f.s, f.e)}
+              fill={f.color} stroke={ink} strokeWidth="1.8"
+              strokeLinejoin="round" />
+      ))}
+
+      {/* feature labels — tiny, outside the ring */}
+      {features.map((f, i) => {
+        const mid = (f.s + f.e) / 2;
+        const a = rad(mid);
+        const x = cx + rLabel * Math.cos(a);
+        const y = cy + rLabel * Math.sin(a) + 2.5;
+        const flip = mid > 90 && mid < 270;
+        return (
+          <text key={"fl" + i} x={x.toFixed(2)} y={y.toFixed(2)}
+                textAnchor="middle"
+                fontFamily="'IBM Plex Mono', monospace" fontWeight="600"
+                fontSize="6" letterSpacing="0.4" fill={ink}>
+            {f.label}
+          </text>
+        );
+      })}
+
+      {/* restriction-site tick marks */}
+      {cutSites.map((c, i) => {
+        const a = rad(c.deg);
+        const x1 = cx + (rOut + 0.5) * Math.cos(a);
+        const y1 = cy + (rOut + 0.5) * Math.sin(a);
+        const x2 = cx + rTick * Math.cos(a);
+        const y2 = cy + rTick * Math.sin(a);
+        return (
+          <g key={"ct" + i}>
+            <line x1={x1.toFixed(2)} y1={y1.toFixed(2)}
+                  x2={x2.toFixed(2)} y2={y2.toFixed(2)}
+                  stroke={ink} strokeWidth="1.6" strokeLinecap="round" />
+            <circle cx={x2.toFixed(2)} cy={y2.toFixed(2)} r="1.4" fill={ink} />
+          </g>
+        );
+      })}
+
+      {/* MCS cassette — inner stub with multiple colored cells */}
+      <rect x="80" y="89" width="60" height="22" fill={paper}
+            stroke={ink} strokeWidth="1.8" />
+      {mcsCells.map((m, i) => (
+        <rect key={"m" + i} x={m.x} y="92" width={m.w} height="16"
+              fill={m.color} stroke={ink} strokeWidth="0.8" />
+      ))}
+      {/* small "MCS" label below the stub */}
+      <text x="110" y="120" textAnchor="middle"
+            fontFamily="'IBM Plex Mono', monospace" fontWeight="600"
+            fontSize="6" letterSpacing="0.6" fill={ink}>MCS</text>
+
+      {label && (
+        <text x="80" y="198" textAnchor="middle"
+              fontFamily="'IBM Plex Mono', monospace"
+              fontSize="9" letterSpacing="2" fill={pMuted}>G · PLASMID</text>
+      )}
+    </svg>
+  );
+}
+
+// Default LetterG points to Reads (so existing code keeps working).
+const LetterG = LetterGReads;
+
+// ── LETTER A · UMAP CONFETTI ───────────────────────────────────────────────────
+// Single-cell point cloud condensing into a clean A — three distinct cluster
+// lobes (coral apex, amber left base, teal right base), matching the entry-gate
+// UMAP. Content sits inside y=20..180.
+function LetterA({ size = 1, label = false }) {
+  const inA = (x, y) => {
+    if (y < 20 || y > 180) return false;
+    const t = (y - 20) / 160;
+    const leftCenter = 80 - t * 64;
+    const rightCenter = 80 + t * 64;
+    const onLeftLeg = Math.abs(x - leftCenter) <= 8.5;
+    const onRightLeg = Math.abs(x - rightCenter) <= 8.5;
+    const crossbar = y >= 106 && y <= 124 && x >= leftCenter && x <= rightCenter;
+    return onLeftLeg || onRightLeg || crossbar;
+  };
+  const clusters = [
+    [80, 28, pCoral],    // apex
+    [24, 168, pAmber],   // left-leg base
+    [136, 168, pTeal],   // right-leg base
+  ];
+  const nearest = (x, y) => {
+    let best = Infinity, c = pInk;
+    for (const [cx, cy, col] of clusters) {
+      const d = (x - cx) ** 2 + (y - cy) ** 2;
+      if (d < best) { best = d; c = col; }
+    }
+    return c;
+  };
+  const pts = [];
+  let tries = 0;
+  while (pts.length < 320 && tries < 6000) {
+    const x = cSeed(tries * 2 + 777) * 160;
+    const y = cSeed(tries * 2 + 1 + 777) * 164 + 18;
+    tries++;
+    if (inA(x, y)) {
+      const r = 1.5 + cSeed(tries * 7) * 2.0;
+      pts.push([x, y, r, nearest(x, y)]);
+    }
+  }
+  return (
+    <svg viewBox="0 0 160 200" width={160 * size} height={200 * size}>
+      {pts.map(([x, y, r, c], i) =>
+        <circle key={i} cx={x} cy={y} r={r} fill={c} opacity={0.88} />
+      )}
+      {label && (
+        <text x="80" y="198" textAnchor="middle" fontFamily="'IBM Plex Mono', monospace"
+              fontSize="9" letterSpacing="2" fill={pMuted}>A · UMAP</text>
+      )}
+    </svg>
+  );
+}
+
+// ── LETTER M · Multi-Box Hopscotch ─────────────────────────────────────────────
+// 13 tiles tracing the M path. Step bumped so the letter spans y=20..178.
+function LetterM({ size = 1, label = false, ink = pInk }) {
+  const sz = 22;
+  // 5×5 grid, x step 27 (keeps within 160 wide), y step 34 (fills 20..178).
+  const g = (cx, cy) => ({ x: 6 + cx * 32, y: 20 + cy * 34 });
+  const palette = [pCream, pAmber, pCoral];
+  const tilesRaw = [
+    { ...g(0, 0), n: 5 },
+    { ...g(0, 1), n: 4 },
+    { ...g(0, 2), n: 3 },
+    { ...g(0, 3), n: 2 },
+    { ...g(0, 4), n: 1 },
+    { ...g(1, 1), n: 6 },
+    { ...g(2, 2), n: 7 },
+    { ...g(3, 1), n: 8 },
+    { ...g(4, 0), n: 9 },
+    { ...g(4, 1), n: 10 },
+    { ...g(4, 2), n: 11 },
+    { ...g(4, 3), n: 12 },
+    { ...g(4, 4), n: 13 },
+  ];
+  const tiles = tilesRaw.map((t, i) => ({
+    ...t,
+    fill: palette[Math.floor(cSeed(i * 13 + 7) * palette.length)],
+  }));
+  const tokenIdx = Math.floor(cSeed(99) * tiles.length);
+  const tokenTile = tiles[tokenIdx];
+  const c = tiles.map(t => [t.x + sz/2, t.y + sz/2]);
+  return (
+    <svg viewBox="0 0 170 200" width={170 * size} height={200 * size}>
+      <polyline
+        points={c.map(([x, y]) => `${x},${y}`).join(" ")}
+        fill="none" stroke={ink} strokeWidth="1.4" strokeDasharray="2 4" opacity="0.55" />
+      {tiles.map((t, i) => (
+        <rect key={i} x={t.x} y={t.y} width={sz} height={sz} rx="3"
+              fill={t.fill} stroke={ink} strokeWidth="2" />
+      ))}
+      <circle cx={tokenTile.x + sz/2 + 4} cy={tokenTile.y + sz/2 - 4} r="5.2" fill={ink} />
+      <circle cx={tokenTile.x + sz/2 + 2.6} cy={tokenTile.y + sz/2 - 5.4} r="1.5" fill={pCream} />
+      {label && (
+        <text x="85" y="198" textAnchor="middle" fontFamily="'IBM Plex Mono', monospace"
+              fontSize="9" letterSpacing="2" fill={pMuted}>M · HOPSCOTCH</text>
+      )}
+    </svg>
+  );
+}
+
+// ── LETTER E · Plinko ──────────────────────────────────────────────────────────
+// Pegs in E silhouette + colored landing balls at each branch tip. Strokes
+// thickened and pegs densified so E reads at the same visual size as G/A/M.
+function LetterE({ size = 1, label = false, ink = pInk }) {
+  const inE = (x, y) => {
+    const trunk  = x >= 6  && x <= 32  && y >= 20 && y <= 180;
+    const top    = x >= 6  && x <= 124 && y >= 20 && y <= 40;
+    const middle = x >= 6  && x <= 94  && y >= 86 && y <= 106;
+    const bottom = x >= 6  && x <= 124 && y >= 160 && y <= 180;
+    return trunk || top || middle || bottom;
+  };
+  const pegs = [];
+  const stepX = 12, stepY = 11;
+  for (let row = 0; row < 18; row++) {
+    const y = 22 + row * stepY;
+    const offset = (row % 2) * (stepX / 2);
+    for (let col = 0; col < 12; col++) {
+      const x = 10 + offset + col * stepX;
+      if (inE(x, y)) pegs.push([x, y]);
+    }
+  }
+  return (
+    <svg viewBox="0 0 160 200" width={160 * size} height={200 * size}>
+      <path d="M 19 20 L 19 30 L 100 30 M 19 70 L 19 96 L 80 96 M 19 130 L 19 170 L 100 170"
+            fill="none" stroke={ink} strokeWidth="1.5" strokeDasharray="2 4" opacity="0.55" />
+      {pegs.map(([x, y], i) => (
+        <circle key={i} cx={x} cy={y} r="2.6" fill={ink} />
+      ))}
+      <circle cx="118" cy="30"  r="10" fill={pCoral} stroke={ink} strokeWidth="2.5" />
+      <circle cx="88"  cy="96"  r="10" fill={pAmber} stroke={ink} strokeWidth="2.5" />
+      <circle cx="118" cy="170" r="10" fill={pTeal}  stroke={ink} strokeWidth="2.5" />
+      {label && (
+        <text x="80" y="198" textAnchor="middle" fontFamily="'IBM Plex Mono', monospace"
+              fontSize="9" letterSpacing="2" fill={pMuted}>E · PLINKO</text>
+      )}
+    </svg>
+  );
+}
+
+// ── COMPOSITE WORDMARKS ────────────────────────────────────────────────────────
+// Two variants — pick G·Reads or G·Plasmid depending on the application.
+function MakeCompositeWordmark({ Gvariant, badge, dark = false, gSize = 0.86, ameSize = 0.86 }) {
+  const bg = dark ? pInk : pPaper;
+  const ink = dark ? pPaper : pInk;
+  const paper = dark ? pInk : pPaper;
+  const wordColor = dark ? pPaper : pInk;
+  const strapColor = dark ? "#A8A192" : pMuted;
+  // Mini P6-style confetti clusters to sit beside "Lab" — four populations,
+  // just a few cells each.
+  const labClusters = [
+    { cx: 5, cy: 11, color: pCoral, n: 9 },
+    { cx: 15, cy: 8, color: pAmber, n: 8 },
+    { cx: 8, cy: 22, color: pTeal, n: 9 },
+    { cx: 20, cy: 19, color: "#3C61D8", n: 8 },
+    { cx: 27, cy: 12, color: "#5BA86B", n: 7 },
+  ];
+  const labCells = [];
+  labClusters.forEach((cl, ci) => {
+    for (let i = 0; i < cl.n; i++) {
+      const ang = cSeed(ci * 53 + i * 2 + 1) * Math.PI * 2;
+      const rad = cSeed(ci * 53 + i * 2 + 2) * 5.2;
+      labCells.push({
+        x: cl.cx + Math.cos(ang) * rad,
+        y: cl.cy + Math.sin(ang) * rad,
+        r: 1.1 + cSeed(ci * 31 + i + 5) * 1.0,
+        c: cl.color,
+      });
+    }
+  });
+  return (
+    <div className="logo-tile" style={{ background: bg, color: ink }}>
+      <div className="logo-stage" style={{ flexDirection: "column", gap: 24, padding: "36px 28px" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 4 }}>
+          <span style={{ display: "inline-flex", transform: "translateY(-5px)" }}>
+            <Gvariant size={gSize} ink={ink} paper={paper} />
+          </span>
+          <LetterA size={ameSize} />
+          <LetterM size={ameSize} ink={ink} />
+          <LetterE size={ameSize} ink={ink} />
+        </div>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+          <div style={{
+            fontFamily: "Helvetica, Arial, sans-serif", fontWeight: 700,
+            fontSize: 22, letterSpacing: 1.5, color: wordColor
+          }}>
+            Lab
+          </div>
+          <svg width="56" height="44" viewBox="0 0 38 32" style={{ display: "block", marginLeft: 2, transform: "translateY(-24px)" }}>
+            <style>{`@keyframes labdrift{0%,100%{transform:translate(0px,0px)}25%{transform:translate(0.7px,-0.6px)}50%{transform:translate(-0.6px,0.6px)}75%{transform:translate(0.5px,0.5px)}}@media (prefers-reduced-motion:reduce){.labcell{animation:none!important}}`}</style>
+            {labCells.map((d, i) => (
+              <circle key={i} className="labcell" cx={d.x.toFixed(1)} cy={d.y.toFixed(1)} r={d.r.toFixed(1)} fill={d.c} opacity={0.9}
+                style={{ transformBox: "fill-box", transformOrigin: "center",
+                  animation: `labdrift ${(2.6 + cSeed(i * 7 + 2) * 1.9).toFixed(2)}s ease-in-out ${(cSeed(i * 5 + 1) * 2.2).toFixed(2)}s infinite` }} />
+            ))}
+          </svg>
+        </div>
+        <div style={{
+          fontFamily: "'IBM Plex Mono', monospace", fontSize: 22, letterSpacing: 3.2,
+          color: strapColor, textTransform: "uppercase", textAlign: "center", maxWidth: 820,
+          fontWeight: 500
+        }}>
+          Genomics and Adaptive MEchanisms
+        </div>
+      </div>
+      <div className="logo-meta">
+        <div className="logo-name">★ · {badge}</div>
+        <div className="logo-cap">Illustrated wordmark · letters share a common 20–180 vertical band</div>
+      </div>
+    </div>
+  );
+}
+
+const LogoGAMEReads        = () => <MakeCompositeWordmark Gvariant={LetterGReads}   badge="GAME · G as Reads" />;
+const LogoGAMEReadsDark    = () => <MakeCompositeWordmark Gvariant={LetterGReads}   badge="GAME · G as Reads · dark" dark />;
+const LogoGAMEPlasmid      = () => <MakeCompositeWordmark Gvariant={LetterGPlasmid} badge="GAME · G as Plasmid" gSize={0.84} ameSize={0.84} />;
+const LogoGAMEPlasmidDark  = () => <MakeCompositeWordmark Gvariant={LetterGPlasmid} badge="GAME · G as Plasmid · dark" dark gSize={0.84} ameSize={0.84} />;
+
+// ── INDIVIDUAL LETTER CARDS ────────────────────────────────────────────────────
+const LetterCard = ({ Letter, name, caption, dark = false }) => {
+  const ink = dark ? pPaper : pInk;
+  const paper = dark ? pInk : pPaper;
+  return (
+    <div className="logo-tile" style={{ background: dark ? pInk : pPaper, color: ink }}>
+      <div className="logo-stage">
+        <Letter size={1.1} ink={ink} paper={paper} />
+      </div>
+      <div className="logo-meta" style={dark ? { background: "rgba(255,255,255,0.05)", borderTopColor: "rgba(255,255,255,0.12)" } : undefined}>
+        <div className="logo-name" style={dark ? { color: pPaper } : undefined}>{name}</div>
+        <div className="logo-cap" style={dark ? { color: "#A8A192" } : undefined}>{caption}</div>
+      </div>
+    </div>
+  );
+};
+
+const CardGReads   = () => <LetterCard Letter={LetterGReads}   name="G · Reads"    caption="Stacked sequencing reads · genome browser texture" />;
+const CardGPlasmid = () => <LetterCard Letter={LetterGPlasmid} name="G · Plasmid"  caption="Annotated circular genome · colored gene-region segments" />;
+const CardA        = () => <LetterCard Letter={LetterA}        name="A · UMAP"     caption="Single-cell point cloud condensing into an A silhouette" />;
+const CardM        = () => <LetterCard Letter={LetterM}        name="M · Hopscotch" caption="13 tiles tracing the M path · random fills · stone token" />;
+const CardE        = () => <LetterCard Letter={LetterE}        name="E · Plinko"   caption="Plinko peg field shaped as E · three colored landing balls" />;
+
+// Dark-mode letter cards
+const CardGReadsDark   = () => <LetterCard dark Letter={LetterGReads}   name="G · Reads"    caption="Stacked sequencing reads · genome browser texture" />;
+const CardGPlasmidDark = () => <LetterCard dark Letter={LetterGPlasmid} name="G · Plasmid"  caption="Annotated circular genome · colored gene-region segments" />;
+const CardADark        = () => <LetterCard dark Letter={LetterA}        name="A · UMAP"     caption="Single-cell point cloud condensing into an A silhouette" />;
+const CardMDark        = () => <LetterCard dark Letter={LetterM}        name="M · Hopscotch" caption="13 tiles tracing the M path · random fills · stone token" />;
+const CardEDark        = () => <LetterCard dark Letter={LetterE}        name="E · Plinko"   caption="Plinko peg field shaped as E · three colored landing balls" />;
+
+// ── SINGLE-LETTER LOCKUPS ──────────────────────────────────────────────────────
+function LetterLockup({ Letter, badge, dark = false }) {
+  const ink = dark ? pPaper : pInk;
+  const paper = dark ? pInk : pPaper;
+  return (
+    <div className="logo-tile" style={{ background: dark ? pInk : pPaper, color: ink }}>
+      <div className="logo-stage" style={{ flexDirection: "row", gap: 28, padding: "26px 32px", justifyContent: "flex-start" }}>
+        <div style={{ flex: "0 0 auto" }}>
+          <Letter size={0.78} ink={ink} paper={paper} />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10, flex: "1 1 auto" }}>
+          <div style={{
+            fontFamily: "Helvetica, Arial, sans-serif", fontWeight: 700,
+            fontSize: 56, letterSpacing: -2.2, color: ink, lineHeight: 0.95
+          }}>
+            GAME&nbsp;Lab
+          </div>
+          <div style={{
+            fontFamily: "'IBM Plex Mono', monospace", fontWeight: 500,
+            fontSize: 17, letterSpacing: 2.8, color: dark ? "#A8A192" : pMuted,
+            textTransform: "uppercase", maxWidth: 420, textWrap: "balance", lineHeight: 1.45
+          }}>
+            Genomics and Adaptive MEchanisms
+          </div>
+        </div>
+      </div>
+      <div className="logo-meta" style={dark ? { background: "rgba(255,255,255,0.05)", borderTopColor: "rgba(255,255,255,0.12)" } : undefined}>
+        <div className="logo-name" style={dark ? { color: pPaper } : undefined}>Lockup · {badge}</div>
+        <div className="logo-cap" style={dark ? { color: "#A8A192" } : undefined}>Single-letter icon + GAME Lab wordmark + strapline</div>
+      </div>
+    </div>
+  );
+}
+
+const LockupGReads   = () => <LetterLockup Letter={LetterGReads}   badge="G · Reads" />;
+const LockupGPlasmid = () => <LetterLockup Letter={LetterGPlasmid} badge="G · Plasmid" />;
+const LockupA        = () => <LetterLockup Letter={LetterA}        badge="A · UMAP" />;
+const LockupM        = () => <LetterLockup Letter={LetterM}        badge="M · hopscotch" />;
+const LockupE        = () => <LetterLockup Letter={LetterE}        badge="E · Plinko" />;
+
+// Dark-mode single-letter lockups
+const LockupGReadsDark   = () => <LetterLockup dark Letter={LetterGReads}   badge="G · Reads" />;
+const LockupGPlasmidDark = () => <LetterLockup dark Letter={LetterGPlasmid} badge="G · Plasmid" />;
+const LockupADark        = () => <LetterLockup dark Letter={LetterA}        badge="A · UMAP" />;
+const LockupMDark        = () => <LetterLockup dark Letter={LetterM}        badge="M · hopscotch" />;
+const LockupEDark        = () => <LetterLockup dark Letter={LetterE}        badge="E · Plinko" />;
+
+Object.assign(window, {
+  LetterGReads, LetterGPlasmid, LetterG, LetterA, LetterM, LetterE,
+  LogoGAMEReads, LogoGAMEReadsDark, LogoGAMEPlasmid, LogoGAMEPlasmidDark,
+  CardGReads, CardGPlasmid, CardA, CardM, CardE,
+  CardGReadsDark, CardGPlasmidDark, CardADark, CardMDark, CardEDark,
+  LockupGReads, LockupGPlasmid, LockupA, LockupM, LockupE,
+  LockupGReadsDark, LockupGPlasmidDark, LockupADark, LockupMDark, LockupEDark,
+  // Back-compat: old composite name maps to Reads
+  LogoGAMEcomposite: LogoGAMEReads,
+  CardG: CardGReads, LockupG: LockupGReads,
+});
+
+ReactDOM.createRoot(document.getElementById('root')).render(<LogoGAMEPlasmid/>);
+</script>
+</body></html>
