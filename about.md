@@ -10,9 +10,9 @@ permalink: /about.html
 
 ## Welcome to the GAME Lab
 
-We are the **Genomics & Adaptive Mechanisms in Evolution** laboratory at [Institution]. Our research sits at the intersection of genomics, evolutionary biology, and computational biology.
+We are the **Genomics & Adaptive Mechanisms** laboratory at [Institution]. Our research sits at the intersection of cancer genomics, cell biology, and computational biology.
 
-We use high-throughput sequencing, single-cell methods, and computational approaches to understand how genomes evolve and how organisms adapt.
+We use high-throughput sequencing, single-cell methods, and computational approaches to understand how cancer cells adapt, communicate, and survive under stress.
 
 ---
 
