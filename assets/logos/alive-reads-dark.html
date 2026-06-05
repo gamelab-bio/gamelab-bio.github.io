@@ -687,14 +687,14 @@ function MakeCompositeWordmark({ Gvariant, badge, dark = false, gSize = 0.86, am
           <LetterM size={ameSize} ink={ink} />
           <LetterE size={ameSize} ink={ink} />
         </div>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+        <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}>
           <div style={{
             fontFamily: "Helvetica, Arial, sans-serif", fontWeight: 700,
-            fontSize: 22, letterSpacing: 1.5, color: wordColor
+            fontSize: 26, letterSpacing: 1.5, color: wordColor
           }}>
             Lab
           </div>
-          <svg width="56" height="44" viewBox="0 0 38 32" style={{ display: "block", marginLeft: 2, transform: "translateY(-24px)" }}>
+          <svg width="56" height="44" viewBox="0 0 38 32" style={{ position: "absolute", left: "calc(50% + 34px)", top: "50%", transform: "translateY(-50%)" }}>
             <style>{`@keyframes labdrift{0%,100%{transform:translate(0px,0px)}25%{transform:translate(0.7px,-0.6px)}50%{transform:translate(-0.6px,0.6px)}75%{transform:translate(0.5px,0.5px)}}@media (prefers-reduced-motion:reduce){.labcell{animation:none!important}}`}</style>
             {labCells.map((d, i) => (
               <circle key={i} className="labcell" cx={d.x.toFixed(1)} cy={d.y.toFixed(1)} r={d.r.toFixed(1)} fill={d.c} opacity={0.9}

@@ -12,16 +12,15 @@ permalink: /about.html
 
 <script>
 (function () {
-  // The animated logos are self-contained HTML pages (2 light, 2 dark). Pick one
-  // per theme up front so the choice stays stable while the user toggles themes.
-  var logos = {
-    light: ['/assets/logos/alive-reads-light.html', '/assets/logos/alive-plasmid-light.html'],
-    dark:  ['/assets/logos/alive-reads-dark.html',  '/assets/logos/alive-plasmid-dark.html']
+  // The animated logos are self-contained HTML pages, each in a light + dark
+  // variant. Pick ONE style up front and keep it across both themes, so toggling
+  // the theme only swaps colors — never the logo version.
+  var styles = {
+    reads:   { light: '/assets/logos/alive-reads-light.html',   dark: '/assets/logos/alive-reads-dark.html' },
+    plasmid: { light: '/assets/logos/alive-plasmid-light.html', dark: '/assets/logos/alive-plasmid-dark.html' }
   };
-  var pick = {
-    light: logos.light[Math.floor(Math.random() * logos.light.length)],
-    dark:  logos.dark[Math.floor(Math.random() * logos.dark.length)]
-  };
+  var names = Object.keys(styles);
+  var pick = styles[names[Math.floor(Math.random() * names.length)]];
 
   var frame  = document.getElementById('hero-logo');
   var scaler = document.getElementById('hero-scaler');
