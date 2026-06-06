@@ -272,11 +272,16 @@ h2 {
 // paragraph can't let one drawing bleed into the next heading (either side).
 .page-content h3 { clear: both; }
 
+// On phones keep the drawing floated beside the text (smaller, tighter margins)
+// rather than stacking it above the paragraph. iPads (>600px) and desktop keep
+// the larger float above.
 @media screen and (max-width: 600px) {
   .research-panel {
-    float: none;
-    width: 120px;
-    margin: 0.5rem auto 1rem;
+    width: 92px;
+    margin: 0 0 0.5rem 0.9rem;   // right-floated: gap on the left
+  }
+  .research-panel-left {
+    margin: 0 0.9rem 0.5rem 0;   // left-floated: gap on the right
   }
 }
 
