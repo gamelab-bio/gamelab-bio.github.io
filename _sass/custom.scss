@@ -249,14 +249,20 @@ h2 {
   .panel-dark { display: none; }
 }
 
+// Alternate side: some panels sit on the left of the text instead of the right.
+.research-panel-left {
+  float: left;
+  margin: 0 1.5rem 1rem 0;
+}
+
 [data-theme="dark"] .research-panel {
   .panel-light { display: none; }
   .panel-dark  { display: block; }
 }
 
 // Start each subsection below the previous section's floated panel so a short
-// paragraph can't let one drawing bleed into the next heading.
-.page-content h3 { clear: right; }
+// paragraph can't let one drawing bleed into the next heading (either side).
+.page-content h3 { clear: both; }
 
 @media screen and (max-width: 600px) {
   .research-panel {

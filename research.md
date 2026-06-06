@@ -14,7 +14,7 @@ single tumor.
 
 ### Inter-cellular and inter-strategy games in cancer
 
-<div class="research-panel"><img class="panel-light" src="/assets/panels/01-games.svg" alt="Network of cells of two strategies with a payoff matrix" /><img class="panel-dark" src="/assets/panels/01-games-dark.svg" alt="" /></div>
+<div class="research-panel research-panel-left"><img class="panel-light" src="/assets/panels/01-games.svg" alt="Network of cells of two strategies with a payoff matrix" /><img class="panel-dark" src="/assets/panels/01-games-dark.svg" alt="" /></div>
 
 A tumor is an ecosystem in which cancer cells play games. We model the interactions between cells — and between the strategies they pursue — as games, where each cell's strategy depends on what its neighbors are doing. This game-theoretic view explains how distinct strategies as proliferative, secretive, transitional cells coexist, compete, cooperate, and regulate one another; why heterogeneity is stable, when one strategy outcompetes another, and how the rules of the game might be turned against the tumor.
 
@@ -26,7 +26,7 @@ Strategies don't act in isolation — they talk to each other. We study the sign
 
 ### Stress-responsive epigenetic and transcriptional landscapes
 
-<div class="research-panel"><img class="panel-light" src="/assets/panels/03-stress-epigenetics.svg" alt="Nucleosome fiber over an energy landscape" /><img class="panel-dark" src="/assets/panels/03-stress-epigenetics-dark.svg" alt="" /></div>
+<div class="research-panel research-panel-left"><img class="panel-light" src="/assets/panels/03-stress-epigenetics.svg" alt="Nucleosome fiber over an energy landscape" /><img class="panel-dark" src="/assets/panels/03-stress-epigenetics-dark.svg" alt="" /></div>
 
 Stress reshapes how cells behave, and cancer cells are usually under substantial stress. Stress also affects how the genome is read. We map the epigenetic and transcriptional landscapes that cancer cells deploy under cellular, metabolic, and microenvironmental stress — and how these regulatory programs prime cells for adaptation. To resolve this at the level of specific genomic loci, we combine quantitative genomic locus proteomics, advanced DNA foot-printing and next-generation sequencing.
 
@@ -42,7 +42,7 @@ Placeholder description of CASPEX and GLProxScape.
 
 ### CellMUX-CRISPR screens
 
-<div class="research-panel"><img class="panel-light" src="/assets/panels/05-cellmux-crispr.svg" alt="A multiplexed library demultiplexed into different cell types with distinct barcodes" /><img class="panel-dark" src="/assets/panels/05-cellmux-crispr-dark.svg" alt="" /></div>
+<div class="research-panel research-panel-left"><img class="panel-light" src="/assets/panels/05-cellmux-crispr.svg" alt="A multiplexed library demultiplexed into different cell types with distinct barcodes" /><img class="panel-dark" src="/assets/panels/05-cellmux-crispr-dark.svg" alt="" /></div>
 
 Unlike traditional CRISPR screens where we target all cells with the same library, CellMUX-CRISPR screens are designed for targeting different cell types with different libraries, and employ combined experiments. We use this novel method to understand inter-dependencies of different cell strategies, and different cell types in cancer tissues.
 
