@@ -6,7 +6,7 @@ permalink: /research.html
 
 ## Research
 
-We study how cancer cells adapt across the stages of disease — from early transformation through progression, dissemination, and therapy resistance. We focus on the genomic and transcriptional strategies that make this adaptation possible, and on how those strategies coexist and regulate one another within a single tumor.
+We study how cancer cells adopt different survival mechanisms upon microenvironmental changes and stress. Cancer cells have extraordinary adaptation mechanisms that allow them to adapt to hypoxia, low nutrient availability, and intracellular stresses. They acquire adaptive survival strategies — such as a glycolytic switch under hypoxia, senescence or dormancy in hostile environments, drug-tolerant persistence under therapeutic pressure, or metabolic flexibility under nutrient stress. We focus on the genomic and transcriptional strategies that make this adaptation possible, on how those strategies coexist and regulate one another within a single tumor, and on how they shape — and are shaped by — the other cell types that make up the tumor microenvironment.
 
 ### inter-cellular and inter-strategy games in cancer
 
