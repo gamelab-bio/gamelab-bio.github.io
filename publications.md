@@ -10,7 +10,7 @@ permalink: /publications.html
   <div class="pub-title">Stress adaptation pathways and HA–CD44 signaling maintain the survival of pancreatic cancer cells with centrosome amplification</div>
   <div class="pub-authors"><strong>Ozcan SC</strong>, Goksel E, Kalkan BM, Cicek E, Kanevetci B, Acilan C</div>
   <div class="pub-venue">Cell Communication and Signaling, 2026, 24:316</div>
-  <div class="pub-note">This paper shows that pancreatic cancer cells carrying extra centrosomes (centrosome amplification) survive by relying on stress-adaptation pathways and hyaluronic acid–CD44 signalling — revealing a vulnerability that could be therapeutically targeted.</div>
+  <div class="pub-note">This paper shows that pancreatic cancer cells carrying extra centrosomes survive by relying on stress-adaptation pathways and hyaluronic acid–CD44 signaling, revealing how a certain subset of cancer cells become dependent on certain metabolic pathways and signaling cascades.</div>
   <div class="pub-links">
     <a class="pub-link" href="https://link.springer.com/content/pdf/10.1186/s12964-026-02865-5.pdf">PDF</a>
     <a class="pub-link" href="https://doi.org/10.1186/s12964-026-02865-5">DOI</a>
