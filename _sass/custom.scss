@@ -234,6 +234,38 @@ h2 {
   }
 }
 
+// ── Research panels (small section drawings) ───────────────────────────────────
+
+// Each .svg is a self-contained illustration card; float it beside the section
+// text so paragraphs wrap around it.
+.research-panel {
+  float: right;
+  width: 140px;
+  margin: 0 0 1rem 1.5rem;
+
+  img { display: block; width: 100%; height: auto; }
+
+  // Show the variant that matches the active theme (no flash, no JS).
+  .panel-dark { display: none; }
+}
+
+[data-theme="dark"] .research-panel {
+  .panel-light { display: none; }
+  .panel-dark  { display: block; }
+}
+
+// Start each subsection below the previous section's floated panel so a short
+// paragraph can't let one drawing bleed into the next heading.
+.page-content h3 { clear: right; }
+
+@media screen and (max-width: 600px) {
+  .research-panel {
+    float: none;
+    width: 120px;
+    margin: 0.5rem auto 1rem;
+  }
+}
+
 // ── Accent utilities ──────────────────────────────────────────────────────────
 
 .accent-coral  { color: var(--coral); }

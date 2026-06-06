@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-label="scRNA-seq and spatial transcriptomics: expression clusters mapped onto a tissue section">
+  <rect x="1.5" y="1.5" width="217" height="217" rx="14" fill="#f3f1ea" stroke="#d8d2c6" stroke-width="1.5"></rect>
+  
+  <ellipse cx="66" cy="60" rx="22" ry="16" fill="none" stroke="#2f8a8f" stroke-width="1.2" stroke-dasharray="3 4"></ellipse>
+  <ellipse cx="108" cy="52" rx="19" ry="14" fill="none" stroke="#d2694a" stroke-width="1.2" stroke-dasharray="3 4"></ellipse>
+  <ellipse cx="74" cy="100" rx="19" ry="14" fill="none" stroke="#2a2e35" stroke-width="1.2" stroke-dasharray="3 4"></ellipse>
+  
+  <g fill="#2f8a8f">
+    <circle cx="58" cy="56" r="3"></circle><circle cx="66" cy="52" r="3"></circle><circle cx="74" cy="60" r="3"></circle>
+    <circle cx="60" cy="66" r="3"></circle><circle cx="72" cy="68" r="3"></circle><circle cx="65" cy="60" r="3"></circle>
+  </g>
+  
+  <g fill="#d2694a">
+    <circle cx="100" cy="48" r="3"></circle><circle cx="108" cy="46" r="3"></circle><circle cx="114" cy="54" r="3"></circle>
+    <circle cx="102" cy="56" r="3"></circle><circle cx="110" cy="58" r="3"></circle>
+  </g>
+  
+  <g fill="#2a2e35">
+    <circle cx="68" cy="94" r="3"></circle><circle cx="76" cy="96" r="3"></circle><circle cx="72" cy="104" r="3"></circle>
+    <circle cx="82" cy="100" r="3"></circle><circle cx="65" cy="101" r="3"></circle>
+  </g>
+  
+  <path d="M96 110 C 112 120 116 122 120 130" fill="none" stroke="#2a2e35" stroke-width="1.2" stroke-opacity="0.6" stroke-dasharray="2 4"></path>
+  <path d="M120 130 l-5 -3 m5 3 l-1 -6" fill="none" stroke="#2a2e35" stroke-width="1.2" stroke-opacity="0.6" stroke-linecap="round"></path>
+  
+  <rect x="108" y="118" width="82" height="72" rx="16" fill="#ffffff" fill-opacity="0.5" stroke="#2a2e35" stroke-width="1.5"></rect>
+  <g stroke="#d8d2c6" stroke-width="1">
+    <line x1="135" y1="120" x2="135" y2="188"></line>
+    <line x1="162" y1="120" x2="162" y2="188"></line>
+    <line x1="110" y1="142" x2="188" y2="142"></line>
+    <line x1="110" y1="166" x2="188" y2="166"></line>
+  </g>
+  
+  <g>
+    <circle cx="126" cy="152" r="3.5" fill="#2f8a8f"></circle>
+    <circle cx="158" cy="136" r="3.5" fill="#d2694a"></circle>
+    <circle cx="150" cy="174" r="3.5" fill="#2a2e35"></circle>
+    <circle cx="174" cy="160" r="3.5" fill="#d2694a"></circle>
+    <circle cx="140" cy="178" r="3.5" fill="#2f8a8f"></circle>
+    <circle cx="172" cy="132" r="3.5" fill="#2a2e35"></circle>
+  </g>
+</svg>

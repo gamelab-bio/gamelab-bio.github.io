@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-label="Stress-responsive epigenetic landscapes: nucleosome fiber over an energy landscape">
+  <rect x="1.5" y="1.5" width="217" height="217" rx="14" fill="#f3f1ea" stroke="#d8d2c6" stroke-width="1.5"></rect>
+  
+  <path d="M32 72 C 52 54 66 88 86 72 S 128 54 150 72 S 184 76 190 64" fill="none" stroke="#2a2e35" stroke-width="1.4"></path>
+  
+  <g stroke="#2a2e35" stroke-width="1.6">
+    <circle cx="40" cy="70" r="6.5" fill="#f3f1ea"></circle>
+    <circle cx="54" cy="64" r="6.5" fill="#f3f1ea"></circle>
+    <circle cx="68" cy="78" r="6.5" fill="#f3f1ea"></circle>
+    <circle cx="84" cy="71" r="6.5" fill="#f3f1ea"></circle>
+  </g>
+  
+  <g stroke="#d2694a" stroke-width="1.4" fill="none">
+    <path d="M96 86 v6 h22 v-6"></path>
+  </g>
+  
+  <g stroke="#2a2e35" stroke-width="1.6">
+    <circle cx="128" cy="62" r="6.5" fill="#2f8a8f"></circle>
+    <circle cx="152" cy="71" r="6.5" fill="#2f8a8f"></circle>
+    <circle cx="178" cy="69" r="6.5" fill="#f3f1ea"></circle>
+  </g>
+  
+  <line x1="152" y1="78" x2="140" y2="170" stroke="#2a2e35" stroke-width="1" stroke-dasharray="2 4" stroke-opacity="0.5"></line>
+  
+  <path d="M28 150 C50 150 56 178 74 178 C92 178 92 150 106 150 C120 150 122 186 142 186 C164 186 172 156 192 158" fill="none" stroke="#2a2e35" stroke-width="1.8"></path>
+  
+  <circle cx="74" cy="171" r="5" fill="none" stroke="#d2694a" stroke-width="1.4"></circle>
+  
+  <circle cx="141" cy="179" r="6" fill="#2f8a8f" stroke="#2a2e35" stroke-width="1.4"></circle>
+</svg>

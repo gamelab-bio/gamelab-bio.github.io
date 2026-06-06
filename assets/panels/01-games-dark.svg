@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-label="Inter-cellular and inter-strategy games: a network of cells of two strategies with a payoff matrix">
+  <rect x="1.5" y="1.5" width="217" height="217" rx="14" fill="#1F2026" stroke="#2E2F37" stroke-width="1.5"></rect>
+  
+  <g fill="none" stroke="#2E2F37" stroke-width="1">
+    <path d="M134 98 L114 63 L74 63 L54 98 L74 133 L114 133 Z"></path>
+  </g>
+  
+  <g fill="none" stroke="#ECE7D8" stroke-width="1.3" stroke-opacity="0.55">
+    <line x1="94" y1="98" x2="134" y2="98"></line>
+    <line x1="94" y1="98" x2="114" y2="63"></line>
+    <line x1="94" y1="98" x2="74" y2="63"></line>
+    <line x1="94" y1="98" x2="54" y2="98"></line>
+    <line x1="94" y1="98" x2="74" y2="133"></line>
+    <line x1="94" y1="98" x2="114" y2="133"></line>
+  </g>
+  
+  <g stroke="#ECE7D8" stroke-width="1.6">
+    <circle cx="134" cy="98" r="9" fill="#4FB3B6"></circle>
+    <circle cx="114" cy="63" r="9" fill="#F06A4E"></circle>
+    <circle cx="74" cy="63" r="9" fill="#4FB3B6"></circle>
+    <circle cx="54" cy="98" r="9" fill="#F06A4E"></circle>
+    <circle cx="74" cy="133" r="9" fill="#4FB3B6"></circle>
+    <circle cx="114" cy="133" r="9" fill="#F06A4E"></circle>
+    <circle cx="94" cy="98" r="10" fill="#1F2026"></circle>
+  </g>
+  
+  <line x1="114" y1="133" x2="150" y2="152" stroke="#ECE7D8" stroke-width="1" stroke-dasharray="2 3" stroke-opacity="0.5"></line>
+  
+  <g>
+    <rect x="150" y="150" width="44" height="44" rx="3" fill="none" stroke="#ECE7D8" stroke-width="1.4"></rect>
+    <line x1="172" y1="150" x2="172" y2="194" stroke="#ECE7D8" stroke-width="1"></line>
+    <line x1="150" y1="172" x2="194" y2="172" stroke="#ECE7D8" stroke-width="1"></line>
+    <rect x="150.5" y="150.5" width="21.5" height="21.5" fill="#4FB3B6" fill-opacity="0.28"></rect>
+    <rect x="172" y="172" width="21.5" height="21.5" fill="#F06A4E" fill-opacity="0.28"></rect>
+  </g>
+</svg>
