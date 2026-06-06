@@ -263,6 +263,9 @@ h2 {
   margin: 0 1.5rem 1rem 0;
 }
 
+// Slightly larger variant for the intro/overview panel.
+.research-panel-lg { width: 170px; }
+
 [data-theme="dark"] .research-panel {
   .panel-light { display: none; }
   .panel-dark  { display: block; }
@@ -283,6 +286,7 @@ h2 {
   .research-panel-left {
     margin: 0 0.9rem 0.5rem 0;   // left-floated: gap on the right
   }
+  .research-panel-lg { width: 112px; }
 }
 
 // ── Accent utilities ──────────────────────────────────────────────────────────

@@ -6,7 +6,7 @@ permalink: /research.html
 
 ## Research
 
-<div class="research-panel research-panel-left"><img class="panel-light" src="/assets/panels/00-adaptation.svg" alt="A central cancer cell within a stress gradient, switching between glycolytic, dormant, drug-tolerant and metabolically flexible survival strategies" /><img class="panel-dark" src="/assets/panels/00-adaptation-dark.svg" alt="" /></div>
+<div class="research-panel research-panel-left research-panel-lg"><img class="panel-light" src="/assets/panels/00-adaptation.svg" alt="A central cancer cell within a stress gradient, switching between glycolytic, dormant, drug-tolerant and metabolically flexible survival strategies" /><img class="panel-dark" src="/assets/panels/00-adaptation-dark.svg" alt="" /></div>
 
 We study how cancer cells adopt different survival mechanisms upon microenvironmental changes and stress. Cancer cells have extraordinary adaptation mechanisms that allow them to adapt to hypoxia, low nutrient availability, and intracellular stresses. They acquire adaptive survival strategies — such as a glycolytic switch under hypoxia, senescence or dormancy in hostile environments, drug-tolerant persistence under therapeutic pressure, or metabolic flexibility under nutrient stress. We focus on the genomic and transcriptional strategies that make this adaptation possible, on how those strategies coexist and regulate one another within a single tumor, and on how they shape — and are shaped by — the other cell types that make up the tumor microenvironment.
 
