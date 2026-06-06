@@ -5,9 +5,7 @@ permalink: /about.html
 ---
 
 <div class="lab-hero">
-  <div class="hero-logo-scaler" id="hero-scaler">
-    <iframe class="hero-logo" id="hero-logo" title="GAME Lab" scrolling="no" loading="lazy"></iframe>
-  </div>
+  <div class="hero-logo-scaler" id="hero-scaler"></div>
 </div>
 
 <script>
@@ -22,29 +20,44 @@ permalink: /about.html
   var names = Object.keys(styles);
   var pick = styles[names[Math.floor(Math.random() * names.length)]];
 
-  var frame  = document.getElementById('hero-logo');
   var scaler = document.getElementById('hero-scaler');
   var BASE_W = 720, BASE_H = 420;   // natural size of the wordmark canvas
+  var frames = {};                  // theme -> iframe, created once then reused
 
   function theme() {
     return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
   }
-  function applyLogo() {
-    var src = pick[theme()];
-    if (frame.getAttribute('src') !== src) frame.setAttribute('src', src);
+  function scaleOf() { return Math.min(1, scaler.clientWidth / BASE_W); }
+  function sizeFrame(f) { f.style.transform = 'translateX(-50%) scale(' + scaleOf() + ')'; }
+
+  // Each logo iframe is heavy (loads React + transpiles its art), so build it
+  // once per theme and cache it. Toggling then just flips visibility — no reload,
+  // no re-transpile — which is what made switching themes feel slow.
+  function show(t) {
+    if (!frames[t]) {
+      var f = document.createElement('iframe');
+      f.className = 'hero-logo';
+      f.title = 'GAME Lab';
+      f.setAttribute('scrolling', 'no');
+      f.loading = 'lazy';
+      f.src = pick[t];
+      sizeFrame(f);
+      scaler.appendChild(f);
+      frames[t] = f;
+    }
+    for (var k in frames) frames[k].style.visibility = (k === t ? 'visible' : 'hidden');
+    scaler.style.height = (BASE_H * scaleOf()) + 'px';
   }
   function fit() {
-    // Scale the fixed-size logo down to fit the column width (never up).
-    var scale = Math.min(1, scaler.clientWidth / BASE_W);
-    frame.style.transform = 'translateX(-50%) scale(' + scale + ')';
-    scaler.style.height = (BASE_H * scale) + 'px';
+    for (var k in frames) sizeFrame(frames[k]);
+    scaler.style.height = (BASE_H * scaleOf()) + 'px';
   }
 
-  applyLogo();
+  show(theme());   // load only the current theme up front
   fit();
 
-  // Re-pick the matching-theme logo when the theme toggles, and rescale on resize.
-  new MutationObserver(applyLogo).observe(document.documentElement, {
+  // Swap visibility (loading the other theme once, lazily) and rescale on resize.
+  new MutationObserver(function () { show(theme()); }).observe(document.documentElement, {
     attributes: true, attributeFilter: ['data-theme']
   });
   if (window.ResizeObserver) new ResizeObserver(fit).observe(scaler);
