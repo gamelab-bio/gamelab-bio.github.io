@@ -286,7 +286,14 @@ h2 {
   .research-panel-left {
     margin: 0 0.9rem 0.5rem 0;   // left-floated: gap on the right
   }
-  .research-panel-lg { width: 158px; }
+  // Intro panel: don't squeeze beside text on phones — center it on its own
+  // line so it can be shown much larger.
+  .research-panel-lg {
+    float: none;
+    width: 70%;
+    max-width: 260px;
+    margin: 0 auto 1rem;
+  }
 }
 
 // ── Accent utilities ──────────────────────────────────────────────────────────
