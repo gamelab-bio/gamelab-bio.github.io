@@ -19,7 +19,7 @@ We study how cancer cells adopt different survival mechanisms upon microenvironm
 
 <div class="research-panel research-panel-left"><img class="panel-light" src="/assets/panels/01-games.svg" alt="Network of cells of two strategies with a payoff matrix" /><img class="panel-dark" src="/assets/panels/01-games-dark.svg" alt="" /></div>
 
-A tumor is an ecosystem in which cancer cells play games. We model the interactions between cells — and between the strategies they pursue — as games, where each cell's strategy depends on what its neighbors are doing. This game-theoretic view explains how distinct strategies as proliferative, secretive, transitional cells coexist, compete, cooperate, and regulate one another; why heterogeneity is stable, when one strategy outcompetes another, and how the rules of the game might be turned against the tumor.
+A tumor is an ecosystem in which cancer cells play games. We model the interactions between cells — and between the strategies they pursue — as games, where each cell's strategy depends on what its neighbors are doing. This game-theoretic view explains how distinct strategies as proliferative, secretory, transitional cells coexist, compete, cooperate, and regulate one another; why heterogeneity is stable, when one strategy outcompetes another, and how the rules of the game might be turned against the tumor.
 
 ### cell-cell communication between different cellular strategies
 
