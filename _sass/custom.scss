@@ -263,8 +263,23 @@ h2 {
   margin: 0 1.5rem 1rem 0;
 }
 
-// Larger variant for the intro/overview panel.
-.research-panel-lg { width: 280px; }
+// Intro/overview: a true two-column row (image left, text right) rather than a
+// float — so no text wraps below the larger drawing.
+.research-intro {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+}
+.research-intro-figure {
+  float: none;
+  flex: 0 0 280px;
+  width: 280px;
+  margin: 0;
+}
+.research-intro-text {
+  flex: 1;
+  p:last-child { margin-bottom: 0; }
+}
 
 [data-theme="dark"] .research-panel {
   .panel-light { display: none; }
@@ -280,19 +295,19 @@ h2 {
 // the larger float above.
 @media screen and (max-width: 600px) {
   .research-panel {
-    width: 92px;
+    width: 108px;
     margin: 0 0 0.5rem 0.9rem;   // right-floated: gap on the left
   }
   .research-panel-left {
     margin: 0 0.9rem 0.5rem 0;   // left-floated: gap on the right
   }
-  // Intro panel: don't squeeze beside text on phones — center it on its own
-  // line so it can be shown much larger.
-  .research-panel-lg {
-    float: none;
-    width: 70%;
-    max-width: 260px;
-    margin: 0 auto 1rem;
+  // Intro: keep the drawing floated beside the text (not stacked apart),
+  // just a touch larger than the section panels.
+  .research-intro { display: block; }
+  .research-intro-figure {
+    float: left;
+    width: 128px;
+    margin: 0 0.9rem 0.5rem 0;
   }
 }
 
