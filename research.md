@@ -47,10 +47,10 @@ Placeholder description of CASPEX and GLProxScape.
 
 <div class="research-panel research-panel-left"><img class="panel-light" src="/assets/panels/05-cellmux-crispr.svg" alt="A multiplexed library demultiplexed into different cell types with distinct barcodes" /><img class="panel-dark" src="/assets/panels/05-cellmux-crispr-dark.svg" alt="" /></div>
 
-Unlike traditional CRISPR screens where we target all cells with the same library, CellMUX-CRISPR screens are designed for targeting different cell types with different libraries, and employ combined experiments. We use this  method with CROP-seq to understand inter-dependencies of different cell strategies, and different cell types in cancer tissues.
+Unlike traditional CRISPR screens where we target all cells with the same library, CellMUX-CRISPR screens are designed for targeting different cell types with different libraries, and employ combined experiments. We use this  method with CROP-seq and Perturb-DBiT to understand inter-dependencies of different cell strategies, and different cell types in cancer tissues.
 
 ### single cell methods
 
 <div class="research-panel"><img class="panel-light" src="/assets/panels/06-scrna-spatial.svg" alt="Expression clusters mapped onto a tissue section" /><img class="panel-dark" src="/assets/panels/06-scrna-spatial-dark.svg" alt="" /></div>
 
-We use single cell RNA sequencing (scRNA-seq) and spatial transcriptomics methods to evaluate our experimental results. Additionally, we follow and implement newly developed single-cell technologies to increase the information we collect from the cells, as DNA accessibility, DNA foot-printing, DNA methylation and protein expression and phosphorylation.
+We use single cell RNA sequencing (scRNA-seq) and spatial transcriptomics methods to evaluate our experimental results. Additionally, we follow and implement new single-cell technologies to increase the information we collect from the cells; as DNA accessibility (SHARE-seq), DNA foot-printing (D&D-seq), DNA methylation (ME-seq), surface protein expression (CITE-seq), and phosphorylation (Phospho-seq), according to our experimental questions.
