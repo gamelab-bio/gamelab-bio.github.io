@@ -37,11 +37,11 @@ Stress reshapes how cells behave, and cancer cells are usually under substantial
 
 We develop and apply quantitative methods to read out how different cancer strategies coexist, compete, cooperate, and regulate one another, and how stress response re-shapes the communication between different cell strategies and cell types.
 
-### genomic locus proteomics & GLProxScape
+### genomic locus proteomics & GLproxScape
 
 <div class="research-panel"><img class="panel-light" src="/assets/panels/04-locus-proteomics.svg" alt="A DNA locus with a proximity-labeling capture radius and nearby proteins" /><img class="panel-dark" src="/assets/panels/04-locus-proteomics-dark.svg" alt="" /></div>
 
-We use CASPEX, a dCas9-APEX2 proximity labeling system, to capture the proteome associated with specific genomic loci in living cells — identifying transcription factors and chromatin regulators that occupy a promoter or regulatory element of interest. To extract biological meaning from the resulting data, we developed GLProxScape, an R package that performs spatial deconvolution of genomic locus proteomics datasets and generates locus-resolved binding predictions.
+We use genomic locus proteomics to capture the proteome associated with specific genomic loci in living cells — identifying transcription factors and chromatin regulators that occupy a promoter or regulatory element of interest. To extract biological meaning from the resulting data, we developed GLproxScape, an R package that performs spatial deconvolution of genomic locus proteomics datasets and generates locus-resolved binding predictions.
 
 ### cellMUX-CRISPR screens
 
