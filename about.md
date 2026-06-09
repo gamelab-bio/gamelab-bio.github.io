@@ -69,7 +69,7 @@ permalink: /about.html
 
 We are the **Genomics & Adaptive Mechanisms** laboratory at [Institution]. The GAME Lab studies cancer as an evolving ecosystem, where cells employ adaptive strategies and interact through competitive and cooperative games. We combine experimental and computational approaches to uncover the regulatory mechanisms that govern cellular adaptation, communication, and survival.
 
-By integrating genomic locus proteomics, single-cell technologies, and computational modeling, we aim to identify vulnerabilities that emerge as cancer cells adapt.
+By integrating CRISPR screening, genomic locus proteomics, single-cell technologies, and computational methods, we aim to identify vulnerabilities that emerge as cancer cells diversify their survival strategies.
 
 ---
 
