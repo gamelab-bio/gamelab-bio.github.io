@@ -319,28 +319,31 @@ h2 {
 
 // ── PI bio (portrait photo beside text) ───────────────────────────────────────
 .pi {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.75rem;
   margin-top: 1rem;
 }
+.pi::after {                    // contain the floated photo so the divider clears
+  content: "";
+  display: table;
+  clear: both;
+}
 .pi-photo {
-  flex: 0 0 220px;
-  width: 220px;
+  float: right;                 // photo on the side; bio wraps beside and below it
+  width: 160px;                 // matches scanozcan.github.io
+  margin: 0.25rem 0 0.5rem 1.5rem;
 
-  img { display: block; width: 100%; height: auto; }
+  img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 2 / 3;        // 160 × 240
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
 }
-.pi-text {
-  flex: 1;
+.pi-text > p:first-child { margin-top: 0; }
 
-  > p:first-child { margin-top: 0; }
-  > p:last-child  { margin-bottom: 0; }
-}
-
-// On phones, stack the photo above the text.
 @media screen and (max-width: 600px) {
-  .pi { display: block; }
-  .pi-photo { width: 150px; margin: 0 0 1rem 0; }
+  .pi-photo { width: 130px; margin-left: 1rem; }
 }
 
 // ── Code ──────────────────────────────────────────────────────────────────────
