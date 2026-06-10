@@ -14,7 +14,7 @@ permalink: /people.html
 
 Can is many things. he started as a veterinarian, then earned a PhD in biochemistry working on cancer metabolism. from there he turned to centrosome amplification and the mitotic disorders it drives in cancer cells. along the way he moved into high-throughput functional approaches - CRISPR screens and proximity proteomics - and spent some time on pancreatic cancer mouse models, single-cell RNA-seq methods, and stem cell differentiation and erythropoiesis. he learned computational biology and built R and Python tools to make life easier.
 
-Now he runs the GAME Lab, where he is excited to build the dream team and chase the questions that keep him up at night. he plays piano, loves music, and above all loves games - in life and in the lab. he doesn't enjoy boring experiments, and believes the lab should be fun before it's anything else.
+Now he runs the GAME Lab, where he is excited to build the dream team and chase the questions that keep him up at night. he plays piano, loves music and abstract art, and above all loves games - in life and in the lab. he doesn't enjoy boring experiments, and believes the lab should be fun before it's anything else.
 
 </div>
 </div>
