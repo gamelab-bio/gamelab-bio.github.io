@@ -41,7 +41,7 @@ We develop and apply quantitative methods to read out how different cancer strat
 
 <div class="research-panel"><img class="panel-light" src="/assets/panels/04-locus-proteomics.svg" alt="A DNA locus with a proximity-labeling capture radius and nearby proteins" /><img class="panel-dark" src="/assets/panels/04-locus-proteomics-dark.svg" alt="" /></div>
 
-We use genomic locus proteomics to capture the proteome associated with specific genomic loci in living cells — identifying transcription factors and chromatin regulators that occupy a promoter or regulatory element of interest. to extract biological meaning from the resulting data, we developed [**GLproxScape**](https://github.com/scanozcan/GLproxScape), an R package that performs spatial deconvolution of genomic locus proteomics datasets and generates locus-resolved binding predictions.
+We use genomic locus proteomics to capture the proteome associated with specific genomic loci in living cells — identifying transcription factors and chromatin regulators that occupy a promoter or regulatory element of interest. to extract biological meaning from the resulting data, we developed [**GLproxScape**](https://github.com/scanozcan/GLproxScape), an R package that performs spatial deconvolution of genomic locus proteomics datasets and generates locus-resolved binding predictions. we are still developing it into a binding quantification tool — one that compares a condition against baseline to make quantitative predictions, such as a several-fold increase in a given transcription factor's binding.
 
 ### cellMUX-CRISPR screens
 
