@@ -67,7 +67,7 @@ permalink: /about.html
 
 ## Welcome to the GAME Lab
 
-Cancer cells survive by adapting — switching strategies, competing for resources, cooperating when it pays. the **GAME Lab** (Genomics & Adaptive Mechanisms) at [Institution] studies cancer as an evolving ecosystem of these strategies, combining experimental and computational approaches to learn how cells adapt, communicate, and survive — and how those same strategies expose new vulnerabilities.
+Cancer cells survive by adapting — switching strategies, competing for resources, cooperating when it pays. **GAME Lab** (Genomics & Adaptive Mechanisms) at [Institution] studies cancer as an evolving ecosystem of these strategies, combining experimental and computational approaches to learn how cells adapt, communicate, and survive — and how those same strategies expose new vulnerabilities.
 
 By integrating CRISPR screening, genomic locus proteomics, single-cell technologies, and computational methods, we aim to identify vulnerabilities that emerge as cancer cells diversify their survival strategies.
 
