@@ -19,7 +19,7 @@ We study how cancer cells adopt different survival mechanisms upon microenvironm
 
 <div class="research-panel research-panel-left"><img class="panel-light" src="/assets/panels/01-games.svg" alt="Network of cells of two strategies with a payoff matrix" /><img class="panel-dark" src="/assets/panels/01-games-dark.svg" alt="" /></div>
 
-A tumor is an ecosystem in which cancer cells play games. We model the interactions between cells — and between the strategies they pursue — as games, where each cell's strategy depends on what its neighbors are doing. This game-theoretic view explains how distinct strategies such as proliferative, secretory, invasive etc. cells coexist, compete, cooperate, and regulate one another; why heterogeneity is stable, when one strategy outcompetes another, and how the rules of the game might be turned against the tumor.
+A tumor is an ecosystem in which cancer cells play games. We model the interactions between cells — and between the strategies they pursue — as games, where each cell's strategy depends on what its neighbors are doing. This game-theoretic view explains how distinct strategies — proliferative, secretory, invasive — coexist, compete, cooperate, and regulate one another; why heterogeneity is stable, when one strategy outcompetes another, and how the rules of the game might be turned against the tumor.
 
 ### cell-cell communication between different cellular strategies
 
@@ -31,11 +31,11 @@ Strategies don't act in isolation — they talk to each other. We study the sign
 
 <div class="research-panel research-panel-left"><img class="panel-light" src="/assets/panels/03-stress-epigenetics.svg" alt="Nucleosome fiber over an energy landscape" /><img class="panel-dark" src="/assets/panels/03-stress-epigenetics-dark.svg" alt="" /></div>
 
-Stress reshapes how cells behave, and cancer cells are usually under substantial stress. Stress also affects how the genome is read. We map the epigenetic and transcriptional landscapes that cancer cells deploy under cellular, metabolic, and microenvironmental stress — and how these regulatory programs prime cells for adaptation. To resolve this at the level of specific genomic loci, we combine quantitative genomic locus proteomics, advanced DNA foot-printing and next-generation sequencing.
+Stress reshapes how cells behave, and cancer cells are usually under substantial stress. Stress also affects how the genome is read. We map the epigenetic and transcriptional landscapes that cancer cells deploy under cellular, metabolic, and microenvironmental stress — and how these regulatory programs prime cells for adaptation. To resolve this at the level of specific genomic loci, we combine quantitative genomic locus proteomics, advanced DNA footprinting and next-generation sequencing.
 
 ## our tools
 
-We develop and apply quantitative methods to read out how different cancer strategies coexist, compete, cooperate, and regulate one another, and how stress response re-shapes the communication between different cell strategies and cell types.
+We develop and apply quantitative methods to read out how different cancer strategies coexist, compete, cooperate, and regulate one another, and how stress response reshapes the communication between different cell strategies and cell types.
 
 ### genomic locus proteomics & GLproxScape
 
@@ -47,10 +47,10 @@ We use genomic locus proteomics to capture the proteome associated with specific
 
 <div class="research-panel research-panel-left"><img class="panel-light" src="/assets/panels/05-cellmux-crispr.svg" alt="A multiplexed library demultiplexed into different cell types with distinct barcodes" /><img class="panel-dark" src="/assets/panels/05-cellmux-crispr-dark.svg" alt="" /></div>
 
-Unlike traditional CRISPR screens where we target all cells with the same library, CellMUX-CRISPR screens are designed for targeting different cell types with different libraries, and employ combined experiments. We use this  method with CROP-seq and Perturb-DBiT to understand interdependencies of different cell strategies, and different cell types in cancer tissues.
+Unlike traditional CRISPR screens where we target all cells with the same library, cellMUX-CRISPR screens are designed to target different cell types with different libraries, and employ combined experiments. We use this method with CROP-seq and Perturb-DBiT to understand interdependencies of different cell strategies, and different cell types in cancer tissues.
 
 ### single cell methods
 
 <div class="research-panel"><img class="panel-light" src="/assets/panels/06-scrna-spatial.svg" alt="Expression clusters mapped onto a tissue section" /><img class="panel-dark" src="/assets/panels/06-scrna-spatial-dark.svg" alt="" /></div>
 
-We use single cell RNA sequencing (scRNA-seq) and spatial transcriptomics methods to evaluate our experimental results. Additionally, we adopt and implement emerging single-cell technologies to broaden the molecular information we extract from individual cells; as DNA accessibility (SHARE-seq), DNA footprinting (D&D-seq), DNA methylation (ME-seq), surface protein expression (CITE-seq), and phosphorylation (Phospho-seq), according to our experimental questions.
+We use single cell RNA sequencing (scRNA-seq) and spatial transcriptomics methods to resolve how strategies are distributed across cells and tissue. Additionally, we adopt and implement emerging single-cell technologies to broaden the molecular information we extract from individual cells — such as DNA accessibility (SHARE-seq), DNA footprinting (D&D-seq), DNA methylation (ME-seq), surface protein expression (CITE-seq), and phosphorylation (Phospho-seq), according to our experimental questions.
