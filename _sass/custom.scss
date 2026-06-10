@@ -317,6 +317,32 @@ h2 {
 .accent-amber  { color: var(--amber); }
 .accent-teal   { color: var(--teal); }
 
+// ── PI bio (portrait photo beside text) ───────────────────────────────────────
+.pi {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.75rem;
+  margin-top: 1rem;
+}
+.pi-photo {
+  flex: 0 0 220px;
+  width: 220px;
+
+  img { display: block; width: 100%; height: auto; }
+}
+.pi-text {
+  flex: 1;
+
+  > p:first-child { margin-top: 0; }
+  > p:last-child  { margin-bottom: 0; }
+}
+
+// On phones, stack the photo above the text.
+@media screen and (max-width: 600px) {
+  .pi { display: block; }
+  .pi-photo { width: 150px; margin: 0 0 1rem 0; }
+}
+
 // ── Code ──────────────────────────────────────────────────────────────────────
 
 pre, code {
