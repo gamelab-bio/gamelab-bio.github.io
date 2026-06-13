@@ -47,7 +47,7 @@ We use genomic locus proteomics to capture the proteome associated with specific
 
 <div class="research-panel research-panel-left"><img class="panel-light" src="/assets/panels/05-cellmux-crispr.svg" alt="A multiplexed library demultiplexed into different cell types with distinct barcodes" /><img class="panel-dark" src="/assets/panels/05-cellmux-crispr-dark.svg" alt="" /></div>
 
-Unlike traditional CRISPR screens where we target all cells with the same library, [**cellMUX-CRISPR**](https://github.com/scanozcan/CellMux-MAGeCK-Wrapper) screens are designed to target different cell types with different libraries, and employ combined experiments. we use this method with CROP-seq and spatial transcriptomics to understand interdependencies of different cell strategies, and different cell types in cancer tissues.
+Unlike traditional CRISPR screens where we target all cells with the same library, [**cellMUX-CRISPR**](https://github.com/scanozcan/CellMUX) screens are designed to target different cell types with different libraries, and employ combined experiments. we use this method with CROP-seq and spatial transcriptomics to understand interdependencies of different cell strategies, and different cell types in cancer tissues.
 
 ### single cell methods
 
