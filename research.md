@@ -37,17 +37,17 @@ Stress reshapes how cells behave, and cancer cells are usually under substantial
 
 We develop and apply quantitative methods to read out how different cancer strategies coexist, compete, cooperate, and regulate one another, and how stress response reshapes the communication between different cell strategies and cell types.
 
-### genomic locus proteomics & GLproxScape
+### genomic locus landscape analysis
 
 <div class="research-panel"><img class="panel-light" src="/assets/panels/04-locus-proteomics.svg" alt="A DNA locus with a proximity-labeling capture radius and nearby proteins" /><img class="panel-dark" src="/assets/panels/04-locus-proteomics-dark.svg" alt="" /></div>
 
-We use genomic locus proteomics to capture the proteome associated with specific genomic loci in living cells — identifying transcription factors and chromatin regulators that occupy a promoter or regulatory element of interest. to extract biological meaning from the resulting data, we developed [**GLproxScape**](https://github.com/scanozcan/GLproxScape), an R package that performs spatial deconvolution of genomic locus proteomics datasets and generates locus-resolved binding predictions. we are currently working on the new version to perform quantification of binding predictions across experimental conditions.
+We use genomic locus proteomics to capture the proteome associated with specific genomic loci in living cells — identifying transcription factors and chromatin regulators that occupy a promoter or regulatory element of interest. to extract biological meaning from the resulting data, we developed [**GLproxScape**](https://github.com/scanozcan/GLproxScape), an R package that performs spatial deconvolution of genomic locus proteomics datasets and generates locus-resolved binding predictions. we are currently working on the version 2 to perform quantification of binding predictions across experimental conditions.
 
 ### multiplexed CRISPR screens
 
 <div class="research-panel research-panel-left"><img class="panel-light" src="/assets/panels/05-cellmux-crispr.svg" alt="A multiplexed library demultiplexed into different cell types with distinct barcodes" /><img class="panel-dark" src="/assets/panels/05-cellmux-crispr-dark.svg" alt="" /></div>
 
-Unlike traditional CRISPR screens where we target all cells with the same library, multiplexed CRISPR screens are designed to target different cell types with different libraries, and employ combined experiments, which we analyze using [**CAMUS**](https://github.com/scanozcan/CAMUS). we use this method with CROP-seq and spatial transcriptomics to understand interdependencies of different cell strategies, and different cell types in cancer tissues.
+By using cell-type-specific barcoding in CRISPR screens and an in-house demultiplexing algorithm ([**CAMUS**](https://github.com/scanozcan/CAMUS)), we target and identify different cancer cell types within a single combined experiment. we pair this with CROP-seq and spatial transcriptomics to understand the interdependencies of different cell strategies, and different cell types, in cancer tissues.
 
 ### single cell methods
 
