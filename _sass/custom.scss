@@ -31,7 +31,7 @@
 body {
   background-color: var(--paper);
   color: var(--ink);
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'Lora', Georgia, serif;
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 
@@ -91,7 +91,7 @@ a {
 // Colour the "G" in GAME Lab — we inject a span in the title if needed,
 // but as a CSS-only fallback we accent the nav dot separator instead.
 .site-nav .page-link {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Lora', Georgia, serif;
   font-size: 12px;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -124,7 +124,7 @@ a {
 }
 
 .footer-lab {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Lora', Georgia, serif;
   font-size: 11px;
   letter-spacing: 1px;
   color: var(--muted);
@@ -142,7 +142,7 @@ a {
 }
 
 .footer-copyright {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Lora', Georgia, serif;
   font-size: 10px;
   letter-spacing: 1px;
   color: var(--muted);
@@ -152,7 +152,7 @@ a {
 // ── Typography ───────────────────────────────────────────────────────────────
 
 h1, h2, h3 {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Lora', Georgia, serif;
   color: var(--ink);
 }
 
@@ -232,7 +232,7 @@ h2 {
 .puzzle-link {
   margin-top: 2rem;
   a {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'Lora', Georgia, serif;
     font-size: 12px;
     letter-spacing: 2px;
     text-transform: uppercase;
