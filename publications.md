@@ -10,7 +10,7 @@ permalink: /publications.html
   <div class="pub-title">GLproxScape reconstructs spatial chromatin occupancy landscapes from tiled genomic locus proteomics</div>
   <div class="pub-authors"><strong>Ozcan SC</strong>, Sergi B, Yildirim B, Cagiral U, Gonen M, Acilan C</div>
   <div class="pub-venue">bioRxiv, 2026 (preprint)</div>
-  <div class="pub-note">This paper introduces GLproxScape, an R package that performs localization predictions of proteins along a genomic locus from tiled proximity-labeling proteomics data.</div>
+  <div class="pub-note">This paper introduces GLproxScape, an R package that performs spatial predictions of proteins along a genomic locus from tiled proximity-labeling proteomics data.</div>
   <div class="pub-links">
     <a class="pub-link" href="https://www.biorxiv.org/content/10.64898/2026.06.29.735243v1">Preprint</a>
   </div>
