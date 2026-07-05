@@ -9,7 +9,7 @@
   --amber:  #E8B23A;
   --teal:   #2C8B8E;
   --muted:  #8A8270;
-  --line:   var(--line);
+  --line:   rgba(0, 0, 0, 0.12);
   color-scheme: light;
 }
 
@@ -180,11 +180,12 @@ h2 {
   margin-bottom: 1.5rem;
   padding: 1rem;
   border-left: 3px solid var(--line);
-  background-color: var(--paper);
+  // Give every card a subtle panel background (distinct from the page) in both
+  // light and dark mode — --cream is themed, so it adapts per theme.
+  background-color: var(--cream);
 
   &.publication-highlight {
     border-left-color: var(--coral);
-    background-color: var(--cream);
   }
 }
 
