@@ -33,6 +33,12 @@ Strategies don't act in isolation — they talk to each other. we study the sign
 
 Stress reshapes how cells behave, and cancer cells are usually under substantial stress. stress also affects how the genome is read. we map the epigenetic and transcriptional landscapes that cancer cells deploy under cellular, metabolic, and microenvironmental stress — and how these regulatory programs prime cells for adaptation. to resolve this at the level of specific genomic loci, we combine quantitative genomic locus proteomics, advanced DNA footprinting and next-generation sequencing.
 
+### nutrient-level regulation of cell adaptation
+
+<div class="research-panel"><img class="panel-light" src="/assets/panels/07-nutrient-deprivation.svg" alt="A cell scavenging sparse nutrients and switching on autophagy" /><img class="panel-dark" src="/assets/panels/07-nutrient-deprivation-dark.svg" alt="" /></div>
+
+Nutrient availability is one of the sharpest constraints a cancer cell faces. we perform single-cell experiments under nutrient deprivation, profiling chromatin accessibility and gene expression in the same cells, to understand how individual cells sense scarcity and adapt their regulatory programs to survive it.
+
 ## our tools
 
 We develop and apply quantitative methods to read out how different cancer strategies coexist, compete, cooperate, and regulate one another, and how stress response reshapes the communication between different cell strategies and cell types.
