@@ -13,6 +13,7 @@ permalink: /publications.html
   <div class="pub-note">This paper introduces GLproxScape, an R package that performs spatial predictions of proteins along a genomic locus from tiled proximity-labeling proteomics data.</div>
   <div class="pub-links">
     <a class="pub-link" href="https://www.biorxiv.org/content/10.64898/2026.06.29.735243v1">Preprint</a>
+    <a class="pub-link" href="https://github.com/scanozcan/GLproxScape">GitHub</a>
   </div>
 </div>
 
