@@ -37,7 +37,7 @@ Stress reshapes how cells behave, and cancer cells are usually under substantial
 
 <div class="research-panel"><img class="panel-light" src="/assets/panels/07-nutrient-deprivation.svg" alt="A cell scavenging sparse nutrients and switching on autophagy" /><img class="panel-dark" src="/assets/panels/07-nutrient-deprivation-dark.svg" alt="" /></div>
 
-Nutrient availability is one of the sharpest constraints a cancer cell faces. we perform single-cell experiments under nutrient deprivation, profiling chromatin accessibility and gene expression in the same cells, to understand how individual cells sense scarcity and adapt their regulatory programs to survive it.
+Nutrient availability is one of the sharpest constraints a cancer cell faces. we perform single-cell experiments under nutrient deprivation, profiling chromatin accessibility and gene expression in the same cells, to understand how individual cells sense nutrient levels and adapt their regulatory programs to survive accordingly.
 
 ## our tools
 
