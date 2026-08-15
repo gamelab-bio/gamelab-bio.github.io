@@ -41,6 +41,11 @@ a {
   &:hover   { color: var(--coral); text-decoration: underline; }
 }
 
+// Text styled like a link (e.g. an upcoming tool with no URL yet) without being clickable
+.pseudo-link {
+  color: var(--teal);
+}
+
 // ── Header ───────────────────────────────────────────────────────────────────
 
 .site-header {

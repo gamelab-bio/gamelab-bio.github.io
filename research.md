@@ -51,9 +51,9 @@ By using cell-type-specific barcoding in CRISPR screens and an in-house demultip
 
 ### genomic locus landscape analysis
 
-<div class="research-panel"><img class="panel-light" src="/assets/panels/04-locus-proteomics.svg" alt="A DNA locus with a proximity-labeling capture radius and nearby proteins" /><img class="panel-dark" src="/assets/panels/04-locus-proteomics-dark.svg" alt="" /></div>
+<div class="research-panel research-panel-left"><img class="panel-light" src="/assets/panels/04-locus-proteomics.svg" alt="A DNA locus with a proximity-labeling capture radius and nearby proteins" /><img class="panel-dark" src="/assets/panels/04-locus-proteomics-dark.svg" alt="" /></div>
 
-We use genomic locus proteomics to capture the proteome associated with specific genomic loci in living cells — identifying transcription factors and chromatin regulators that occupy a promoter or regulatory element of interest. to extract biological meaning from the resulting data, we developed [**GLproxScape**](https://github.com/scanozcan/GLproxScape), an R package that performs spatial deconvolution of genomic locus proteomics datasets and generates locus-resolved binding predictions. we are currently working on [**GLproxScape-quant**] to perform relative quantification of binding predictions across experimental conditions.
+We use genomic locus proteomics to capture the proteome associated with specific genomic loci in living cells — identifying transcription factors and chromatin regulators that occupy a promoter or regulatory element of interest. to extract biological meaning from the resulting data, we developed [**GLproxScape**](https://github.com/scanozcan/GLproxScape), an R package that performs spatial deconvolution of genomic locus proteomics datasets and generates locus-resolved binding predictions. we are currently working on <strong class="pseudo-link">GLproxScape-quant</strong> to perform relative quantification of binding predictions across experimental conditions.
 
 ### single cell methods
 
