@@ -31,7 +31,7 @@ Strategies don't act in isolation — they talk to each other. we study the sign
 
 <div class="research-panel research-panel-left"><img class="panel-light" src="/assets/panels/03-stress-epigenetics.svg" alt="Nucleosome fiber over an energy landscape" /><img class="panel-dark" src="/assets/panels/03-stress-epigenetics-dark.svg" alt="" /></div>
 
-Stress reshapes how cells behave, and cancer cells are usually under substantial stress. stress also affects how the genome is read. we map the epigenetic and transcriptional landscapes that cancer cells deploy under cellular, metabolic, and microenvironmental stress — and how these regulatory programs prime cells for adaptation. to resolve this at the level of specific genomic loci, we combine quantitative genomic locus proteomics, advanced DNA footprinting and next-generation sequencing.
+Stress reshapes how cells behave, and cancer cells are usually under substantial stress. stress also affects how the genome is read. we map the epigenetic and transcriptional landscapes that cancer cells deploy under cellular, metabolic, and microenvironmental stress — and how these regulatory programs prime cells for adaptation. to resolve this at the level of specific genomic loci, we combine quantitative genomic locus proteomics, advanced DNA footprinting, and next-generation sequencing.
 
 ### nutrient-level regulation of cell adaptation
 
@@ -47,7 +47,7 @@ We develop and apply quantitative methods to read out how different cancer strat
 
 <div class="research-panel research-panel-left"><img class="panel-light" src="/assets/panels/05-cellmux-crispr.svg" alt="A multiplexed library demultiplexed into different cell types with distinct barcodes" /><img class="panel-dark" src="/assets/panels/05-cellmux-crispr-dark.svg" alt="" /></div>
 
-By using cell-type-specific barcoding in CRISPR screens and an in-house demultiplexing algorithm ([**CAMUS**](https://github.com/scanozcan/CAMUS)), we target and identify different cancer cell types within a single combined experiment. we pair this with CROP-seq and spatial transcriptomics to understand the interdependencies of different cell strategies, and different cell types, in cancer tissues.
+By using cell-type-specific barcoding in CRISPR screens and an in-house demultiplexing algorithm ([**CAMUS**](https://github.com/scanozcan/CAMUS)), we target and identify different cancer cell types within a single combined experiment. we pair this with CROP-seq and spatial transcriptomics to understand the interdependencies of different cell strategies and different cell types in cancer tissues.
 
 ### genomic locus landscape analysis
 
@@ -55,8 +55,8 @@ By using cell-type-specific barcoding in CRISPR screens and an in-house demultip
 
 We use genomic locus proteomics to capture the proteome associated with specific genomic loci in living cells — identifying transcription factors and chromatin regulators that occupy a promoter or regulatory element of interest. to extract biological meaning from the resulting data, we developed [**GLproxScape**](https://github.com/scanozcan/GLproxScape), an R package that performs spatial deconvolution of genomic locus proteomics datasets and generates locus-resolved binding predictions. we are currently working on <strong class="pseudo-link">GLproxScape-quant</strong> to perform relative quantification of binding predictions across experimental conditions.
 
-### single cell methods
+### single-cell methods
 
 <div class="research-panel research-panel-left"><img class="panel-light" src="/assets/panels/06-scrna-spatial.svg" alt="Expression clusters mapped onto a tissue section" /><img class="panel-dark" src="/assets/panels/06-scrna-spatial-dark.svg" alt="" /></div>
 
-We use single cell RNA sequencing (scRNA-seq) and spatial transcriptomics methods to resolve how strategies are distributed across cells and tissue. additionally, we adopt and implement emerging single-cell technologies to broaden the molecular information we extract from individual cells.
+We use single-cell RNA sequencing (scRNA-seq) and spatial transcriptomics methods to resolve how strategies are distributed across cells and tissue. additionally, we adopt and implement emerging single-cell technologies to broaden the molecular information we extract from individual cells.
