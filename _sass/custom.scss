@@ -67,30 +67,30 @@ a {
 
 .lab-hero {
   margin: 2rem -2rem 2rem;
-  // Own stacking context kept below the header so the iframe can't cover the
-  // open mobile nav / theme toggle.
   position: relative;
   z-index: 0;
 }
 
-// The logo now lives in an iframe (a self-contained animated wordmark). It has a
-// fixed natural size, so .hero-logo-scaler clips/centres it and JS scales it to
-// fit the column width — mirroring how the old SVG used to scale down.
+// The logo is a static, self-contained SVG (940x460). It scales purely with
+// CSS — no JS sizing needed — and the light/dark variant is swapped by theme.
 .hero-logo-scaler {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
+  max-width: 940px;
+  margin: 0 auto;
 }
 
 .hero-logo {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 720px;
-  height: 420px;
-  border: 0;
-  transform: translateX(-50%);
-  transform-origin: top center;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hero-logo-dark {
+  display: none;
+}
+
+[data-theme="dark"] {
+  .hero-logo-light { display: none; }
+  .hero-logo-dark { display: block; }
 }
 
 // Colour the "G" in GAME Lab — we inject a span in the title if needed,
