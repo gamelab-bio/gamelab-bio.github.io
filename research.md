@@ -25,7 +25,7 @@ A tumor is an ecosystem in which cancer cells play games. we model the interacti
 
 <div class="research-panel"><img class="panel-light" src="/assets/panels/02-communication.svg" alt="Two cell groups exchanging secreted factors and a contact junction" /><img class="panel-dark" src="/assets/panels/02-communication-dark.svg" alt="" /></div>
 
-Strategies don't act in isolation — they talk to each other. we study the signaling that passes between cancer cells pursuing different strategies, from secreted factors to contact-dependent cues, and ask how this communication coordinates behavior, hands off advantages between states, and shapes which strategies prevail.
+Different strategies don't act in isolation — they talk to each other. we study the signaling that passes between cancer cells pursuing different strategies, from secreted factors to contact-dependent cues, and ask how this communication coordinates behavior, hands off advantages between states, and shapes which strategies prevail.
 
 ### stress-responsive epigenetic and transcriptional landscapes
 
