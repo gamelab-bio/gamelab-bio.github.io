@@ -137,6 +137,16 @@ a {
 }
 
 .footer-icons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+
+  .footer-icons-row {
+    display: flex;
+    justify-content: flex-end;
+  }
+
   a {
     display: inline-block;
     color: var(--muted);

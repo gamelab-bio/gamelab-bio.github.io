@@ -27,7 +27,7 @@ permalink: /publications.html
   </div>
 </div>
 
-<div class="publication">
+<div class="publication publication-highlight">
   <div class="pub-title">Stress adaptation pathways and HA–CD44 signaling maintain the survival of pancreatic cancer cells with centrosome amplification</div>
   <div class="pub-authors"><strong>Ozcan SC</strong>, Goksel E, Kalkan BM, Cicek E, Kanevetci B, Acilan C</div>
   <div class="pub-venue">Cell Communication and Signaling, 2026, 24:316</div>
