@@ -18,6 +18,16 @@ permalink: /publications.html
 </div>
 
 <div class="publication">
+  <div class="pub-title">Stress-driven strategic games in cancer</div>
+  <div class="pub-authors"><strong>Ozcan SC</strong></div>
+  <div class="pub-venue">BioSystems, 2026, 105929</div>
+  <div class="pub-note">This paper frames the interactions between cancer cells pursuing different survival strategies as games, offering a game-theoretic account of how stress drives competition, cooperation, and heterogeneity within a tumor.</div>
+  <div class="pub-links">
+    <a class="pub-link" href="https://doi.org/10.1016/j.biosystems.2026.105929">DOI</a>
+  </div>
+</div>
+
+<div class="publication">
   <div class="pub-title">Stress adaptation pathways and HA–CD44 signaling maintain the survival of pancreatic cancer cells with centrosome amplification</div>
   <div class="pub-authors"><strong>Ozcan SC</strong>, Goksel E, Kalkan BM, Cicek E, Kanevetci B, Acilan C</div>
   <div class="pub-venue">Cell Communication and Signaling, 2026, 24:316</div>
