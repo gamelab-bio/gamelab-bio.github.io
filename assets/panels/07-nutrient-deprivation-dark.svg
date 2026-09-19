@@ -15,12 +15,12 @@
     <circle cx="120" cy="46" r="1.6"></circle><circle cx="100" cy="46" r="1.6"></circle><circle cx="120" cy="174" r="1.6"></circle><circle cx="100" cy="174" r="1.6"></circle>
   </g>
 
-  <circle cx="110" cy="110" r="30" fill="#1F2026" stroke="#ECE7D8" stroke-width="1.8"></circle>
-  
-  <circle cx="110" cy="110" r="15" fill="none" stroke="#4FB3B6" stroke-width="1.8" stroke-dasharray="4 3.5"></circle>
+  <circle cx="110" cy="110" r="40" fill="#1F2026" stroke="#ECE7D8" stroke-width="1.8"></circle>
+
+  <circle cx="110" cy="110" r="20" fill="none" stroke="#4FB3B6" stroke-width="1.8" stroke-dasharray="4 3.5"></circle>
   <g fill="#F06A4E">
-    <rect x="104" y="103" width="7" height="5" rx="1.5"></rect>
-    <circle cx="116" cy="115" r="3"></circle>
-    <rect x="103" y="114" width="5" height="5" rx="1.2"></rect>
+    <rect x="102" y="100.7" width="9.3" height="6.7" rx="2"></rect>
+    <circle cx="118" cy="116.7" r="4"></circle>
+    <rect x="100.7" y="115.3" width="6.7" height="6.7" rx="1.6"></rect>
   </g>
 </svg>
