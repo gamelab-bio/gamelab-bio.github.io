@@ -17,27 +17,47 @@ We study how cancer cells adopt different survival mechanisms upon microenvironm
 
 ### inter-cellular and inter-strategy games in cancer
 
-<div class="research-panel research-panel-left"><img class="panel-light" src="/assets/panels/01-games.svg" alt="Network of cells of two strategies with a payoff matrix" /><img class="panel-dark" src="/assets/panels/01-games-dark.svg" alt="" /></div>
+<div class="research-row research-row-left">
+<div class="research-panel"><img class="panel-light" src="/assets/panels/01-games.svg" alt="Network of cells of two strategies with a payoff matrix" /><img class="panel-dark" src="/assets/panels/01-games-dark.svg" alt="" /></div>
+<div class="research-text" markdown="1">
 
 A tumor is an ecosystem in which cancer cells play games. we model the interactions between cells — and between the strategies they pursue — as games, where each cell's strategy depends on what its neighbors are doing. this game-theoretic view explains how distinct strategies — proliferative, secretory, invasive — coexist, compete, cooperate, and regulate one another; why heterogeneity is stable, when one strategy outcompetes another, and how the rules of the game might be turned against the tumor.
 
+</div>
+</div>
+
 ### cell-cell communication between different cellular strategies
 
+<div class="research-row">
 <div class="research-panel"><img class="panel-light" src="/assets/panels/02-communication.svg" alt="Two cell groups exchanging secreted factors and a contact junction" /><img class="panel-dark" src="/assets/panels/02-communication-dark.svg" alt="" /></div>
+<div class="research-text" markdown="1">
 
 Different strategies don't act in isolation — they talk to each other. we study the signaling that passes between cancer cells pursuing different strategies, from secreted factors to contact-dependent cues, and ask how this communication coordinates behavior, hands off advantages between states, and shapes which strategies prevail.
 
+</div>
+</div>
+
 ### stress-responsive epigenetic and transcriptional landscapes
 
-<div class="research-panel research-panel-left"><img class="panel-light" src="/assets/panels/03-stress-epigenetics.svg" alt="Nucleosome fiber over an energy landscape" /><img class="panel-dark" src="/assets/panels/03-stress-epigenetics-dark.svg" alt="" /></div>
+<div class="research-row research-row-left">
+<div class="research-panel"><img class="panel-light" src="/assets/panels/03-stress-epigenetics.svg" alt="Nucleosome fiber over an energy landscape" /><img class="panel-dark" src="/assets/panels/03-stress-epigenetics-dark.svg" alt="" /></div>
+<div class="research-text" markdown="1">
 
 Stress reshapes how cells behave, and cancer cells are usually under substantial stress. stress also affects how the genome is read. we map the epigenetic and transcriptional landscapes that cancer cells deploy under cellular, metabolic, and microenvironmental stress — and how these regulatory programs prime cells for adaptation. to resolve this at the level of specific genomic loci, we combine quantitative genomic locus proteomics, advanced DNA footprinting, and next-generation sequencing.
 
+</div>
+</div>
+
 ### nutrient-level regulation of cell adaptation
 
+<div class="research-row">
 <div class="research-panel"><img class="panel-light" src="/assets/panels/07-nutrient-deprivation.svg" alt="A cell scavenging sparse nutrients and switching on autophagy" /><img class="panel-dark" src="/assets/panels/07-nutrient-deprivation-dark.svg" alt="" /></div>
+<div class="research-text" markdown="1">
 
 Nutrient availability is one of the sharpest constraints a cancer cell faces. we perform single-cell experiments under nutrient deprivation, profiling chromatin accessibility and gene expression in the same cells, to understand how individual cells sense nutrient levels and adapt their regulatory programs to survive accordingly.
+
+</div>
+</div>
 
 ## our tools
 
@@ -45,18 +65,44 @@ We develop and apply quantitative methods to read out how different cancer strat
 
 ### multiplexed CRISPR screens
 
-<div class="research-panel research-panel-left"><img class="panel-light" src="/assets/panels/05-cellmux-crispr.svg" alt="A multiplexed library demultiplexed into different cell types with distinct barcodes" /><img class="panel-dark" src="/assets/panels/05-cellmux-crispr-dark.svg" alt="" /></div>
+<div class="research-row research-row-left">
+<div class="research-panel"><img class="panel-light" src="/assets/panels/05-cellmux-crispr.svg" alt="A multiplexed library demultiplexed into different cell types with distinct barcodes" /><img class="panel-dark" src="/assets/panels/05-cellmux-crispr-dark.svg" alt="" /></div>
+<div class="research-text" markdown="1">
 
 By using cell-type-specific barcoding in CRISPR screens and an in-house demultiplexing algorithm ([**CAMUS**](https://github.com/scanozcan/CAMUS)), we target and identify different cancer cell types within a single combined experiment. we pair this with CROP-seq and spatial transcriptomics to understand the interdependencies of different cell strategies and different cell types in cancer tissues.
 
+</div>
+</div>
+
 ### genomic locus landscape analysis
 
+<div class="research-row">
 <div class="research-panel"><img class="panel-light" src="/assets/panels/04-locus-proteomics.svg" alt="A DNA locus with a proximity-labeling capture radius and nearby proteins" /><img class="panel-dark" src="/assets/panels/04-locus-proteomics-dark.svg" alt="" /></div>
+<div class="research-text" markdown="1">
 
 We use genomic locus proteomics to capture the proteome associated with specific genomic loci in living cells — identifying transcription factors and chromatin regulators that occupy a promoter or regulatory element of interest. to extract biological meaning from the resulting data, we developed [**GLproxScape**](https://github.com/scanozcan/GLproxScape), an R package that performs spatial deconvolution of genomic locus proteomics datasets and generates locus-resolved binding predictions. we are currently working on <strong class="pseudo-link">GLproxScape-quant</strong> to perform relative quantification of binding predictions across experimental conditions.
 
+</div>
+</div>
+
+### ribozyme-flanked gRNAs
+
+<div class="research-row research-row-left">
+<div class="research-panel"><img class="panel-light" src="/assets/panels/08-ribozyme-grna.svg" alt="A Pol II promoter driving a self-cleaving gRNA cassette, restricting Cas9 targeting to one cell type" /><img class="panel-dark" src="/assets/panels/08-ribozyme-grna-dark.svg" alt="" /></div>
+<div class="research-text" markdown="1">
+
+gRNAs are usually expressed from Pol III promoters such as U6, which are strong but not cell-type specific. by flanking the gRNA with self-cleaving HH and HDV ribozymes, we express it instead from a Pol II promoter: the ribozymes autocatalytically excise the gRNA from the transcript. because Pol II promoters drive cell-type-specific expression, this lets us restrict Cas9 activity to a single cell type within a mixed population or a living animal, allowing us to run CRISPR screens that perturb only the cell type of interest.
+
+</div>
+</div>
+
 ### single-cell methods
 
-<div class="research-panel research-panel-left"><img class="panel-light" src="/assets/panels/06-scrna-spatial.svg" alt="Expression clusters mapped onto a tissue section" /><img class="panel-dark" src="/assets/panels/06-scrna-spatial-dark.svg" alt="" /></div>
+<div class="research-row">
+<div class="research-panel"><img class="panel-light" src="/assets/panels/06-scrna-spatial.svg" alt="Expression clusters mapped onto a tissue section" /><img class="panel-dark" src="/assets/panels/06-scrna-spatial-dark.svg" alt="" /></div>
+<div class="research-text" markdown="1">
 
 We use single-cell RNA sequencing (scRNA-seq) and spatial transcriptomics methods to resolve how strategies are distributed across cells and tissue. additionally, we adopt and implement emerging single-cell technologies to broaden the molecular information we extract from individual cells.
+
+</div>
+</div>
